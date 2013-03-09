@@ -63,8 +63,9 @@ nano/nanorc
 #vim/vimrc
 #vim/gvimrc
 #wget/wgetrc
+xbindkeys/xbindkeysrc
+xinit/xinitrc
 xmodmap/Xmodmap
-xbindkeys/xbindkeyrc
 yaourt/yaourtrc
 #zsh/fasdrc
 #zsh/dotzsh:.zsh

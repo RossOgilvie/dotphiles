@@ -11,7 +11,7 @@
 set autoindent
 
 # Create backup files in "filename~"
-set backup
+#set backup
 
 # Set the directory where nano puts unique backup files if file backups
 # are enabled.
@@ -153,53 +153,53 @@ unset wordbounds
 ## Syntax Highlighting
 
 #apacheconf
-#include "~/.nano.d/syntax-highlighting/apacheconf.nanorc"
+#include "~/.config/nano/syntax-highlighting/apacheconf.nanorc"
 #asm
-#include "~/.nano.d/syntax-highlighting/asm.nanorc"
+#include "~/.config/nano/syntax-highlighting/asm.nanorc"
 #c
-#include "~/.nano.d/syntax-highlighting/c.nanorc"
+#include "~/.config/nano/syntax-highlighting/c.nanorc"
 #conf
-#include "~/.nano.d/syntax-highlighting/conf.nanorc"
+#include "~/.config/nano/syntax-highlighting/conf.nanorc"
 #css
-include "~/.nano.d/syntax-highlighting/css.nanorc"
+include "~/.config/nano/syntax-highlighting/css.nanorc"
 #cython
-#include "~/.nano.d/syntax-highlighting/cython.nanorc"
+#include "~/.config/nano/syntax-highlighting/cython.nanorc"
 #fortran
-#include "~/.nano.d/syntax-highlighting/fortran.nanorc"
+#include "~/.config/nano/syntax-highlighting/fortran.nanorc"
 #gentoo
-#include "~/.nano.d/syntax-highlighting/gentoo.nanorc"
+#include "~/.config/nano/syntax-highlighting/gentoo.nanorc"
 #groff
-#include "~/.nano.d/syntax-highlighting/groff.nanorc"
+#include "~/.config/nano/syntax-highlighting/groff.nanorc"
 #html
-include "~/.nano.d/syntax-highlighting/html.nanorc"
+include "~/.config/nano/syntax-highlighting/html.nanorc"
 #java
-include "~/.nano.d/syntax-highlighting/java.nanorc"
+include "~/.config/nano/syntax-highlighting/java.nanorc"
 #lua
-#include "~/.nano.d/syntax-highlighting/lua.nanorc"
+#include "~/.config/nano/syntax-highlighting/lua.nanorc"
 #man
-include "~/.nano.d/syntax-highlighting/man.nanorc"
+include "~/.config/nano/syntax-highlighting/man.nanorc"
 #mutt
-#include "~/.nano.d/syntax-highlighting/mutt.nanorc"
+#include "~/.config/nano/syntax-highlighting/mutt.nanorc"
 #nanorc
-include "~/.nano.d/syntax-highlighting/nanorc.nanorc"
+include "~/.config/nano/syntax-highlighting/nanorc.nanorc"
 #patch
-include "~/.nano.d/syntax-highlighting/patch.nanorc"
+include "~/.config/nano/syntax-highlighting/patch.nanorc"
 #perl
-include "~/.nano.d/syntax-highlighting/perl.nanorc"
+include "~/.config/nano/syntax-highlighting/perl.nanorc"
 #php
-include "~/.nano.d/syntax-highlighting/php.nanorc"
+include "~/.config/nano/syntax-highlighting/php.nanorc"
 #pov
-#include "~/.nano.d/syntax-highlighting/pov.nanorc"
+#include "~/.config/nano/syntax-highlighting/pov.nanorc"
 #python
-include "~/.nano.d/syntax-highlighting/python.nanorc"
+include "~/.config/nano/syntax-highlighting/python.nanorc"
 #reST
-#include "~/.nano.d/syntax-highlighting/reST.nanorc"
+#include "~/.config/nano/syntax-highlighting/reST.nanorc"
 #ruby
-include "~/.nano.d/syntax-highlighting/ruby.nanorc"
+include "~/.config/nano/syntax-highlighting/ruby.nanorc"
 #sh
-include "~/.nano.d/syntax-highlighting/sh.nanorc"
+include "~/.config/nano/syntax-highlighting/sh.nanorc"
 #tex
-include "~/.nano.d/syntax-highlighting/tex.nanorc"
+include "~/.config/nano/syntax-highlighting/tex.nanorc"
 #xml
-include "~/.nano.d/syntax-highlighting/xml.nanorc"
+include "~/.config/nano/syntax-highlighting/xml.nanorc"
 
