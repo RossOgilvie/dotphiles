@@ -7,11 +7,19 @@
 #   Ben O'Hara <bohara@gmail.com>
 #
 
-# Compiled source
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
 *.pyc
 *.pyo
+*.so
 
-# IDE specific
+# IDE specific #
+######################
 dwsync.xml
 *.tmp
 *.wpr
@@ -24,17 +32,24 @@ dwsync.xml
 .komodotools
 nbproject
 
-# OS generated files
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
 ._*
-.cache
 .Spotlight-V100
 .Trashes
-.DS_Store
-desktop.ini
+Icon?
 ehthumbs.db
 Thumbs.db
+.cache
+desktop.ini
 
-# Other dev-related files
+# Other dev-related files #
+######################
+*.log
+*.sql
+*.sqlite
 *.bak
 *.orig
 *.sass-cache
@@ -45,4 +60,18 @@ Thumbs.db
 svn-commit.*
 tags
 TAGS
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
 

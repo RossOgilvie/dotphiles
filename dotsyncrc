@@ -67,9 +67,9 @@ nano/nanorc
 #zsh/dotzsh:.zsh
 #zsh/zlogin
 #zsh/zlogout
-#zsh/zprofile
+zsh/zprofile
 #zsh/zshenv
-#zsh/zshrc
+zsh/zshrc
 [endfiles]
 
 # Hosts to sync
