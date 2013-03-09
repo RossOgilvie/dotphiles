@@ -1,12 +1,7 @@
+
 #
-# dotphiles : https://github.com/dotphiles/dotphiles
-#
-# Executes commands at login pre-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#   Ben O'Hara <bohara@gmail.com>
+# ~/.zprofile
 #
 
-# Customize to your needs...
-
+## If the display is up, and we logged into tty1, then run x
+[[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1  ]] && exec startx &> /home/ross/.xlog

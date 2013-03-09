@@ -8,7 +8,7 @@
 #
 
 # Location of your dotfiles in $HOME
-# DOTFILES=.dotfiles
+DOTFILES=.dotphiles
 
 # dotfiles to symlink
 #
@@ -39,6 +39,7 @@ dotsyncrc
 #mutt
 #mutt/muttrc
 #mutt/offlineimaprc
+nano/nanorc
 #python/pythonrc
 #python/pylintrc
 #rpm/rpmmacros

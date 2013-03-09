@@ -112,3 +112,186 @@ source "$DOTZSH/init.zsh"
 
 ### Customize to your needs...
 
+#export XDG_CONFIG_HOME=/home/ross/.config
+#export LD_PRELOAD=libetc.so.0
+#export LIBETC_BLACKLIST=/bin/cp:/bin/ln:/bin/ls:/bin/mv:/bin/rm:/usr/bin/find
+
+# Path to your oh-my-zsh configuration.
+ZSH=/usr/share/oh-my-zsh
+ZSH_CUSTOM=/home/ross/.config/zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+#ZSH_THEME="example"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+# Pimp my prompt
+PROMPT="%{$fg[magenta]%}%n@%m %1~$%{$reset_color%} "
+
+#Add my misc scripts to the path, and the current directory
+export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:.
+
+# Custom completions
+fpath=($ZSH_CUSTOM/completion $fpath)
+
+#no tabs when tabbing
+zstyle ':completion:*' insert-tab false
+
+# collate all my history
+#export PROMPT_COMMAND='history -a'
+#change the default editor to nano
+export EDITOR="nano"
+#tell wine where opengl is
+export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
+
+#alias for yaourt. Also, refresh zsh path after an install.
+alias y='yaourt'
+alias ys='yaourt -Sy'
+alias yq='yaourt -Ss'
+alias yr='yaourt -Rsn'
+alias update='yaourt -Syu'
+yaourt() { /usr/bin/yaourt $* && rehash;  }
+
+#for automatic proxy handling
+export http_proxy="http://localhost:8888/"
+export https_proxy="https://localhost:8888/"
+export ftp_proxy="localhost:8888"
+export no_proxy="localhost,127.0.0.1,localaddress,usyd.edu.au"
+function proxyoff(){
+     unset HTTP_PROXY
+     unset http_proxy
+     unset HTTPS_PROXY
+     unset https_proxy
+     unset FTP_PROXY
+     unset ftp_proxy
+     echo -e "\nProxy environment variable removed."
+ }
+ 
+# enable extra tab completions
+#complete -cf sudo
+#complete -cf man
+compctl -c xrun
+compctl -k "(help mount unmount ssh)" bari como
+compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox)" artemis
+compctl -k "(help up down mute unmute toggle level)" volume
+compctl -k "(inc dec level)" keyboard_backlight
+compctl -k "(uni home default status)" proxies px
+
+#for refreshing the xbindkeys program
+function refresh_xbindkeys(){
+	pkill xbindkeys
+	xbindkeys
+}
+
+function refresh_artemis(){
+	sudo umount_artemis
+	sudo mount_artemis
+}
+
+# modified commands
+alias sudo='sudo '
+alias diff='colordiff'
+alias df='df -h'
+alias du='du -c -h'
+alias mkdir='mkdir -p -v'
+alias nano='nano -Wmx'
+alias ping='ping -c 5'
+alias ..='cd ..'
+#alias mv='mv -g'
+#alias cp='cp -g'
+alias cp='rsync --progress -ah'
+#alias cp='/usr/bin/gcp'
+alias ssh='ssh -c arcfour,blowfish-cbc -YC'
+alias top='htop'
+
+# new commands
+alias du1='du --max-depth=1'
+alias hist='history | grep $1'      # requires an argument
+alias openports='netstat --all --numeric --programs --inet --inet6'
+alias pg='ps -Af | grep -e ^UID -e $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
+alias px='proxies'
+alias so='source ~/.zshrc'
+alias n='nano'
+alias sn='sudo nano'
+alias g='geany'
+alias sg='sudo geany'
+alias sc='systemctl'
+alias l='less'
+
+# ls
+alias ls='ls -hF --color=auto'
+alias lr='ls -R'                    # recursive ls
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ll -A'
+alias lx='ll -BX'                   # sort by extension
+alias lz='ll -rS'                   # sort by size
+alias lt='ll -rt'                   # sort by date
+
+#global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g L="| less"
+alias -g G='| grep'
+
+# safety features
+alias rm='rm -I'                    # 'rm -i' prompts for every file
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+#ep renaming
+alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}"'
+
+
+#systemd vs sysvinit commands
+if ! systemd-notify --booted; then # not using systemd
+	alias start='sudo rc.d start'
+	alias restart='sudo rc.d restart'
+	alias stop='sudo rc.d stop'
+	alias reboot='sudo reboot'
+	alias halt='sudo poweroff'
+else
+	#service control
+	alias start='sudo systemctl start'
+	alias restart='sudo systemctl restart'
+	alias stop='sudo systemctl stop'
+	alias enable='sudo systemctl enable'
+	alias status='sudo systemctl status'
+	alias show='sudo systemctl show'
+	alias disable='sudo systemctl disable'
+
+	#power control
+	alias reboot='systemctl reboot'
+	alias halt='systemctl poweroff'
+	alias suspend='systemctl suspend'
+fi
