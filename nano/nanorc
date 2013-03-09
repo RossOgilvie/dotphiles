@@ -36,14 +36,14 @@ set casesensitive
 set const
 
 # Use cut to end of line by default.
-unset cut
+#unset cut
 
 # Wrap lines at column number n. If n is 0 or less, the maximum line length
 # will be the screen width less n columns. The default value is -8.
 set fill "-8"
 
 # Enable ~/.nano_history for saving and reading search/replace strings.
-set historylog
+#set historylog
 
 # Set the opening and closing brackets that can be found by bracket searches.
 # They cannot contain blank characters. The former set must come before the

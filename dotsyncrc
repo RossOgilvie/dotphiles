@@ -24,8 +24,8 @@ dotsyncrc
 #ctags/ctags
 #cmus
 #curl/curlrc
-#git/gitconfig
-#git/gitignore
+git/gitconfig
+git/gitignore
 #git/gitattributes
 #git/tigrc
 #git/gitk
@@ -63,6 +63,9 @@ nano/nanorc
 #vim/vimrc
 #vim/gvimrc
 #wget/wgetrc
+xmodmap/Xmodmap
+xbindkeys/xbindkeyrc
+yaourt/yaourtrc
 #zsh/fasdrc
 #zsh/dotzsh:.zsh
 #zsh/zlogin
