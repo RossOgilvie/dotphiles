@@ -45,6 +45,8 @@ lxterminal:.config/lxterminal
 #mutt/muttrc
 #mutt/offlineimaprc
 nano/nanorc
+#mysql/my.cnf
+#postgresql/psqlrc
 #python/pythonrc
 #python/pylintrc
 #rpm/rpmmacros
