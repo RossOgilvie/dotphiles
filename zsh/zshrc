@@ -26,8 +26,8 @@ zstyle ':dotzsh:load' dzmodule \
   'editor' \
   'history' \
   'utility' \
-  'completion' \
-  'theme'
+  'completion'
+#  'theme'
 
 ### Global settings
 # Color output (auto set to 'no' on dumb terminals).
@@ -39,9 +39,9 @@ zstyle ':dotzsh:module:*' case-sensitive 'no'
 
 ### Environment module
 # Set which PAGER to use less or more
-##zstyle ':dotzsh:module:environment' pager 'less'
+zstyle ':dotzsh:module:environment' pager 'less'
 # Enable mouse scrolling in less, add the following to *zshrc*
-##zstyle ':dotzsh:module:environment:pager:less' mousescroll 'false'
+zstyle ':dotzsh:module:environment:pager:less' mousescroll 'false'
 
 ### Terminal Module
 # Auto set the tab and window titles.
@@ -69,7 +69,7 @@ zstyle ':dotzsh:module:editor' editor 'vi'
 
 ### SSH module
 zstyle ':dotzsh:module:ssh:agent' forwarding 'yes'
-#zstyle ':dotzsh:module:ssh:aliases' hosts 'yes'
+zstyle ':dotzsh:module:ssh:aliases' hosts 'yes'
 ##zstyle ':dotzsh:module:ssh:agent' identities 'id_rsa' 'id_rsa2' 'id_github'
 
 ### GNUPG module
@@ -94,7 +94,7 @@ zstyle ':dotzsh:module:ssh:agent' forwarding 'yes'
 #zstyle ':dotzsh:module:tmux:aliases' tmuxinator 'yes'
 
 ### Syntax Highlighting module
-#zstyle ':dotzsh:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' \
+zstyle ':dotzsh:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' \
 #  'cursor' 'root' \
 
 ### Theme module
@@ -108,13 +108,12 @@ zstyle ':dotzsh:module:theme' theme 'dotphiles'
 # zstyle ':dotzsh:module:theme:domain:your-domain-here' theme 'dotphiles' 'soldark' 'orange'
 
 ### Load dotzsh
+DOTZSH=~/.dotphiles/zsh/dotzsh
 source "$DOTZSH/init.zsh"
 
-### Customize to your needs...
-
-#export XDG_CONFIG_HOME=/home/ross/.config
-#export LD_PRELOAD=libetc.so.0
-#export LIBETC_BLACKLIST=/bin/cp:/bin/ln:/bin/ls:/bin/mv:/bin/rm:/usr/bin/find
+############################
+### Old zsh with oh-my-zsh
+############################
 
 # Path to your oh-my-zsh configuration.
 ZSH=/usr/share/oh-my-zsh
@@ -124,37 +123,28 @@ ZSH_CUSTOM=/home/ross/.config/zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="example"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+#ZSH_THEME="agnoster"
 
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(systemd git-extras rsync nyan)
 
 source $ZSH/oh-my-zsh.sh
+#source $ZSH_CUSTOM/themes/ross.zsh-theme
 
-# Customize to your needs...
 # Pimp my prompt
-PROMPT="%{$fg[magenta]%}%n@%m %1~$%{$reset_color%} "
+#PROMPT="%{$fg[magenta]%}%n@%m %1~$%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} on "
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[magenta]%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
+ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
+PROMPT='%{$fg[magenta]%}%n@%m %1~$(git_prompt_info)$%{$reset_color%} '
+
 
 #Add my misc scripts to the path, and the current directory
 export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:.
@@ -165,8 +155,6 @@ fpath=($ZSH_CUSTOM/completion $fpath)
 #no tabs when tabbing
 zstyle ':completion:*' insert-tab false
 
-# collate all my history
-#export PROMPT_COMMAND='history -a'
 #change the default editor to nano
 export EDITOR="nano"
 #tell wine where opengl is
@@ -177,7 +165,7 @@ alias y='yaourt'
 alias ys='yaourt -Sy'
 alias yq='yaourt -Ss'
 alias yr='yaourt -Rsn'
-alias update='yaourt -Syu'
+alias yu='yaourt -Syu'
 yaourt() { /usr/bin/yaourt $* && rehash;  }
 
 #for automatic proxy handling
@@ -200,20 +188,16 @@ function proxyoff(){
 #complete -cf man
 compctl -c xrun
 compctl -k "(help mount unmount ssh)" bari como
-compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox)" artemis
+compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox mount unmount refresh_mount)" artemis
 compctl -k "(help up down mute unmute toggle level)" volume
 compctl -k "(inc dec level)" keyboard_backlight
-compctl -k "(uni home default status)" proxies px
+compctl -k "(help status uni home default)" proxies px
+compctl -k "(help status on mirror off toggle auto wallpaper)" screens
 
 #for refreshing the xbindkeys program
 function refresh_xbindkeys(){
 	pkill xbindkeys
 	xbindkeys
-}
-
-function refresh_artemis(){
-	sudo umount_artemis
-	sudo mount_artemis
 }
 
 # modified commands
@@ -225,10 +209,8 @@ alias mkdir='mkdir -p -v'
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
 alias ..='cd ..'
-#alias mv='mv -g'
-#alias cp='cp -g'
+alias ...='cd ../..'
 alias cp='rsync --progress -ah'
-#alias cp='/usr/bin/gcp'
 alias ssh='ssh -c arcfour,blowfish-cbc -YC'
 alias top='htop'
 
@@ -241,9 +223,9 @@ alias px='proxies'
 alias so='source ~/.zshrc'
 alias n='nano'
 alias sn='sudo nano'
-alias g='geany'
-alias sg='sudo geany'
-alias sc='systemctl'
+alias s='/opt/sublime-text/sublime_text'
+alias ss='sudo /opt/sublime-text/sublime_text'
+alias g='grep'
 alias l='less'
 
 # ls
@@ -272,26 +254,7 @@ alias chgrp='chgrp --preserve-root'
 #ep renaming
 alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}"'
 
-
-#systemd vs sysvinit commands
-if ! systemd-notify --booted; then # not using systemd
-	alias start='sudo rc.d start'
-	alias restart='sudo rc.d restart'
-	alias stop='sudo rc.d stop'
-	alias reboot='sudo reboot'
-	alias halt='sudo poweroff'
-else
-	#service control
-	alias start='sudo systemctl start'
-	alias restart='sudo systemctl restart'
-	alias stop='sudo systemctl stop'
-	alias enable='sudo systemctl enable'
-	alias status='sudo systemctl status'
-	alias show='sudo systemctl show'
-	alias disable='sudo systemctl disable'
-
-	#power control
-	alias reboot='systemctl reboot'
-	alias halt='systemctl poweroff'
-	alias suspend='systemctl suspend'
-fi
+#power control
+alias reboot='systemctl reboot'
+alias halt='systemctl poweroff'
+alias suspend='systemctl suspend'

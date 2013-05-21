@@ -3,7 +3,8 @@ clear Lock
 keycode 66 = XF86Go
 
 ! Remap right alt for fast latexing
-remove mod1 = Alt_R
+clear mod1
+add mod1 = Alt_L
 keycode 108 = Meta_R
 clear mod5
 add mod5 = Meta_R
@@ -26,3 +27,6 @@ keycode 96 = F32 F12 F32 F12 F12 F12 XF86Switch_VT_12
 keycode  49 = asciitilde grave asciitilde grave
 keycode  34 = braceleft bracketleft braceleft bracketleft
 keycode  35 = braceright bracketright braceright bracketright
+
+! add backspace to esc
+keycode 9 = BackSpace Escape BackSpace Escape

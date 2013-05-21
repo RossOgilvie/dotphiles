@@ -16,7 +16,7 @@ fi
 xbacklight =25
 
 ## Turn down the fan
-samsung-tools -c silent
+#samsung-tools -c silent
 
 ## This enables window transparency
 #xcompmgr -cF &
