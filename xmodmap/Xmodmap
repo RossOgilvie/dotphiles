@@ -29,4 +29,4 @@ keycode  34 = braceleft bracketleft braceleft bracketleft
 keycode  35 = braceright bracketright braceright bracketright
 
 ! add backspace to esc
-keycode 9 = BackSpace Escape BackSpace Escape
+!keycode 9 = BackSpace Escape BackSpace Escape
