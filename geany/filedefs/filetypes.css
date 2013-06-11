@@ -1,0 +1,4 @@
+[build-menu]
+FT_00_LB=SASS Force Update Compressed
+FT_00_CM=sass --style compressed --update %e.scss:%e.css -f
+FT_00_WD=
