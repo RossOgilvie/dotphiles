@@ -1,1 +1,71 @@
-.xinitrc.i3
+#!/bin/sh
+
+## There is a script in here, 30-dbus, that should start that session
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/*; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+
+#############
+## Set up
+#############
+
+## Turn down the brightness
+xbacklight =25
+
+## Turn down the fan
+#samsung-tools -c silent
+
+## This enables window transparency
+#xcompmgr -cF &
+unagi &
+
+## Swaps some keys around
+## Makes caps lock into a launcher key
+xmodmap /home/ross/.Xmodmap
+
+## Set up my custom global keyboard shortcuts
+xbindkeys &
+
+## Put the numlock into the correct state
+#/home/ross/.misc/keyboard_numlock &
+## On my new laptop there is no numpad superimposed onto the regular keyboard, so I can just have it on all the time
+#numlockx on
+
+## Enable my wicked triple finger swipe gestures
+touchegg &
+
+## Make sure the screens are set up, and set the wallpaper
+screens auto
+
+#############
+## Autostarts
+#############
+
+# avant-window-manager &
+
+## Clipboard manager
+clipit &
+
+## Dropbox (obviously)
+/opt/dropbox/dropboxd &
+
+## Kupfer is my launcher
+kupfer --no-splash &
+
+## Volume notification in background
+volnoti &
+
+## run thunar in the background, for speed and other things
+#thunar --daemon &
+#marlin-daemon &
+
+##############
+## Awesome WM
+##############
+#exec ck-launch-session dbus-launch --exit-with-session awesome >> ~/.awesome_stdout 2>> ~/.awesome_stderr
+#exec ck-launch-session awesome >> ~/.awesome_stdout 2>> ~/.awesome_stderr
+#exec awesome >> ~/.awesome_stdout 2>> ~/.awesome_stderr
+exec i3
