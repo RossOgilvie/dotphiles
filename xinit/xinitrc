@@ -19,8 +19,8 @@ xbacklight =25
 #samsung-tools -c silent
 
 ## This enables window transparency
-#xcompmgr -cF &
-unagi &
+xcompmgr -cCfF -r 0 -D 6&
+#unagi &
 
 ## Swaps some keys around
 ## Makes caps lock into a launcher key
@@ -37,17 +37,12 @@ xbindkeys &
 ## Enable my wicked triple finger swipe gestures
 touchegg &
 
-## Make sure the screens are set up, and set the wallpaper
-screens auto
-
 #############
 ## Autostarts
 #############
 
-# avant-window-manager &
-
 ## Clipboard manager
-clipit &
+#clipit &
 
 ## Dropbox (obviously)
 /opt/dropbox/dropboxd &

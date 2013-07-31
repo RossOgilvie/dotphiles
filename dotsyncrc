@@ -81,6 +81,7 @@ yaourt/yaourtrc
 zsh/zprofile
 #zsh/zshenv
 zsh/zshrc
+zsh/zalias
 [endfiles]
 
 # Hosts to sync

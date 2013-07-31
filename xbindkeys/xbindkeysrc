@@ -15,8 +15,8 @@
 
 # If Home folder is open, switch to it, else open it
 #"marlin /home/ross"
-#"if  wmctrl -l -x | grep -ql 'thunar\.Thunar.*ross'; then wmctrl -F -a 'ross - File Manager'; else thunar /home/ross; fi"
-#    Mod4 + e
+"if  wmctrl -l -x | grep -ql 'thunar\.Thunar.*ross'; then wmctrl -F -a 'ross - File Manager'; else thunar /home/ross; fi"
+    Mod4 + e
 
 # If Downloads folder is open, switch to it, else open it
 #"if  wmctrl -l -x | grep -ql 'thunar\.Thunar.*Downloads'; then wmctrl -F -a 'Downloads - File Manager'; else thunar /home/ross/Downloads; fi"
@@ -36,8 +36,8 @@
 #    Mod4 + s
 
 # Open a calculator
-#"gnome-calculator"
-#    Mod4 + c
+"gnome-calculator"
+    Mod4 + c
 
 ## Enable media keys to do their thing
 "/home/ross/.scripts/music_control.sh play"
@@ -62,10 +62,10 @@
 "sudo chvt 2"
 	F21
 
-"xbacklight -dec 10"
+"/home/ross/.scripts/brightness down"
     F22
     
-"xbacklight -inc 10"
+"/home/ross/.scripts/brightness up"
     F23
 
 "/home/ross/.scripts/volume toggle"

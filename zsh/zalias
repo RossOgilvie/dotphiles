@@ -1,0 +1,83 @@
+#alias for yaourt. Also, refresh zsh path after an install.
+alias y='yaourt'
+alias ys='yaourt -Sy'
+alias yq='yaourt -Ss'
+alias yr='yaourt -Rsn'
+alias yu='yaourt -Syu'
+yaourt() { /usr/bin/yaourt $* && rehash;  }
+
+#for refreshing the xbindkeys program
+function refresh_xbindkeys(){
+	pkill xbindkeys
+	xbindkeys
+}
+
+# modified commands
+alias sudo='sudo '
+alias diff='colordiff'
+alias df='df -h'
+alias du='du -c -h'
+alias mkdir='mkdir -p -v'
+alias nano='nano -Wmx'
+alias ping='ping -c 5'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cp='rsync --progress -ah'
+alias ssh='ssh -c arcfour,blowfish-cbc -YC'
+alias top='htop'
+
+# new commands
+alias du1='du --max-depth=1'
+alias hist='history | grep $1'      # requires an argument
+alias openports='netstat --all --numeric --programs --inet --inet6'
+alias pg='ps -Af | grep -e ^UID -e $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
+alias px='proxies'
+alias so='source ~/.zshrc'
+alias n='nano'
+alias sn='sudo nano'
+alias s='/opt/sublime-text/sublime_text'
+alias ss='sudo /opt/sublime-text/sublime_text'
+alias g='git'
+alias gr='grep'
+alias l='less'
+alias hask='ghci'
+
+# ls
+cd() {
+    builtin cd "$@" && ls
+}
+alias ls='ls -hF --color=auto --group-directories-first'
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ll -A'
+
+#trash-cli
+alias tr='trash'
+alias trls='trash-list'
+alias rm="echo don\'t forget tr for trash\. Also sudo doesn\'t work\, use a backspace\.; rm -I"
+
+#global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g L="| less"
+alias -g G='| grep'
+
+# safety features
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+#ep renaming
+alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}"'
+
+#power control
+alias reboot='systemctl reboot'
+alias halt='systemctl poweroff'
+alias suspend='systemctl suspend'
+
+# clock
+clock () 
+{ 
+while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done 
+}

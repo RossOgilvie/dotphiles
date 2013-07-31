@@ -67,7 +67,8 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+# the mnenomic is maximise
+bindsym $mod+m fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+j layout stacking
@@ -75,10 +76,16 @@ bindsym $mod+k layout tabbed
 bindsym $mod+l layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Control+space floating toggle
+bindsym $mod+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+shift+f focus mode_toggle
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+space move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+space scratchpad show
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -87,8 +94,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1:www
-bindsym $mod+2 workspace 2:term
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
@@ -103,8 +110,10 @@ bindsym $mod+Next workspace next_on_output
 bindsym $mod+Tab workspace back_and_forth
 
 # move focused container to workspace
-bindsym $mod+Control+1 move container to workspace 1:www; workspace 1:www
-bindsym $mod+Control+2 move container to workspace 2:term; workspace 2:term
+#bindsym $mod+Control+1 move container to workspace 1:www; workspace 1:www
+#bindsym $mod+Control+2 move container to workspace 2:term; workspace 2:term
+bindsym $mod+Control+1 move container to workspace 1; workspace 1
+bindsym $mod+Control+2 move container to workspace 2; workspace 2
 bindsym $mod+Control+3 move container to workspace 3; workspace 3
 bindsym $mod+Control+4 move container to workspace 4; workspace 4
 bindsym $mod+Control+5 move container to workspace 5; workspace 5
@@ -158,9 +167,9 @@ bindsym $mod+Control+x move workspace to output right
 
 
 # Assignments
-assign [class="lxterminal"] 2:term
-assign [class="Firefox"] 1:www
-assign [class="Vlc"] ~
+#assign [class="lxterminal"] 2:term
+#assign [class="Firefox"] 1:www
+#assign [class="Vlc"] ~
 for_window [class="Kupfer"] border none
 
 
@@ -174,8 +183,47 @@ client.urgent           #2f343a #900000 #ffffff #900000
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        mode hide
-        modifier Mod4
-        status_command i3status -c ~/.config/i3status/config
-        font pango:Inconsolata Medium 14px
+    #i3bar_command  /usr/bin/i3bar-icons
+    mode hide
+    modifier Mod4
+    status_command i3status -c ~/.config/i3status/config
+    font pango:Inconsolata Medium 14px
 }
+
+# run the wallpaper setter
+exec_always --no-startup-id /home/ross/.scripts/screens
+
+
+### to provide an easy way to control power state
+mode "power" {
+        bindsym r exec reboot
+        bindsym e exit
+        bindsym p exec poweroff
+        bindsym s exec pkill i3-nagbar; exec systemctl suspend
+        bindsym h exec pkill i3-nagbar; exec systemctl hibernate
+        
+        # back to normal: Enter or Escape
+        bindsym Return mode "default" exec pkill i3-nagbar
+        bindsym Escape mode "default" exec pkill i3-nagbar
+}
+bindsym $mod+Escape mode "power" exec "i3-nagbar -t warning -m 'Power control mode enabled:' -b '(P)oweroff' 'poweroff' -b '(R)eboot' 'reboot' -b '(S)uspend' 'systemctl suspend' -b '(H)ibernate' 'systemctl hibernate' -b '(E)xit i3' 'exit'"
+
+#quick folder navigation
+mode "folders" {
+    bindsym d exec thunar /home/ross/Downloads; mode "default"; exec pkill i3-nagbar
+    bindsym h exec thunar /home/ross; mode "default"; exec pkill i3-nagbar
+    bindsym a exec thunar /home/ross/mounts/artemis; mode "default"; exec pkill i3-nagbar
+    bindsym t exec thunar /home/ross/mounts/artemis/TV; mode "default"; exec pkill i3-nagbar
+    bindsym u exec thunar /home/ross/documents/Uni, mode "default"; exec pkill i3-nagbar
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"; exec pkill i3-nagbar
+    bindsym Escape mode "default"; exec pkill i3-nagbar
+}
+bindsym $mod+shift+e mode "folders" exec "i3-nagbar -t warning -m 'Which folder?' -b '(D)ownloads' '' -b '(H)ome' '' -b '(A)rtemis' '' -b '(T)V' '' -b '(U)ni' ''"
+
+
+##### set up scratchpad
+for_window [class="Gnome-calculator"] move scratchpad
+exec gnome-calculator
+
