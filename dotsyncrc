@@ -81,7 +81,7 @@ yaourt/yaourtrc
 #zsh/zlogin
 #zsh/zlogout
 zsh/zprofile
-#zsh/zshenv
+zsh/zshenv
 zsh/zshrc
 zsh/zalias
 [endfiles]
