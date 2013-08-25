@@ -2,37 +2,52 @@ out_to_console yes
 background no
 max_text_width 0
 # Update interval in seconds
-update_interval 1.0
+update_interval 2
 total_run_times 0
 if_up_strictness link
 
 TEXT
-[
-# ---TEMPERATURE---
-#{ "full_text" : "TEMP", "color" : "\#fd267c", "separator" : false },
-{ "full_text" : "", "color" : "\#fd267c" },
-
+[\
+\
+# ---UPTIME---
+{ "full_text" : "uptime" , "color" : "\#60da11", "separator" : false} ,\
+{ "full_text" : "${uptime_short}", "color" : "\#5f5f5f"},\
+\
 # ---LOAD---
- { "full_text" : "load" , "color" : "\#60da11", "separator" : false, "separator_block_width" : 4} ,
- { "full_text" : "${loadavg 1} ${loadavg 2}", "color" : "\#5f5f5f"},
-
-# ---BAT---
- { "full_text" : "⚡" , "color" : "\#fd267c", "separator" : false, "separator_block_width" : 4} ,
- { "full_text" : "${battery BAT1}" , "color" : 
-  ${if_match ${battery_percent BAT1}<20}"\#ff0000"${else}"\#5f5f5f"${endif}} ,
-
+{ "full_text" : "load" , "color" : "\#60da11", "separator" : false} ,\
+{ "full_text" : "${loadavg 1}", "color" : "\#5f5f5f"},\
+\
+# ---TEMPERATURE---
+{ "full_text" : "temp" , "color" : "\#60da11", "separator" : false} ,\
+{ "full_text" : "${acpitemp}°C", "color" : "\#5f5f5f"},\
+\
+# ---DISK---
+{ "full_text" : "/", "color" : "\#60da11", "separator" : false},\
+{ "full_text" : "${fs_free /}" , "color" : "\#5f5f5f", "separator" : false},\
+\
+{ "full_text" : "~", "color" : "\#60da11", "separator" : false},\
+{ "full_text" : "${fs_free /home}" , "color" : "\#5f5f5f"},\
+\
 # ---NET---
-${if_up wlan0}
- { "full_text" : "${wireless_essid wlan0} ${wireless_bitrate wlan0}" },
-${endif}
-${if_up eth0}
- { "full_text" : "eth0 ${wireless_bitrate eth0}" },
-${endif}
-
+${if_up wlan0}\
+{ "full_text" : "${wireless_essid wlan0}", "color" : "\#60da11", "separator" : false},\
+{ "full_text" : "${addr wlan0} ${wireless_bitrate wlan0}", "color" : "\#5f5f5f"},\
+${endif}\
+${if_up eth0}\
+{ "full_text" : "eth0", "color" : "\#60da11", "separator" : false },\
+{ "full_text" : "${addr eth0}", "color" : "\#5f5f5f"},\
+${endif}\
+{ "full_text" : "${exec cat /home/ross/.location}", "color" : "\#60da11"},\
+\
 # ---SND---
- { "full_text" : "♪:" , "color" : "\#60da11" , "separator" : false} ,
- { "full_text" : "${exec ~/.scripts/volume level}" },
-
+{ "full_text" : "♪:" , "color" : "\#60da11" , "separator" : false} ,\
+{ "full_text" : "${exec /home/ross/.scripts/volume level}" , "color" : "\#5f5f5f"},\
+\
+# ---BAT---
+{ "full_text" : "⚡" , "color" : "\#60da11", "separator" : false } ,\
+{ "full_text" : "${battery BAT1}" , "color" : ${if_match ${battery_percent BAT1}<20}"\#ff0000"${else}"\#5f5f5f"${endif}} ,\
+\
 # ---TIME---
- { "full_text" : "${time %a %b %d %H:%M}" }
+{ "full_text" : "${time %a %b %d %H:%M}"}\
+\
 ],

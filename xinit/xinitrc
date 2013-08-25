@@ -53,6 +53,9 @@ kupfer --no-splash &
 ## Volume notification in background
 volnoti &
 
+## power wdiget, also auto hibernates on low power
+valabattery &
+
 ## run thunar in the background, for speed and other things
 #thunar --daemon &
 #marlin-daemon &
