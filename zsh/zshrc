@@ -4,24 +4,18 @@
 
 # Path to your oh-my-zsh configuration.
 ZSH=/usr/share/oh-my-zsh
-ZSH_CUSTOM=/home/ross/.config/zsh
+ZSH_CUSTOM=/home/ross/.dotphiles/zsh/oh-my-zsh
 
 # Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 #ZSH_THEME="agnoster"
-
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+#source $ZSH_CUSTOM/themes/ross.zsh-theme
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(systemd git-extras rsync nyan)
+plugins=(systemd git-extras rsync nyan colored-man command-not-found cp github history)
 
 source $ZSH/oh-my-zsh.sh
-#source $ZSH_CUSTOM/themes/ross.zsh-theme
 
 # Pimp my prompt
 #PROMPT="%{$fg[magenta]%}%n@%m %1~$%{$reset_color%} "
@@ -32,10 +26,6 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
 ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 PROMPT='%{$fg[magenta]%}%n@%m %1~$(git_prompt_info)$%{$reset_color%} '
 
-
-#Add my misc scripts to the path, and the current directory
-export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:.
-
 # Custom completions
 fpath=($ZSH_CUSTOM/completion $fpath)
 
@@ -45,27 +35,14 @@ unsetopt correct
 #no tabs when tabbing
 zstyle ':completion:*' insert-tab false
 
-#change the default editor to nano
-export EDITOR="nano"
-#tell wine where opengl is
-export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
+###############################
+### env variables are set in zshenv file
+###############################
 
-#for automatic proxy handling
-export http_proxy="http://localhost:8888/"
-export https_proxy="https://localhost:8888/"
-export ftp_proxy="localhost:8888"
-export no_proxy="localhost,127.0.0.1,localaddress,usyd.edu.au"
-function proxyoff(){
-     unset HTTP_PROXY
-     unset http_proxy
-     unset HTTPS_PROXY
-     unset https_proxy
-     unset FTP_PROXY
-     unset ftp_proxy
-     echo -e "\nProxy environment variable removed."
- }
  
-# enable extra tab completions
+###############################
+### enable extra tab completions
+###############################
 #complete -cf sudo
 #complete -cf man
 compctl -c xrun

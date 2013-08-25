@@ -6,11 +6,6 @@ alias yr='yaourt -Rsn'
 alias yu='yaourt -Syu'
 yaourt() { /usr/bin/yaourt $* && rehash;  }
 
-#for refreshing the xbindkeys program
-function refresh_xbindkeys(){
-	pkill xbindkeys
-	xbindkeys
-}
 
 # modified commands
 alias sudo='sudo '
@@ -28,7 +23,7 @@ alias top='htop'
 
 # new commands
 alias du1='du --max-depth=1'
-alias hist='history | grep $1'      # requires an argument
+#alias hist='history | grep $1'      # requires an argument
 alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg='ps -Af | grep -e ^UID -e $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
 alias px='proxies'
@@ -43,13 +38,13 @@ alias l='less'
 alias hask='ghci'
 
 # ls
-cd() {
-    builtin cd "$@" && ls
-}
 alias ls='ls -hF --color=auto --group-directories-first'
 alias ll='ls -l'
 alias la='ls -A'
 alias lla='ll -A'
+cd() {
+    builtin cd "$@" && ls
+}
 
 #trash-cli
 alias tr='trash'
@@ -75,9 +70,26 @@ alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad
 alias reboot='systemctl reboot'
 alias halt='systemctl poweroff'
 alias suspend='systemctl suspend'
+alias hibernate='systemctl hibernate'
 
 # clock
 clock () 
 { 
 while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done 
+}
+
+function proxyoff(){
+     unset HTTP_PROXY
+     unset http_proxy
+     unset HTTPS_PROXY
+     unset https_proxy
+     unset FTP_PROXY
+     unset ftp_proxy
+     echo -e "\nProxy environment variable removed."
+ }
+
+#for refreshing the xbindkeys program
+function refresh_xbindkeys(){
+	pkill xbindkeys
+	xbindkeys
 }

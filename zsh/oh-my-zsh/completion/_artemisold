@@ -1,0 +1,3 @@
+# compdef artemis
+
+_arguments "1: :(help vnc-local vnc vnc-remote ssh ssh-remote remote thunar)"
