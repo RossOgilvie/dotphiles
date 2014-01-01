@@ -46,11 +46,38 @@ zstyle ':completion:*' insert-tab false
 #complete -cf sudo
 #complete -cf man
 compctl -c xrun
-compctl -k "(help mount unmount ssh)" bari como
+compctl -k "(help mount unmount ssh permissions)" bari como
 compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox mount unmount refresh_mount)" artemis
 compctl -k "(help up down mute unmute toggle level)" volume
 compctl -k "(inc dec level)" keyboard_backlight
 compctl -k "(help status uni home default)" proxies px
 compctl -k "(help status on mirror off toggle auto wallpaper)" screens
 
+
+###############################
+### ssh autocomplete
+###############################
+# ssh, scp, ping, host
+zstyle ':completion:*:scp:*' tag-order \
+      'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
+zstyle ':completion:*:scp:*' group-order \
+      users files all-files hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' tag-order \
+      users 'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
+zstyle ':completion:*:ssh:*' group-order \
+      hosts-domain hosts-host users hosts-ipaddr
+
+zstyle ':completion:*:(ssh|scp):*:hosts-host' ignored-patterns \
+      '*.*' loopback localhost
+zstyle ':completion:*:(ssh|scp):*:hosts-domain' ignored-patterns \
+      '<->.<->.<->.<->' '^*.*' '*@*'
+zstyle ':completion:*:(ssh|scp):*:hosts-ipaddr' ignored-patterns \
+      '^<->.<->.<->.<->' '127.0.0.<->'
+zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
+      adm bin daemon halt lp named shutdown sync
+
+
+###############################
+### load aliases
+###############################
 source ~/.zalias

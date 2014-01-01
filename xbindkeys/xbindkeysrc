@@ -29,7 +29,7 @@
 
 # If firefox is running, switch to it. Else open it
 #"if [ $(pidof firefox-aurora) ]; then wmctrl -a 'aurora'; else exec firefox-aurora -P Ross; fi"
-@    Mod4 + f
+#    Mod4 + f
 
 #"if [ $(pidof geany) ]; then wmctrl -a 'Geany'; else exec geany; fi"
 #"if [ $(pidof sublime-text) ]; then wmctrl -a 'Sublime'; else exec /opt/sublime-text/sublime_text; fi"

@@ -8,10 +8,10 @@
 #
 
 # Set the path to dotzsh.
-export DOTZSH="$HOME/.zsh"
+# export DOTZSH="$HOME/.zsh"
 
 # Source environment settings
-source "$DOTZSH/env.zsh"
+# source "$DOTZSH/env.zsh"
 
 # Customize to your needs...
 
@@ -21,10 +21,10 @@ export EDITOR="nano"
 export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
 
 #for automatic proxy handling
-export http_proxy="http://localhost:8888/"
-export https_proxy="https://localhost:8888/"
-export ftp_proxy="localhost:8888"
-export no_proxy="localhost,127.0.0.1,localaddress,usyd.edu.au"
+#export http_proxy="http://localhost:8888/"
+#export https_proxy="https://localhost:8888/"
+#export ftp_proxy="localhost:8888"
+#export no_proxy="localhost,127.0.0.1,localaddress,usyd.edu.au"
 
 #Add my misc scripts to the path, and the current directory
-export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:.
+export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:/home/ross/.cabal/bin:.

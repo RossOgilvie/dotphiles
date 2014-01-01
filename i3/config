@@ -35,8 +35,10 @@ bar {
 exec_always --no-startup-id /home/ross/.scripts/screens
 
 ##### set up scratchpad
-for_window [class="Gnome-calculator"] move scratchpad
+for_window [class="Gcalctool"] move scratchpad
+##for_window [class="Pavucontrol"] move scratchpad
 exec --no-startup-id gnome-calculator
+##exec --no-startup-id pavucontrol
 
 ##############################
 ### Key Bindings

@@ -4,6 +4,7 @@ alias ys='yaourt -Sy'
 alias yq='yaourt -Ss'
 alias yr='yaourt -Rsn'
 alias yu='yaourt -Syu'
+alias yua='yaourt -Syua --devel'
 yaourt() { /usr/bin/yaourt $* && rehash;  }
 
 
