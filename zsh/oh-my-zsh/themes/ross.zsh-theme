@@ -31,5 +31,5 @@ ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 
 PROMPT="%{$fg[$ZSH_THEME_USER_COLOUR]%}%n\
 %{$fg[$ZSH_THEME_HOST_COLOUR]%}@%m:\
-%{$reset_color%}%2~ \
+%{$reset_color%}%2~\
 $(git_prompt_info)%{$reset_color%}   "
