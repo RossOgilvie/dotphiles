@@ -7,6 +7,9 @@
 #   Ben O'Hara <bohara@gmail.com>
 #
 
+[submodule "awesome"]
+	path = awesome
+	url = https://github.com/RossOgilvie/AwesomeConfig.git
 [submodule "dotsync"]
 	path = dotsync
 	url = https://github.com/dotphiles/dotsync.git
