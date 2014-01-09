@@ -15,6 +15,7 @@ ZSH_CUSTOM=/home/ross/.dotphiles/zsh/oh-my-zsh
 plugins=(systemd git-extras rsync colored-man command-not-found cp github history tmux)
 
 ZSH_TMUX_AUTOSTART=true
+DISABLE_AUTO_UPDATE=true
 
 source $ZSH/oh-my-zsh.sh
 
