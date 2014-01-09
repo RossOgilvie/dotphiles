@@ -3,5 +3,19 @@
 # ~/.zprofile
 #
 
+#change the default editor to nano
+export EDITOR="nano"
+#tell wine where opengl is
+export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
+
+#for automatic proxy handling
+#export http_proxy="http://localhost:8888/"
+#export https_proxy="https://localhost:8888/"
+#export ftp_proxy="localhost:8888"
+#export no_proxy="localhost,127.0.0.1,localaddress,usyd.edu.au"
+
+#Add my misc scripts to the path, and the current directory
+export PATH=`echo $PATH`:~/.scripts:/home/ross/.gem/ruby/1.9.1/bin:/home/ross/.cabal/bin:.
+
 ## If the display is up, and we logged into tty1, then run x
 [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1  ]] && exec startx &> /home/ross/.xlog

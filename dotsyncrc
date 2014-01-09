@@ -20,7 +20,7 @@ DOTFILES=.dotphiles
 dotsyncrc
 #ack/ackrc
 #aptitude
-awesome:.config/awesome
+#awesome:.config/awesome
 #bin:bin
 #ctags/ctags
 #cmus
@@ -65,7 +65,7 @@ sublime-text-2:.config/sublime-test-2
 #subversion
 #task/task
 #task/taskrc
-#tmux/tmux.conf
+tmux/tmux.conf
 #tmux/tmuxinator
 touchegg:.config/touchegg
 #vim/dotvim:.vim
@@ -74,6 +74,7 @@ touchegg:.config/touchegg
 #wget/wgetrc
 xbindkeys/xbindkeysrc
 xinit/xinitrc
+xinit/xprofile
 xmodmap/Xmodmap
 xmobar/xmobarrc
 xmonad

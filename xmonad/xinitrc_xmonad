@@ -11,57 +11,7 @@ fi
 #############
 ## Set up
 #############
-
-## Turn down the brightness
-xbacklight =25
-
-## This enables window transparency
-xcompmgr -cCfF -r 0 -D 6&
-
-## Swaps some keys around
-## Makes caps lock into a launcher key
-xmodmap /home/ross/.Xmodmap
-
-## Set up my custom global keyboard shortcuts
-xbindkeys &
-
-numlockx on
-
-## Enable my wicked triple finger swipe gestures
-touchegg &
-
-## set correct pointer for wm windows
-xsetroot -cursor_name left_ptr
-
-#############
-## Autostarts
-#############
-
-## Dropbox (obviously)
-/opt/dropbox/dropboxd &
-
-## Kupfer is my launcher
-/home/ross/.scripts/persist kupfer --no-splash &
-
-## Volume notification in background
-# volnoti &
-
-## Network monitor
-netmon &
-
-## power wdiget, also auto hibernates on low power
-valabattery &
-
-## tray clock
-trayclock &
-
-## system icon tray
-# trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 255 --tint 0x000000 --height 14 &
-## system bar
-tail -n 1 -f /home/ross/.xmonad_status | dzen2 -p -xs 1 -ta l -e 'onstart=lower' -fn 'Inconsolata Medium' &
-
-## set up the correct number of screens
-/home/ross/.scripts/screens
+[ -f ~/.xprofile ] && source ~/.xprofile
 
 ##############
 ## Xmonad WM
