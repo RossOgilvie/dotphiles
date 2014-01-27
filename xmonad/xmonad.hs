@@ -3,7 +3,9 @@
 import XMonad hiding ((|||))
  
 import System.Exit
-import System.IO
+--import System.IO(openFile,hSetEncoding,hClose,IOMode(..))
+import qualified System.IO.UTF8 as IO
+import qualified Codec.Binary.UTF8.String as UTF8
 import Data.Ratio ((%))
  
 import qualified XMonad.StackSet as W
@@ -26,6 +28,8 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.ShowWName
+import XMonad.Layout.Spacing
 import XMonad.Layout.ToggleLayouts
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
@@ -45,14 +49,13 @@ main = do
 rossConfig = defaultConfig {
 	terminal           = "lxterminal",
 	modMask            = mod4Mask,
-	--workspaces         = myWorkspaces,
+	workspaces         = myWorkspaces,
 	borderWidth        = 1,
 	normalBorderColor  = "#454545",
 	focusedBorderColor = "#f9b857",
 	focusFollowsMouse  = False,
 	manageHook         = myManageHook <+> manageDocks,
-	handleEventHook    = clockEventHook,
-	startupHook        = clockStartupHook,
+	handleEventHook    = docksEventHook,
 	logHook            = myLogHook,
 	layoutHook         = myLayouts,
 	keys               = myKeyBindings,
@@ -63,45 +66,53 @@ rossConfig = defaultConfig {
 -- workspaces
  
 --myWorkspaces = ["term","web","misc"]
- 
+myWorkspaces :: [WorkspaceId]
+myWorkspaces = map show [1 .. 5 :: Int] 
+
 ------------------------------------------------------------------------
 -- keybindings
  
 myKeyBindings = \c -> mkKeymap c $
 	 -- other stuff
-	 [ ("M-t", spawn "lxterminal")
-	 , ("M-<Return>", spawn "lxterminal")
+	 --[ ("M-t", spawn "lxterminal")
+	 --, ("M-<Return>", spawn "lxterminal")
+	 [ ("M-<Return>", spawn "lxterminal")
 	 , ("M-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
 	 , ("M-S-<Escape>", io (exitWith ExitSuccess))  
 	 , ("M-q", kill)
+	 , ("M-b", sendMessage ToggleStruts)
 	 -- moving focus
 	 , ("M-<L>", windows W.focusUp)
 	 , ("M-<R>", windows W.focusDown)
-	 , ("M-x", nextScreen)
-	 , ("M-<Tab>", toggleWS)
 	 , ("M-<Space>", windows W.focusMaster) 
-	 --, ("M-<Backspace>", focusUrgent)
-	 , ("M-<Page_Up>", moveTo Prev NonEmptyWS)
-	 , ("M-<Page_Down>", moveTo Next NonEmptyWS)
+	 , ("M-<Home>", moveTo Prev NonEmptyWS)
+	 , ("M-<End>", moveTo Next NonEmptyWS)
+	 , ("M-x", swapNextScreen)
+	 , ("M-S-x", nextScreen)
+	 , ("M-<Tab>", toggleWS)
+	 , ("M-n",  moveTo Next EmptyWS)
+	 , ("M-C-n",  shiftTo Next EmptyWS >> moveTo Next EmptyWS)
 	 -- moving windows
 	 , ("M-C-<L>", windows W.swapUp)
 	 , ("M-C-<R>", windows W.swapDown)
-	 , ("M-C-x", shiftNextScreen)
 	 , ("M-C-<Space>", windows W.swapMaster) 
-	 , ("M-<D>", withFocused $ windows . W.sink) 
+	 , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
+	 , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
+	 , ("M-C-x", shiftNextScreen)
+	 --, ("M-<D>", withFocused $ windows . W.sink) 
 	 -- change layout
-	 , ("M-h", sendMessage Shrink)
-	 , ("M-l", sendMessage Expand)
+	 , ("M-<D>", sendMessage Shrink)
+	 , ("M-<U>", sendMessage Expand)
 	 , ("M-~", sendMessage NextLayout)
-	 , ("M-,", sendMessage (IncMasterN 1))
-	 , ("M-.", sendMessage (IncMasterN (-1)))
+	 --, ("M-,", sendMessage (IncMasterN 1))
+	 --, ("M-.", sendMessage (IncMasterN (-1)))
 	 ]
 	 ++
-	 [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..9] (XMonad.workspaces c)]
+	 [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
 	 ++
-	 [("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..9] (XMonad.workspaces c)]
+	 [("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
 	 ++
-	 [("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..9] (XMonad.workspaces c)]
+	 [("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -137,28 +148,31 @@ myManageHook = composeAll . concat $
  
 ------------------------------------------------------------------------
 -- status bar and logging
- 
+
+lightGrey = "#909090"
+darkGrey = "#303030"
+
 myLogHook = dynamicLogWithPP $ defaultPP
 
 	-- display current workspace as darkgrey on light grey (opposite of 
 	-- default colors)
-	{ ppCurrent         = dzenColor "#303030" "#909090" . pad 
+	{ ppCurrent         = const$ dzenColor lightGrey "" "●"
 
 	-- display other workspaces which contain windows as a brighter grey
-	, ppHidden          = dzenColor "#909090" "" . pad 
+	, ppHidden          = const$ dzenColor darkGrey "" "●"
+	, ppHiddenNoWindows	= const$ dzenColor darkGrey "" "○"
 
 	-- put the displays on screen first in the list, and in square brackets
-	, ppVisible			= wrap "[" "]"
-	, ppSort 			= getSortByXineramaRule
+	--, ppVisible			= wrap "[" "]"
+	, ppSort 			= getSortByIndex
+	--, ppSort 			= getSortByXineramaRule
 
 	-- display other workspaces with no windows as a normal grey
 	--, ppHiddenNoWindows = dzenColor "#606060" "" . pad 
 
 	-- display the current layout as a brighter grey
-	, ppLayout          = dzenColor "#909090" "" . pad 
-
-	-- if a window on a hidden workspace needs my attention, color it so
-	, ppUrgent          = dzenColor "#ff0000" "" . pad . dzenStrip
+	--, ppLayout          = dzenColor "#909090" "" . pad 
+	, ppLayout          = const ""
 
 	-- shorten if it goes over 100 characters
 	, ppTitle           = shorten 100  
@@ -167,13 +181,13 @@ myLogHook = dynamicLogWithPP $ defaultPP
 	, ppWsSep           = ""
 
 	-- put a few spaces between each object
-	, ppSep             = " -- "
+	, ppSep             = " "
 
 	-- put the time in
-	, ppExtras			= [ colouredTime ]
+	--, ppExtras			= [ colouredTime ]
 
 	--rearrage time to be fore the window title
-	, ppOrder = \(ws:lay:tit:time:rest) -> (ws:lay:time:tit:rest)
+	--, ppOrder = \(ws:lay:tit:time:rest) -> (ws:lay:time:tit:rest)
 
 	-- output to the handle we were given as an argument
 	--, ppOutput          = hPutStrLn statusPipe
@@ -183,49 +197,16 @@ myLogHook = dynamicLogWithPP $ defaultPP
 statusFile = "/home/ross/.xmonad_status"
 
 dumpToFile :: String -> IO ()
-dumpToFile s = do
-	h <- openFile statusFile AppendMode
-	hPutStrLn h s
-	hClose h
-
-colouredTime :: Logger
-colouredTime = wrapL "^fg(#60da11)" "^fg(#909090)" $ date "%a %b %d %H:%M"
-
-
--- wrapper for the Timer id, so it can be stored as custom mutable state
-data TidState = TID TimerId deriving Typeable
-
-instance ExtensionClass TidState where
-  initialValue = TID 0
-
--- put this in your startupHook
--- start the initial timer, store its id
-clockStartupHook = startTimer 29 >>= XS.put . TID
-
--- put this in your handleEventHook
-clockEventHook e = do               -- e is the event we've hooked
-  (TID t) <- XS.get                 -- get the recent Timer id
-  handleTimer t e $ do              -- run the following if e matches the id
-    startTimer 29 >>= XS.put . TID   -- restart the timer, store the new id
-    ask >>= logHook.config          -- get the loghook and run it
-    return Nothing                  -- return required type
-  return $ All True                 -- return required type
-
-
---myPP statusPipe = xmobarPP {
---	ppOutput  = hPutStrLn statusPipe,
---	ppTitle   = xmobarColor "green"  "" . shorten 50,
---	ppUrgent  = xmobarColor "red" "" . wrap "!" "!"
---}
- 
---myLogHook = dynamicLogWithPP . myPP
+dumpToFile s = IO.appendFile statusFile $ UTF8.decodeString (s++"\n")
  
 ------------------------------------------------------------------------
 -- layouts
  
-myLayouts = avoidStruts $
-				smartBorders $
-				toggleLayouts (noBorders Full) $
+myLayouts =	smartBorders $
+				avoidStruts $
+				showWName $
+				spacing 2 $
+				--toggleLayouts (noBorders Full) $
 				tiled ||| Mirror tiled ||| (noBorders Full)
 	where
 		tiled = Tall 1 (3 / 100) (1 / 2)
