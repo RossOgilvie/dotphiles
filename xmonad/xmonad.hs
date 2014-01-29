@@ -12,9 +12,9 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 -- to force regular status updates
-import qualified XMonad.Util.ExtensibleState as XS
-import XMonad.Util.Timer
-import Data.Monoid (All(..))
+--import qualified XMonad.Util.ExtensibleState as XS
+--import XMonad.Util.Timer
+--import Data.Monoid (All(..))
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.FloatKeys
@@ -99,7 +99,7 @@ myKeyBindings = \c -> mkKeymap c $
 	 , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
 	 , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
 	 , ("M-C-x", shiftNextScreen)
-	 --, ("M-<D>", withFocused $ windows . W.sink) 
+	 , ("M-m", withFocused $ windows . W.sink) 
 	 -- change layout
 	 , ("M-<D>", sendMessage Shrink)
 	 , ("M-<U>", sendMessage Expand)
@@ -135,15 +135,15 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- window rules
  
--- myManageHook = scratchpadManageHookDefault <+> (composeAll . concat $
 myManageHook = composeAll . concat $
-		[ [ className =? c --> doFloat | c <- floats ]
-		, [ resource  =? "desktop_window" --> doIgnore ]
-		-- , [ isFullscreen --> (doF W.focusDown <+> doFullFloat) ]
-		, [ isFullscreen --> doFullFloat ]
+		[ 
+		[ isFullscreen --> doFullFloat ]
+		--, [ isFullscreen --> (doF W.focusDown <+> doFullFloat) ]
+		--, [ className =? c --> doFloat | c <- floats ]
+		--, [ resource  =? "desktop_window" --> doIgnore ]
 		]
-	where 
-		floats = ["MPlayer", ".", "feh"]
+	--where 
+		--floats = ["MPlayer", ".", "feh"]
 		--moveTo = doF . W.shift
  
 ------------------------------------------------------------------------
@@ -153,44 +153,24 @@ lightGrey = "#909090"
 darkGrey = "#303030"
 
 myLogHook = dynamicLogWithPP $ defaultPP
-
-	-- display current workspace as darkgrey on light grey (opposite of 
-	-- default colors)
 	{ ppCurrent         = const$ dzenColor lightGrey "" "●"
-
-	-- display other workspaces which contain windows as a brighter grey
 	, ppHidden          = const$ dzenColor darkGrey "" "●"
 	, ppHiddenNoWindows	= const$ dzenColor darkGrey "" "○"
-
-	-- put the displays on screen first in the list, and in square brackets
-	--, ppVisible			= wrap "[" "]"
+	, ppVisible			= const$ dzenColor lightGrey "" "●"
 	, ppSort 			= getSortByIndex
-	--, ppSort 			= getSortByXineramaRule
 
-	-- display other workspaces with no windows as a normal grey
-	--, ppHiddenNoWindows = dzenColor "#606060" "" . pad 
-
-	-- display the current layout as a brighter grey
-	--, ppLayout          = dzenColor "#909090" "" . pad 
 	, ppLayout          = const ""
 
-	-- shorten if it goes over 100 characters
-	, ppTitle           = shorten 100  
+	--, ppTitle           = shorten 100  
+	, ppTitle           = const ""
 
 	-- no separator between workspaces
 	, ppWsSep           = ""
 
 	-- put a few spaces between each object
-	, ppSep             = " "
-
-	-- put the time in
-	--, ppExtras			= [ colouredTime ]
-
-	--rearrage time to be fore the window title
-	--, ppOrder = \(ws:lay:tit:time:rest) -> (ws:lay:time:tit:rest)
+	, ppSep             = ""
 
 	-- output to the handle we were given as an argument
-	--, ppOutput          = hPutStrLn statusPipe
 	, ppOutput         = dumpToFile
 	}
 
@@ -205,8 +185,7 @@ dumpToFile s = IO.appendFile statusFile $ UTF8.decodeString (s++"\n")
 myLayouts =	smartBorders $
 				avoidStruts $
 				showWName $
-				spacing 2 $
-				--toggleLayouts (noBorders Full) $
-				tiled ||| Mirror tiled ||| (noBorders Full)
+				spacing 5 $
+				tiled ||| Mirror tiled ||| Full
 	where
 		tiled = Tall 1 (3 / 100) (1 / 2)

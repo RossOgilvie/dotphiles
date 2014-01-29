@@ -34,18 +34,20 @@ xsetroot -cursor_name left_ptr
 # volnoti &
 
 ## Network monitor
-netmon &
+# netmon &
 
 ## power wdiget, also auto hibernates on low power
-valabattery &
+# valabattery &
 
 ## tray clock
-trayclock &
+# trayclock &
 
 ## system icon tray
 # trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 255 --tint 0x000000 --height 14 &
 ## system bar
-tail -n 1 -f /home/ross/.xmonad_status | dzen2 -p -xs 1 -ta l -e 'onstart=lower' -fn 'Inconsolata Medium' &
+# tail -n 1 -f /home/ross/.xmonad_status | dzen2 -p -xs 1 -ta l -e 'onstart=lower' -fn 'Inconsolata Medium' &
+
+conky -c /home/ross/.config/conky/conkyrc_xmonad | dzen2 -fn "Inconsolata Medium" -ta right -xs 1 &
 
 ## set up the correct number of screens
 /home/ross/.scripts/screens

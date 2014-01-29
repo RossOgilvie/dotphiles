@@ -1,0 +1,50 @@
+out_to_console yes
+background no
+max_text_width 0
+# Update interval in seconds
+update_interval 1
+total_run_times 0
+if_up_strictness link
+
+TEXT
+#########################################
+# ---WORKSPACE---
+#########################################
+${tail /home/ross/.xmonad_status 1}\
+   \
+#########################################
+# ---UPTIME---
+#########################################
+^fg(\#909090)^i(/usr/share/icons/stlarch_icons/uparrow1.xbm) \
+^fg(\#606060)${uptime_short}\
+   \
+#########################################
+# ---TEMPERATURE---
+#########################################
+^fg(\#909090)^i(/usr/share/icons/stlarch_icons/temp5.xbm) \
+^fg(\#606060)${acpitemp}\
+   \
+#########################################
+# ---BAT---
+#########################################
+^fg(\#909090)^i(/usr/share/icons/stlarch_icons/batt1full.xbm) \
+^fg(\#606060)${battery_percent BAT1}\
+   \
+#########################################
+# ---NET---
+#########################################
+${if_up wlan0}\
+^fg(\#909090)^i(/usr/share/icons/stlarch_icons/wireless1.xbm) \
+${wireless_essid wlan0} \
+^fg(\#606060)${addr wlan0} \
+# ${wireless_bitrate wlan0}\
+${endif}\
+${if_up eth0}\
+^fg(\#909090)^i(/usr/share/icons/stlarch_icons/grid.xbm) \
+^fg(\#5f5f5f)${addr eth0}\
+${endif}\
+   \
+#########################################
+# ---TIME---
+#########################################
+^fg(\#909090)${time %a %b %d %H:%M}
