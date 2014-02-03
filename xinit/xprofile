@@ -25,7 +25,7 @@ xsetroot -cursor_name left_ptr
 #############
 
 ## Dropbox (obviously)
-/opt/dropbox/dropboxd &
+# /opt/dropbox/dropboxd &
 
 ## Kupfer is my launcher
 /home/ross/.scripts/persist kupfer --no-splash &
@@ -47,7 +47,7 @@ xsetroot -cursor_name left_ptr
 ## system bar
 # tail -n 1 -f /home/ross/.xmonad_status | dzen2 -p -xs 1 -ta l -e 'onstart=lower' -fn 'Inconsolata Medium' &
 
-conky -c /home/ross/.config/conky/conkyrc_xmonad | dzen2 -fn "Inconsolata Medium" -ta right -xs 1 &
+conky -c /home/ross/.config/conky/conkyrc_dzen | dzen2 -fn "Inconsolata Medium" -ta right -xs 1 &
 
 ## set up the correct number of screens
 /home/ross/.scripts/screens
