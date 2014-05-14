@@ -1,24 +1,16 @@
-{-# LANGUAGE DeriveDataTypeable #-}
-
 import XMonad hiding ((|||))
  
 import System.Exit
---import System.IO(openFile,hSetEncoding,hClose,IOMode(..))
 import qualified System.IO.UTF8 as IO
 import qualified Codec.Binary.UTF8.String as UTF8
-import Data.Ratio ((%))
+--import Data.Ratio ((%))
  
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
--- to force regular status updates
---import qualified XMonad.Util.ExtensibleState as XS
---import XMonad.Util.Timer
---import Data.Monoid (All(..))
-
 import XMonad.Actions.CycleWS
-import XMonad.Actions.FloatKeys
-import XMonad.Actions.NoBorders
+--import XMonad.Actions.FloatKeys
+--import XMonad.Actions.NoBorders
 import XMonad.Hooks.DynamicLog
 -- provides ewmh hooks for making touchegg work
 import XMonad.Hooks.EwmhDesktops
@@ -27,21 +19,20 @@ import XMonad.Hooks.ManageHelpers
 --import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.ShowWName
+--import XMonad.Layout.PerWorkspace
+--import XMonad.Layout.ShowWName
 import XMonad.Layout.Spacing
-import XMonad.Layout.ToggleLayouts
+--import XMonad.Layout.ToggleLayouts
 import XMonad.Util.EZConfig
-import XMonad.Util.Loggers
+--import XMonad.Util.Loggers
 --import XMonad.Util.Run
 import XMonad.Util.WorkspaceCompare
 --import XMonad.Util.Scratchpad
 
-main = do 
-	xmonad $
-		ewmh $ --adds support of EWMH functions, makes touchegg work
-		--withUrgencyHook NoUrgencyHook $
-		rossConfig
+main :: IO ()
+main = xmonad .
+	ewmh $ --adds support of EWMH functions, makes touchegg work
+	rossConfig
 
 ----------------------------------------------------------------------
 -- config itself
@@ -51,8 +42,8 @@ rossConfig = defaultConfig {
 	modMask            = mod4Mask,
 	workspaces         = myWorkspaces,
 	borderWidth        = 1,
-	normalBorderColor  = "#454545",
-	focusedBorderColor = "#f9b857",
+	normalBorderColor  = darkGrey,
+	focusedBorderColor = lightBlue,
 	focusFollowsMouse  = False,
 	manageHook         = myManageHook <+> manageDocks,
 	handleEventHook    = docksEventHook,
@@ -65,20 +56,22 @@ rossConfig = defaultConfig {
 ------------------------------------------------------------------------
 -- workspaces
  
---myWorkspaces = ["term","web","misc"]
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = map show [1 .. 5 :: Int] 
 
 ------------------------------------------------------------------------
 -- keybindings
  
-myKeyBindings = \c -> mkKeymap c $
-	 -- other stuff
-	 --[ ("M-t", spawn "lxterminal")
-	 --, ("M-<Return>", spawn "lxterminal")
+myKeyBindings c = mkKeymap c  $
+	 -- apps
 	 [ ("M-<Return>", spawn "lxterminal")
+	 , ("M-e", spawn "nemo")
+	 , ("M-v", spawn "pavucontrol")
+	 , ("M-c", spawn "gnome-calculator")
+	 , ("M-h", spawn "hibernate")
+	 --other stuff
 	 , ("M-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
-	 , ("M-S-<Escape>", io (exitWith ExitSuccess))  
+	 , ("M-S-<Escape>", io exitSuccess)  
 	 , ("M-q", kill)
 	 , ("M-b", sendMessage ToggleStruts)
 	 -- moving focus
@@ -117,18 +110,16 @@ myKeyBindings = \c -> mkKeymap c $
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList
  
 	-- mod-button1, Set the window to floating mode and move by dragging
-	[ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-									   >> windows W.shiftMaster))
+	[ ((modm, button1), (\w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster))
  
 	-- mod-button2, Raise the window to the top of the stack
 	, ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
  
 	-- mod-button3, Set the window to floating mode and resize by dragging
-	, ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-									   >> windows W.shiftMaster))
+	, ((modm, button3), (\w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster))
  
 	-- you may also bind events to the mouse scroll wheel (button4 and button5)
 	]
@@ -138,26 +129,22 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 myManageHook = composeAll . concat $
 		[ 
 		[ isFullscreen --> doFullFloat ]
-		--, [ isFullscreen --> (doF W.focusDown <+> doFullFloat) ]
-		--, [ className =? c --> doFloat | c <- floats ]
-		--, [ resource  =? "desktop_window" --> doIgnore ]
 		]
-	--where 
-		--floats = ["MPlayer", ".", "feh"]
-		--moveTo = doF . W.shift
  
 ------------------------------------------------------------------------
 -- status bar and logging
 
 lightGrey = "#909090"
 darkGrey = "#303030"
+darkRed = "#660000"
+lightBlue = "#0096C8"
 
 myLogHook = dynamicLogWithPP $ defaultPP
-	{ ppCurrent         = const$ dzenColor lightGrey "" "●"
-	, ppHidden          = const$ dzenColor darkGrey "" "●"
-	, ppHiddenNoWindows	= const$ dzenColor darkGrey "" "○"
-	, ppVisible			= const$ dzenColor lightGrey "" "●"
-	, ppSort 			= getSortByIndex
+	{ ppCurrent		= const$ xmobarColor lightBlue "" "●"
+	, ppHidden		= const$ xmobarColor darkGrey "" "●"
+	, ppHiddenNoWindows	= const$ xmobarColor darkGrey "" "○"
+	, ppVisible		= const$ xmobarColor lightGrey "" "●"
+	, ppSort 		= getSortByIndex
 
 	, ppLayout          = const ""
 
@@ -167,25 +154,39 @@ myLogHook = dynamicLogWithPP $ defaultPP
 	-- no separator between workspaces
 	, ppWsSep           = ""
 
-	-- put a few spaces between each object
+	-- no separator between each object
 	, ppSep             = ""
 
-	-- output to the handle we were given as an argument
-	, ppOutput         = dumpToFile
+	, ppOutput         = dumpToPipe
 	}
 
-statusFile = "/home/ross/.xmonad_status"
+statusPipePath1 = "/tmp/xmonad_status_pipe1"
+statusPipePath2 = "/tmp/xmonad_status_pipe2"
+dumpToPipe :: String -> IO ()
+dumpToPipe s = do
+	IO.writeFile statusPipePath1 $ UTF8.decodeString (s++"\n")
+	IO.writeFile statusPipePath2 $ UTF8.decodeString (s++"\n")
 
-dumpToFile :: String -> IO ()
-dumpToFile s = IO.appendFile statusFile $ UTF8.decodeString (s++"\n")
- 
+--makeDot :: WorkspaceId -> String
+--makeDot i = undefined
+
+--isHiddenNonEmpty :: WorkspaceId -> Bool
+--isHiddenNonEmpty i = case ws of
+--	Nothing -> False
+--	Just ws' -> case W.stack ws' of windows
+--		Nothing -> False
+--		otherwise -> True
+--	where
+--		ws = lookup i zipped
+--		zipped = zip (map W.tag W.hidden) W.hidden
+
 ------------------------------------------------------------------------
 -- layouts
  
-myLayouts =	smartBorders $
-				avoidStruts $
-				showWName $
-				spacing 5 $
-				tiled ||| Mirror tiled ||| Full
+myLayouts = smartBorders $
+		avoidStruts $
+		--showName $
+		spacing 5 $
+		tiled ||| Mirror tiled ||| Full
 	where
 		tiled = Tall 1 (3 / 100) (1 / 2)

@@ -45,7 +45,7 @@ zstyle ':completion:*' insert-tab false
 #change the default editor to nano
 export EDITOR="nano"
 #tell wine where opengl is
-export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
+#export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
 
 #for automatic proxy handling
 #export http_proxy="http://localhost:8888/"
@@ -55,7 +55,7 @@ export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
 
 #Add my misc scripts to the path, and the current directory
 typeset -U path
-path=($path /home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.cabal/bin .)
+path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.cabal/bin . $path)
  
 ###############################
 ### enable extra tab completions
@@ -65,7 +65,7 @@ path=($path /home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.cabal
 compctl -c xrun
 compctl -k "(help mount unmount ssh permissions)" bari como
 # compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox mount unmount refresh_mount)" artemis
-compctl -k "(help ssh remote)" eris
+compctl -k "(help ssh remote mount unmount)" eris
 compctl -k "(help up down mute unmute toggle level)" volume
 compctl -k "(inc dec level)" keyboard_backlight
 compctl -k "(help status uni home default)" proxies px

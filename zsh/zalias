@@ -2,6 +2,9 @@
 alias y='yaourt'
 alias ys='yaourt -Sy'
 alias yq='yaourt -Ss'
+alias yqi='yaourt -Qi'
+alias yql='yaourt -Ql'
+alias yqli='yaourt -Qli'
 alias yr='yaourt -Rsn'
 alias yu='yaourt -Syu'
 alias yua='yaourt -Syua --devel'
@@ -37,6 +40,7 @@ alias g='git'
 alias gr='grep'
 alias l='less'
 alias hask='ghci'
+alias j='journalctl'
 
 # ls
 alias ls='ls -hF --color=auto --group-directories-first'
@@ -79,18 +83,26 @@ clock ()
 while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done 
 }
 
-function proxyoff(){
-     unset HTTP_PROXY
-     unset http_proxy
-     unset HTTPS_PROXY
-     unset https_proxy
-     unset FTP_PROXY
-     unset ftp_proxy
-     echo -e "\nProxy environment variable removed."
- }
-
 #for refreshing the xbindkeys program
 function refresh_xbindkeys(){
 	pkill xbindkeys
 	xbindkeys
+}
+
+ebg() {
+    $* &> /dev/null &
+}
+
+#### fun
+hack() {
+cat /dev/urandom | hexdump -C | grep "ca fe"
+}
+
+hotspot ()
+{
+sc-stop netctl-auto@wlan0.service
+sc-stop dnsmasq.service
+sudo create_ap wlan0 eth0 nyx
+sc-start netctl-auto@wlan0.service
+sc-start dnsmasq.service
 }

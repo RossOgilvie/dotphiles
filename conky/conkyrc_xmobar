@@ -1,0 +1,25 @@
+out_to_console yes
+background no
+max_text_width 0
+total_run_times 1
+if_up_strictness link
+
+TEXT
+#########################################
+# ---VOLUME---
+#########################################
+<icon=/usr/share/icons/stlarch_icons/vol2.xbm/> \
+${exec amixer get Master -M | grep -oE "[[:digit:]]*%"} \
+${exec amixer get Master -M | grep -oE "off"} \
+#########################################
+# ---NET---
+#########################################
+${if_existing /proc/net/route wlan0}\
+<icon=/usr/share/icons/stlarch_icons/wireless1.xbm/> \
+${wireless_essid wlan0} \
+${addr wlan0} \
+${endif}\
+${if_existing /proc/net/route eth0}\
+<icon=/usr/share/icons/stlarch_icons/grid.xbm/> \
+${addr eth0}\
+${endif}

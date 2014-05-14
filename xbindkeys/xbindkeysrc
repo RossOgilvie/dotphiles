@@ -1,7 +1,3 @@
-# Refresh xbindkeys
-#"pkill xbindkeys; xbindkeys"
-#    Mod4 + r
-
 # Toggle display modes. off -> mirrored -> extend
 "/home/ross/.scripts/screens"
     Mod4 + p
@@ -12,32 +8,6 @@
 #run location profiling script manually
 "/home/ross/.scripts/location refresh"
 	Mod4 + u
-
-# If Home folder is open, switch to it, else open it
-#"marlin /home/ross"
-"if  wmctrl -l -x | grep -ql 'thunar\.Thunar.*ross'; then wmctrl -F -a 'ross - File Manager'; else thunar /home/ross; fi"
-    Mod4 + e
-
-# If Downloads folder is open, switch to it, else open it
-#"if  wmctrl -l -x | grep -ql 'thunar\.Thunar.*Downloads'; then wmctrl -F -a 'Downloads - File Manager'; else thunar /home/ross/Downloads; fi"
-#"marlin /home/ross/downloads"
-#    Mod4 + Shift + e
-
-# If a terminal is running, switch to it. Else open one
-#"if [ $(pidof lxterminal) ]; then wmctrl -a 'LXTerminal'; else lxterminal; fi"
-#    Mod4 + t
-
-# If firefox is running, switch to it. Else open it
-#"if [ $(pidof firefox-aurora) ]; then wmctrl -a 'aurora'; else exec firefox-aurora -P Ross; fi"
-#    Mod4 + f
-
-#"if [ $(pidof geany) ]; then wmctrl -a 'Geany'; else exec geany; fi"
-#"if [ $(pidof sublime-text) ]; then wmctrl -a 'Sublime'; else exec /opt/sublime-text/sublime_text; fi"
-#    Mod4 + s
-
-# Open a calculator
-"gnome-calculator"
-    Mod4 + c
 
 ## Enable media keys to do their thing
 "/home/ross/.scripts/music_control.sh play"
