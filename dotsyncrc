@@ -26,6 +26,7 @@ dotsyncrc
 #cmus
 conky:.config/conky
 #curl/curlrc
+flexget/flexget
 geany:.config/geany
 git/gitconfig
 git/gitignore
