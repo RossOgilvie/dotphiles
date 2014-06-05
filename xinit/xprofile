@@ -1,9 +1,12 @@
 
+## set up the correct number of screens
+/home/ross/.scripts/screens &
+
 ## Turn down the brightness
 xbacklight =25
 
 ## This enables window transparency
-xcompmgr -cCfF -r 0 -D 6&
+xcompmgr -cCfF -D 6&
 
 ## Swaps some keys around
 ## Makes caps lock into a launcher key
@@ -15,7 +18,7 @@ xbindkeys &
 numlockx on
 
 ## Enable my wicked triple finger swipe gestures
-touchegg &
+##touchegg &
 
 ## set correct pointer for wm windows
 xsetroot -cursor_name left_ptr
@@ -24,30 +27,12 @@ xsetroot -cursor_name left_ptr
 ## Autostarts
 #############
 
-## Dropbox (obviously)
-# /opt/dropbox/dropboxd &
-
 ## Kupfer is my launcher
 /home/ross/.scripts/persist kupfer --no-splash &
 
-## Volume notification in background
-# volnoti &
+_xmonad_status_pipe1=/tmp/xmonad_status_pipe1
+[[ -S $_xmonad_status_pipe1 ]] || mkfifo $_xmonad_status_pipe1
+xmobar /home/ross/.xmobarrc1 &
 
-## Network monitor
-# netmon &
-
-## power wdiget, also auto hibernates on low power
-# valabattery &
-
-## tray clock
-# trayclock &
-
-## system icon tray
-# trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 255 --tint 0x000000 --height 14 &
-## system bar
-# tail -n 1 -f /home/ross/.xmonad_status | dzen2 -p -xs 1 -ta l -e 'onstart=lower' -fn 'Inconsolata Medium' &
-
-conky -c /home/ross/.config/conky/conkyrc_dzen | dzen2 -fn "Inconsolata Medium" -ta right -xs 1 &
-
-## set up the correct number of screens
-/home/ross/.scripts/screens
+_xmonad_status_pipe2=/tmp/xmonad_status_pipe2
+[[ -S $_xmonad_status_pipe2 ]] || mkfifo $_xmonad_status_pipe2

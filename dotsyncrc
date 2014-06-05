@@ -77,7 +77,8 @@ xbindkeys/xbindkeysrc
 xinit/xinitrc
 xinit/xprofile
 xmodmap/Xmodmap
-xmobar/xmobarrc
+xmobar/xmobarrc1
+xmobar/xmobarrc2
 xmonad
 yaourt/yaourtrc
 #zsh/fasdrc

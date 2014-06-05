@@ -74,7 +74,7 @@ set nohelp
 unset nonewlines
 
 # Don't wrap text at all.
-unset nowrap
+set nowrap
 
 # nano will only read and write files inside directory and its subdirectories.
 # Also, the current directory is changed to here, so files are inserted from
