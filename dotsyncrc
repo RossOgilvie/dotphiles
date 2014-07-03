@@ -77,6 +77,7 @@ touchegg:.config/touchegg
 xbindkeys/xbindkeysrc
 xinit/xinitrc
 xinit/xprofile
+xinit/Xresources
 xmodmap/Xmodmap
 xmobar/xmobarrc1
 xmobar/xmobarrc2

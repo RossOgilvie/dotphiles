@@ -3,6 +3,7 @@ import XMonad hiding ((|||))
 import System.Exit
 import qualified System.IO.UTF8 as IO
 import qualified Codec.Binary.UTF8.String as UTF8
+import Data.Maybe ( isJust )
 --import Data.Ratio ((%))
  
 import qualified XMonad.StackSet as W
@@ -43,7 +44,7 @@ rossConfig = defaultConfig {
 	workspaces         = myWorkspaces,
 	borderWidth        = 1,
 	normalBorderColor  = darkGrey,
-	focusedBorderColor = lightBlue,
+	focusedBorderColor = lightPurple,
 	focusFollowsMouse  = False,
 	manageHook         = myManageHook <+> manageDocks,
 	handleEventHook    = docksEventHook,
@@ -64,7 +65,8 @@ myWorkspaces = map show [1 .. 5 :: Int]
  
 myKeyBindings c = mkKeymap c  $
 	 -- apps
-	 [ ("M-<Return>", spawn "lxterminal")
+	 --[ ("M-<Return>", spawn "lxterminal")
+	 [ ("M-<Return>", spawn "urxvt")
 	 , ("M-e", spawn "nemo")
 	 , ("M-v", spawn "pavucontrol")
 	 , ("M-c", spawn "gnome-calculator")
@@ -134,51 +136,46 @@ myManageHook = composeAll . concat $
 ------------------------------------------------------------------------
 -- status bar and logging
 
-lightGrey = "#909090"
+lightGrey = "#707070"
 darkGrey = "#303030"
-darkRed = "#660000"
-lightBlue = "#0096C8"
+lightPurple = "#A091BD"
 
-myLogHook = dynamicLogWithPP $ defaultPP
-	{ ppCurrent		= const$ xmobarColor lightBlue "" "●"
-	, ppHidden		= const$ xmobarColor darkGrey "" "●"
-	, ppHiddenNoWindows	= const$ xmobarColor darkGrey "" "○"
-	, ppVisible		= const$ xmobarColor lightGrey "" "●"
-	, ppSort 		= getSortByIndex
+myLogHook = myLogger 0 >> myLogger 1
 
-	, ppLayout          = const ""
+myLogger :: Int -> X ()
+myLogger scr = makeLogString scr >>= io . dumpToPipe scr
 
-	--, ppTitle           = shorten 100  
-	, ppTitle           = const ""
+statusPipePath scr
+	| scr == 0 = "/tmp/xmonad_status_pipe1"
+	| scr == 1 = "/tmp/xmonad_status_pipe2"
 
-	-- no separator between workspaces
-	, ppWsSep           = ""
+dumpToPipe :: Int -> String -> IO ()
+dumpToPipe scr s = do
+	IO.writeFile (statusPipePath scr) $ UTF8.decodeString (s++"\n")
 
-	-- no separator between each object
-	, ppSep             = ""
+makeLogString :: Int -> X String
+makeLogString scr = do
+    st <- gets windowset
+    sort' <- getSortByIndex
 
-	, ppOutput         = dumpToPipe
-	}
+    -- workspace list
+    let ws = W.hidden st ++ map W.workspace (W.current st : W.visible st)
+    return $ UTF8.encodeString . concatMap (makeDot st scr) . sort' $ ws
 
-statusPipePath1 = "/tmp/xmonad_status_pipe1"
-statusPipePath2 = "/tmp/xmonad_status_pipe2"
-dumpToPipe :: String -> IO ()
-dumpToPipe s = do
-	IO.writeFile statusPipePath1 $ UTF8.decodeString (s++"\n")
-	IO.writeFile statusPipePath2 $ UTF8.decodeString (s++"\n")
+--makeDot :: WindowSet -> Int -> WorkspaceId -> String
+makeDot st scr w 
+	| isCurrentOnThisScreen && isCurrent		= xmobarColor lightPurple "" "●"
+	| not isCurrentOnThisScreen && isCurrent	= xmobarColor lightGrey "" "●"
+	| not isCurrentOnThisScreen && isVisible	= xmobarColor lightPurple "" "●"
+	| isCurrentOnThisScreen && isVisible		= xmobarColor lightGrey "" "●"
+	| isJust (W.stack w)	= xmobarColor darkGrey "" "●"
+	| otherwise				= xmobarColor darkGrey "" "○"
+	where
+		isCurrentOnThisScreen = W.screen (W.current st) == S scr
+		isCurrent = W.tag w == W.currentTag st
+		isVisible = W.tag w `elem` visibles
+		visibles = map (W.tag . W.workspace) (W.visible st)
 
---makeDot :: WorkspaceId -> String
---makeDot i = undefined
-
---isHiddenNonEmpty :: WorkspaceId -> Bool
---isHiddenNonEmpty i = case ws of
---	Nothing -> False
---	Just ws' -> case W.stack ws' of windows
---		Nothing -> False
---		otherwise -> True
---	where
---		ws = lookup i zipped
---		zipped = zip (map W.tag W.hidden) W.hidden
 
 ------------------------------------------------------------------------
 -- layouts

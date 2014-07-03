@@ -1,0 +1,29 @@
+URxvt*.depth: 32
+URxvt*.background: [70]#1f1f2c
+URxvt.scrollBar: false
+URxvt.font: xft:monospace:size=12
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+
+! .Xdefaults - colors and stuff
+*.background: #1f1f2c
+*.foreground: #c7c9cb
+ 
+! Normal Colors
+*.color0: #3f3f4c
+*.color1: #91A0BD
+*.color2: #5C6B8B
+*.color3: #adc6d6
+*.color4: #a091bd
+*.color5: #6c5c8b
+*.color6: #afadd6
+*.color7: #cccaca
+! Light Colors
+*.color8: #525263
+*.color9: #a4adbd
+*.color10: #6a748b
+*.color11: #c3ced6
+*.color12: #ada4bd
+*.color13: #756a8b
+*.color14: #c4c3d6

@@ -6,13 +6,13 @@ Config { font = "-*-Monospace--R-Normal-*-*-*-*-*-*-*-*-*"
 		, Run Uptime ["-t", "<icon=/usr/share/icons/stlarch_icons/uparrow1.xbm/> <days>d <hours>h <minutes>m"] 600
 		, Run CoreTemp   ["-t", "<icon=/usr/share/icons/stlarch_icons/temp5.xbm/> <core0>",
 			"-L", "40", "-H", "60",
-			"-l", "lightblue", "-n", "gray90", "-h", "red"] 
+			"-l", "lightblue", "-n", "gray90", "-h", "red"]
 			100
 		, Run BatteryP ["BAT1"] ["-t", "<icon=/usr/share/icons/stlarch_icons/batt1full.xbm/> <left>",
-			"--", "-L", "8", "-H", "20",  
+			"--", "-L", "8", "-H", "20",
 			"-l", "red", "-m", "yellow", "-h", "grey"]
 			600
-		, Run Com "conky" ["-c", "/home/ross/.config/conky/conkyrc_xmobar"] "network" 20
+		, Run Com "conky" ["-c", "/home/ross/.config/conky/conkyrc_xmobar"] "network" 2
 		, Run PipeReader "/tmp/xmonad_status_pipe1" "dots"
 		]
 	, sepChar = "%"

@@ -23,6 +23,9 @@ numlockx on
 ## set correct pointer for wm windows
 xsetroot -cursor_name left_ptr
 
+## set xresources
+xrdb -merge ~/.Xresources
+
 #############
 ## Autostarts
 #############

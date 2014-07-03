@@ -101,8 +101,8 @@ cat /dev/urandom | hexdump -C | grep "ca fe"
 hotspot ()
 {
 sc-stop netctl-auto@wlan0.service
-sc-stop dnsmasq.service
+#sc-stop dnsmasq.service
 sudo create_ap wlan0 eth0 nyx
 sc-start netctl-auto@wlan0.service
-sc-start dnsmasq.service
+#sc-start dnsmasq.service
 }

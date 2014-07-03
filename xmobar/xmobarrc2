@@ -12,7 +12,7 @@ Config { font = "-*-Monospace--R-Normal-*-*-*-*-*-*-*-*-*"
 			"--", "-L", "8", "-H", "20",
 			"-l", "red", "-m", "yellow", "-h", "grey"]
 			600
-		, Run Com "conky" ["-c", "/home/ross/.config/conky/conkyrc_xmobar"] "conky" 20
+		, Run Com "conky" ["-c", "/home/ross/.config/conky/conkyrc_xmobar"] "conky" 2
 		, Run PipeReader "/tmp/xmonad_status_pipe2" "dots"
 		]
 	, sepChar = "%"
