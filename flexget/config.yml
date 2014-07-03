@@ -31,6 +31,7 @@ tasks:
           custom: Download
       settings:
         quality: hdtv <720p
+        identified_by: ep
     deluge:
       main_file_only: true
       content_filename: "{{series_name}}.{{trakt_season}}x{{trakt_episode}}.{{trakt_ep_name}}"
