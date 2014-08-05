@@ -1,15 +1,16 @@
 import XMonad hiding ((|||))
- 
+
 import System.Exit
 import qualified System.IO.UTF8 as IO
 import qualified Codec.Binary.UTF8.String as UTF8
 import Data.Maybe ( isJust )
 --import Data.Ratio ((%))
- 
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 import XMonad.Actions.CycleWS
+-- import XMonad.Actions.SinkAll
 --import XMonad.Actions.FloatKeys
 --import XMonad.Actions.NoBorders
 import XMonad.Hooks.DynamicLog
@@ -56,13 +57,13 @@ rossConfig = defaultConfig {
 
 ------------------------------------------------------------------------
 -- workspaces
- 
+
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = map show [1 .. 5 :: Int] 
+myWorkspaces = map show [1 .. 5 :: Int]
 
 ------------------------------------------------------------------------
 -- keybindings
- 
+
 myKeyBindings c = mkKeymap c  $
 	 -- apps
 	 --[ ("M-<Return>", spawn "lxterminal")
@@ -73,13 +74,13 @@ myKeyBindings c = mkKeymap c  $
 	 , ("M-h", spawn "hibernate")
 	 --other stuff
 	 , ("M-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
-	 , ("M-S-<Escape>", io exitSuccess)  
+	 , ("M-S-<Escape>", io exitSuccess)
 	 , ("M-q", kill)
 	 , ("M-b", sendMessage ToggleStruts)
 	 -- moving focus
 	 , ("M-<L>", windows W.focusUp)
 	 , ("M-<R>", windows W.focusDown)
-	 , ("M-<Space>", windows W.focusMaster) 
+	 , ("M-<Space>", windows W.focusMaster)
 	 , ("M-<Home>", moveTo Prev NonEmptyWS)
 	 , ("M-<End>", moveTo Next NonEmptyWS)
 	 , ("M-x", swapNextScreen)
@@ -90,14 +91,16 @@ myKeyBindings c = mkKeymap c  $
 	 -- moving windows
 	 , ("M-C-<L>", windows W.swapUp)
 	 , ("M-C-<R>", windows W.swapDown)
-	 , ("M-C-<Space>", windows W.swapMaster) 
+	 , ("M-C-<Space>", windows W.swapMaster)
 	 , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
 	 , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
 	 , ("M-C-x", shiftNextScreen)
-	 , ("M-m", withFocused $ windows . W.sink) 
+   -- fullscreen and floating
+	 , ("M-<U>", withFocused $ windows . (\w -> W.float w (W.RationalRect (0.0) (0.0) (1.0) (1.0))))
+	 , ("M-<D>", withFocused $ windows . W.sink)
 	 -- change layout
-	 , ("M-<D>", sendMessage Shrink)
-	 , ("M-<U>", sendMessage Expand)
+	 , ("M-,", sendMessage Shrink)
+	 , ("M-.", sendMessage Expand)
 	 , ("M-~", sendMessage NextLayout)
 	 --, ("M-,", sendMessage (IncMasterN 1))
 	 --, ("M-.", sendMessage (IncMasterN (-1)))
@@ -113,26 +116,26 @@ myKeyBindings c = mkKeymap c  $
 -- Mouse bindings: default actions bound to mouse events
 --
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList
- 
+
 	-- mod-button1, Set the window to floating mode and move by dragging
 	[ ((modm, button1), (\w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster))
- 
+
 	-- mod-button2, Raise the window to the top of the stack
 	, ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
- 
+
 	-- mod-button3, Set the window to floating mode and resize by dragging
 	, ((modm, button3), (\w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster))
- 
+
 	-- you may also bind events to the mouse scroll wheel (button4 and button5)
 	]
 ------------------------------------------------------------------------
 -- window rules
- 
+
 myManageHook = composeAll . concat $
-		[ 
+		[
 		[ isFullscreen --> doFullFloat ]
 		]
- 
+
 ------------------------------------------------------------------------
 -- status bar and logging
 
@@ -163,7 +166,7 @@ makeLogString scr = do
     return $ UTF8.encodeString . concatMap (makeDot st scr) . sort' $ ws
 
 --makeDot :: WindowSet -> Int -> WorkspaceId -> String
-makeDot st scr w 
+makeDot st scr w
 	| isCurrentOnThisScreen && isCurrent		= xmobarColor lightPurple "" "●"
 	| not isCurrentOnThisScreen && isCurrent	= xmobarColor lightGrey "" "●"
 	| not isCurrentOnThisScreen && isVisible	= xmobarColor lightPurple "" "●"
@@ -179,7 +182,7 @@ makeDot st scr w
 
 ------------------------------------------------------------------------
 -- layouts
- 
+
 myLayouts = smartBorders $
 		avoidStruts $
 		--showName $

@@ -5,17 +5,37 @@ total_run_times 1
 if_up_strictness link
 
 TEXT
+########################################
+# ---FAN---
+########################################
+#<icon=/usr/share/icons/stlarch_icons/edit2.xbm/> \
+#${if_match "${exec samsung-tools -c status | grep Overclock}"=="Fan mode: Overclock"}\
+#O \
+#${endif}\
+#${if_match "${exec samsung-tools -c status | grep Normal}"=="Fan mode: Normal"}\
+#N \
+#${endif}\
+#${if_match "${exec samsung-tools -c status | grep Silent}"=="Fan mode: Silent"}\
+#S \
+#${endif}\
 #########################################
 # ---VOLUME---
 #########################################
-<icon=/usr/share/icons/stlarch_icons/vol2.xbm/> \
-${exec amixer get Master -M | grep -oE "[[:digit:]]*%"} \
-${exec amixer get Master -M | grep -oE "off"} \
+${if_match "${exec /home/ross/.scripts/volume headphone}"=="on"}\
+<icon=/usr/share/icons/stlarch_icons/headphone1.xbm/> \
+${endif}\
+${if_match "${exec /home/ross/.scripts/volume speaker}"=="on"}\
+<icon=/usr/share/icons/stlarch_icons/vol1.xbm/> \
+${endif}\
+${exec /home/ross/.scripts/volume level}% \
+${exec /home/ross/.scripts/volume mute_status} \
 #########################################
 # ---NET---
 #########################################
-${if_existing /proc/net/route wlan0}\
+${if_match "${exec samsung-tools -W status | grep enabled}"=="Wireless is enabled"}\
 <icon=/usr/share/icons/stlarch_icons/wireless1.xbm/> \
+${endif}\
+${if_existing /proc/net/route wlan0}\
 ${wireless_essid wlan0} \
 ${addr wlan0} \
 ${endif}\
