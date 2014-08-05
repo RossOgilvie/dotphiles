@@ -38,4 +38,5 @@ _xmonad_status_pipe1=/tmp/xmonad_status_pipe1
 xmobar /home/ross/.xmobarrc1 &
 
 _xmonad_status_pipe2=/tmp/xmonad_status_pipe2
-[[ -S $_xmonad_status_pipe2 ]] || mkfifo $_xmonad_status_pipe2
+#[[ -S $_xmonad_status_pipe2 ]] || mkfifo $_xmonad_status_pipe2
+ln -s /dev/null $_xmonad_status_pipe2

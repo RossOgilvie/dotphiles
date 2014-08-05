@@ -21,10 +21,10 @@
 
 "/home/ross/.scripts/volume toggle"
     XF86AudioMute
-    
+
 "/home/ross/.scripts/volume down"
     XF86AudioLowerVolume
-    
+
 "/home/ross/.scripts/volume up"
     XF86AudioRaiseVolume
 
@@ -34,9 +34,12 @@
 
 "/home/ross/.scripts/brightness down"
     F22
-    
+
 "/home/ross/.scripts/brightness up"
     F23
+
+"/home/ross/.scripts/volume headphone_switch"
+    F25
 
 "/home/ross/.scripts/volume toggle"
     F26
@@ -49,7 +52,7 @@
 
 "sudo /home/ross/.scripts/keyboard_backlight dec"
     F29
-    
+
 "sudo /home/ross/.scripts/keyboard_backlight inc"
     F30
 
@@ -100,7 +103,7 @@
 	Mod5 + x
 
 #"sleep 0.2 && xdotool type  --clearmodifiers \\omicron"
-	#Mod5 + a	
+	#Mod5 + a
 
 "sleep 0.2 && xdotool type  --clearmodifiers \\pi"
 	Mod5 + p
