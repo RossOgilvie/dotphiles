@@ -78,7 +78,11 @@ xbindkeys/xbindkeysrc
 xinit/xinitrc
 xinit/xprofile
 xinit/Xresources
-xmodmap/Xmodmap
+xmodmap/xmodmap_standard
+xmodmap/xmodmap_greek
+xmodmap/xmodmap_latex
+xmodmap/xmodmap_braces
+xmodmap/xmodmap_sbrackets
 xmobar/xmobarrc1
 xmobar/xmobarrc2
 xmonad
@@ -108,4 +112,3 @@ eris git=ANY
 #host8.example.net               rsync=host2.example.com                                #rsync mirror, push from host2
 #host9.example.net               rsync=host2.example.com                                #rsync mirror, push from host2
 [endhosts]
-

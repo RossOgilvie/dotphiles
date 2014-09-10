@@ -66,12 +66,29 @@ myWorkspaces = map show [1 .. 5 :: Int]
 
 myKeyBindings c = mkKeymap c  $
 	 -- apps
-	 --[ ("M-<Return>", spawn "lxterminal")
-	 [ ("M-<Return>", spawn "urxvt")
-	 , ("M-e", spawn "nemo")
-	 , ("M-v", spawn "pavucontrol")
+	 [ ("M-h", spawn "hibernate")
+	 -- apps
+	 , ("M-<Return>", spawn "urxvt")
+	 , ("M-a", spawn "atom")
 	 , ("M-c", spawn "gnome-calculator")
-	 , ("M-h", spawn "hibernate")
+	 , ("M-e", spawn "nemo")
+	 , ("M-f", spawn "firefox-aurora")
+	 , ("M-v", spawn "urxvt -e alsamixer")
+	-- F-Keys
+	 , ("<F1>", spawn "sudo chvt 2")
+	 , ("<F2>", spawn "/home/ross/.scripts/brightness down")
+	 , ("<F3>", spawn "/home/ross/.scripts/brightness up")
+	 , ("<F4>", spawn "/home/ross/.scripts/screens")
+	 , ("<F5>", spawn "/home/ross/.scripts/volume headphone_switch")
+	 , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
+	 , ("<F7>", spawn "/home/ross/.scripts/volume down")
+	 , ("<F8>", spawn "/home/ross/.scripts/volume up")
+	 , ("<F9>", spawn "/home/ross/.scripts/keyboard_backlight down")
+	 , ("<F10>", spawn "/home/ross/.scripts/keyboard_backlight up")
+	 , ("<F11>", spawn "samsung-tools -c cycle")
+	 , ("<F12>", spawn "samsung-tools -W toggle")
+	--  , ("<F2>", spawn "")
+	--  , ("M-h", spawn "hibernate")
 	 --other stuff
 	 , ("M-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
 	 , ("M-S-<Escape>", io exitSuccess)
@@ -87,7 +104,7 @@ myKeyBindings c = mkKeymap c  $
 	 , ("M-S-x", nextScreen)
 	 , ("M-<Tab>", toggleWS)
 	 , ("M-n",  moveTo Next EmptyWS)
-	 , ("M-C-n",  shiftTo Next EmptyWS >> moveTo Next EmptyWS)
+	 , ("M-C-n",  shiftTo Next EmptyWS)
 	 -- moving windows
 	 , ("M-C-<L>", windows W.swapUp)
 	 , ("M-C-<R>", windows W.swapDown)

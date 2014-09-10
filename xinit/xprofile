@@ -13,7 +13,7 @@ xcompmgr -cCfF -D 6&
 xmodmap /home/ross/.Xmodmap
 
 ## Set up my custom global keyboard shortcuts
-xbindkeys &
+# /home/ross/.scripts/persist xbindkeys -n &
 
 numlockx on
 
@@ -25,6 +25,8 @@ xsetroot -cursor_name left_ptr
 
 ## set xresources
 xrdb -merge ~/.Xresources
+
+#export PATH
 
 #############
 ## Autostarts
