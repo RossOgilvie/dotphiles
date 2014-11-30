@@ -1,0 +1,3 @@
+!swap normal <-> shift to get default braces
+keycode  34 = braceleft bracketleft braceleft bracketleft
+keycode  35 = braceright bracketright braceright bracketright

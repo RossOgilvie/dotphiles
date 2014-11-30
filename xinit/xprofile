@@ -10,10 +10,13 @@ xcompmgr -cCfF -D 6&
 
 ## Swaps some keys around
 ## Makes caps lock into a launcher key
-xmodmap /home/ross/.Xmodmap
+#xmodmap /home/ross/.xmodmap_standard
+#xmodmap /home/ross/.xmodmap_greek
+## Start a daemon script that sets up keyboards
+/home/ross/.scripts/keyboard_setup &
 
 ## Set up my custom global keyboard shortcuts
-xbindkeys &
+# /home/ross/.scripts/persist xbindkeys -n &
 
 numlockx on
 
@@ -25,6 +28,8 @@ xsetroot -cursor_name left_ptr
 
 ## set xresources
 xrdb -merge ~/.Xresources
+
+#export PATH
 
 #############
 ## Autostarts

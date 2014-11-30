@@ -7,7 +7,7 @@ alias yql='yaourt -Ql'
 alias yqli='yaourt -Qli'
 alias yr='yaourt -Rsn'
 alias yu='yaourt -Syu'
-alias yua='yaourt -Syua --devel'
+alias yolo='yaourt -Syua --noconfirm'
 yaourt() { /usr/bin/yaourt $* && rehash;  }
 
 
@@ -50,6 +50,16 @@ alias lla='ll -A'
 cd() {
     builtin cd "$@" && ls
 }
+auto-ls () {
+if [[ $#BUFFER -eq 0 ]]; then
+    echo ""
+    ls
+    zle redisplay
+else
+    zle .$WIDGET
+fi
+}
+zle -N accept-line auto-ls
 
 #trash-cli
 alias tr='trash'
@@ -78,15 +88,15 @@ alias suspend='systemctl suspend'
 alias hibernate='systemctl hibernate'
 
 # clock
-clock () 
-{ 
-while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done 
+clock ()
+{
+while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done
 }
 
 #for refreshing the xbindkeys program
 function refresh_xbindkeys(){
 	pkill xbindkeys
-	xbindkeys
+#	xbindkeys
 }
 
 ebg() {
@@ -105,4 +115,12 @@ sc-stop netctl-auto@wlan0.service
 sudo create_ap wlan0 eth0 nyx
 sc-start netctl-auto@wlan0.service
 #sc-start dnsmasq.service
+}
+
+### developing
+alias haddock='cabal haddock --haddock-options=-U --haddock-options=--print-missing-docs'
+
+### cat a script
+show() {
+cat $(which $1)
 }

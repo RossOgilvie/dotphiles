@@ -1,13 +1,13 @@
 # Toggle display modes. off -> mirrored -> extend
-"/home/ross/.scripts/screens"
-    Mod4 + p
-
-"xrandr --auto"
-    Mod4 + Shift + p
+# "/home/ross/.scripts/screens"
+#     Mod4 + p
+#
+# "xrandr --auto"
+#     Mod4 + Shift + p
 
 #run location profiling script manually
-"/home/ross/.scripts/location refresh"
-	Mod4 + u
+# "/home/ross/.scripts/location refresh"
+# 	Mod4 + u
 
 ## Enable media keys to do their thing
 "/home/ross/.scripts/music_control.sh play"
@@ -29,35 +29,35 @@
     XF86AudioRaiseVolume
 
 ## Implement laptop functinality on the Fn keys
-"sudo chvt 2"
-	F21
-
-"/home/ross/.scripts/brightness down"
-    F22
-
-"/home/ross/.scripts/brightness up"
-    F23
-
-"/home/ross/.scripts/volume headphone_switch"
-    F25
-
-"/home/ross/.scripts/volume toggle"
-    F26
-
-"/home/ross/.scripts/volume down"
-    F27
-
-"/home/ross/.scripts/volume up"
-    F28
-
-"sudo /home/ross/.scripts/keyboard_backlight dec"
-    F29
-
-"sudo /home/ross/.scripts/keyboard_backlight inc"
-    F30
-
-"samsung-tools -c cycle"
-    F31
+# "sudo chvt 2"
+# 	F21
+#
+# "/home/ross/.scripts/brightness down"
+#     F22
+#
+# "/home/ross/.scripts/brightness up"
+#     F23
+#
+# "/home/ross/.scripts/volume headphone_switch"
+#     F25
+#
+# "/home/ross/.scripts/volume toggle"
+#     F26
+#
+# "/home/ross/.scripts/volume down"
+#     F27
+#
+# "/home/ross/.scripts/volume up"
+#     F28
+#
+# "sudo /home/ross/.scripts/keyboard_backlight dec"
+#     F29
+#
+# "sudo /home/ross/.scripts/keyboard_backlight inc"
+#     F30
+#
+# "samsung-tools -c cycle"
+#     F31
 
 ## Latex shortcuts
 "sleep 0.2 && xdotool type --clearmodifiers \\alpha"

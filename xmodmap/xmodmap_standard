@@ -1,0 +1,6 @@
+! Change caps lock key to launcher
+clear Lock
+keycode 66 = XF86Go
+
+!swap normal <-> shift to get default tilde and braces
+keycode  49 = asciitilde grave asciitilde grave

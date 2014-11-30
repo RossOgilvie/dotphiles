@@ -1,0 +1,6 @@
+! REMAP RIGHT ALT FOR FAST LATEXING
+clear mod1
+add mod1 = Alt_L
+clear mod5
+keycode 108 = Meta_R
+add mod5 = Meta_R

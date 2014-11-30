@@ -29,6 +29,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
 ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 
+precmd() { print "" }
 PROMPT="%{$fg[$ZSH_THEME_USER_COLOUR]%}%n\
 %{$fg[$ZSH_THEME_HOST_COLOUR]%}@%m:\
 %{$reset_color%}%2~\
