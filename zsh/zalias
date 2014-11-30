@@ -7,7 +7,7 @@ alias yql='yaourt -Ql'
 alias yqli='yaourt -Qli'
 alias yr='yaourt -Rsn'
 alias yu='yaourt -Syu'
-alias yua='yaourt -Syua --devel'
+alias yolo='yaourt -Syua --noconfirm'
 yaourt() { /usr/bin/yaourt $* && rehash;  }
 
 
@@ -50,6 +50,16 @@ alias lla='ll -A'
 cd() {
     builtin cd "$@" && ls
 }
+auto-ls () {
+if [[ $#BUFFER -eq 0 ]]; then
+    echo ""
+    ls
+    zle redisplay
+else
+    zle .$WIDGET
+fi
+}
+zle -N accept-line auto-ls
 
 #trash-cli
 alias tr='trash'

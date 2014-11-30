@@ -12,16 +12,16 @@ keycode 47 = semicolon colon 0x01002237
 ! ADD GREEK LETTERS ON MODE_SWITCH
 keycode 24 = q Q Greek_psi Greek_PSI
 keycode 25 = w W Greek_omega Greek_OMEGA
-keycode 26 = e E Greek_epsilon Greek_EPSILON
+keycode 26 = e E Greek_epsilon egrave
 keycode 27 = r R Greek_rho Greek_RHO
 keycode 28 = t T Greek_tau Greek_TAU
 keycode 29 = y Y Greek_upsilon Greek_UPSILON
-keycode 30 = u U
-keycode 31 = i I Greek_iota Greek_IOTA
-keycode 32 = o O Greek_omicron Greek_OMICRON
+keycode 30 = u U u ugrave
+keycode 31 = i I Greek_iota igrave
+keycode 32 = o O Greek_omicron ograve
 keycode 33 = p P Greek_pi Greek_PI
 
-keycode 38 = a A Greek_alpha Greek_ALPHA
+keycode 38 = a A Greek_alpha agrave
 keycode 39 = s S Greek_sigma Greek_SIGMA
 keycode 40 = d D Greek_delta Greek_DELTA
 keycode 41 = f F Greek_phi Greek_PHI
