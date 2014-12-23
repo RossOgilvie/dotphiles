@@ -16,4 +16,4 @@ fi
 ##############
 ## Xmonad WM
 ##############
-exec xmonad > /home/ross/.xmonad_errors 2>&1
+exec ~/.xmonad/xmonad > /home/ross/.xmonad_errors 2>&1

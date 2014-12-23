@@ -64,11 +64,25 @@ myWorkspaces = map show [1 .. 5 :: Int]
 ------------------------------------------------------------------------
 -- keybindings
 
-myKeyBindings c = mkKeymap c  $
-	 -- apps
-	 [ ("M-h", spawn "hibernate")
-	 -- apps
-	 , ("M-<Return>", spawn "urxvt")
+myKeyBindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeyBindings c = mkKeymap c (rawKeys c)
+
+rawKeys :: XConfig Layout -> [(String, X ())]
+rawKeys c = concatMap ($ c) keymaps where
+	keymaps = [baseKeys, spawnKeys, fKeys, focusKeys]
+
+baseKeys :: XConfig Layout -> [(String, X ())]
+baseKeys _ =
+	[ ("M-h", spawn "hibernate")
+	 , ("M-<Escape>", kill)
+	 , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
+	 , ("M-C-S-r", restart "/home/ross/.xmonad/xmonad" True)
+	 , ("M-b", sendMessage ToggleStruts)
+	 , ("M-C-S-<Escape>", io exitSuccess)
+	]
+
+spawnKeys _ =
+	 [ ("M-<Return>", spawn "urxvt")
 	 , ("M-a", spawn "atom")
 	 , ("M-c", spawn "gnome-calculator")
 	 , ("M-e", spawn "nemo")
@@ -79,8 +93,10 @@ myKeyBindings c = mkKeymap c  $
 	-- Toggle Keyboard mapping
 	 , ("M-S-k", spawn "xmodmap /home/ross/.xmodmap_sbrackets && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Square Brackets Activated\"")
 	 , ("M-k", spawn "xmodmap /home/ross/.xmodmap_braces && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Braces Activated\"")
-	-- F-Keys
-	 , ("<F1>", spawn "sudo chvt 2")
+	]
+
+fKeys _ =
+	[("<F1>", spawn "sudo chvt 2")
 	 , ("<F2>", spawn "/home/ross/.scripts/brightness down")
 	 , ("<F3>", spawn "/home/ross/.scripts/brightness up")
 	 , ("<F4>", spawn "/home/ross/.scripts/screens")
@@ -92,46 +108,44 @@ myKeyBindings c = mkKeymap c  $
 	 , ("<F10>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
 	 , ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
 	 , ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
-	 --other stuff
-	 , ("M-C-S-r", spawn "/home/ross/.scripts/xmonad_restart")
-	 , ("M-C-S-<Escape>", io exitSuccess)
-	 , ("M-b", sendMessage ToggleStruts)
-	-- KILLING
-	 , ("M-<Escape>", kill)
-	 -- moving focus
-	 , ("M-<U>", windows W.focusUp)
-	 , ("M-<D>", windows W.focusDown)
-	 , ("M-<L>", windows W.focusMaster)
-	 , ("M-<Home>", moveTo Prev NonEmptyWS)
-	 , ("M-<End>", moveTo Next NonEmptyWS)
-	 , ("M-<Space>", swapNextScreen)
-	 , ("M-S-<Space>", nextScreen)
-	 , ("M-<Tab>", toggleWS)
-	 , ("M-n",  moveTo Next EmptyWS)
-	 -- moving windows
-	 , ("M-C-<U>", windows W.swapUp)
-	 , ("M-C-<D>", windows W.swapDown)
-	 , ("M-C-<L>", windows W.swapMaster)
-	 , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
-	 , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
-	 , ("M-C-<Space>", shiftNextScreen)
-	 , ("M-C-n",  shiftTo Next EmptyWS)
-   -- fullscreen and floating
-	 , ("M-S-<R>", withFocused $ windows . (\w -> W.float w (W.RationalRect (0.0) (0.0) (1.0) (1.0))))
-	 , ("M-<R>", withFocused $ windows . W.sink)
-	 -- change layout
-	 , ("M-,", sendMessage Shrink)
-	 , ("M-.", sendMessage Expand)
-	 , ("M-~", sendMessage NextLayout)
-	 --, ("M-,", sendMessage (IncMasterN 1))
-	 --, ("M-.", sendMessage (IncMasterN (-1)))
-	 ]
-	 ++
-	 [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
-	 ++
-	 [("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
-	 ++
-	 [("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..5] (XMonad.workspaces c)]
+	]
+
+focusKeys c =
+	[
+	-- moving focus
+	("M-<U>", windows W.focusUp)
+	, ("M-<D>", windows W.focusDown)
+	, ("M-<L>", windows W.focusMaster)
+	, ("M-<Home>", moveTo Prev NonEmptyWS)
+	, ("M-<End>", moveTo Next NonEmptyWS)
+	, ("M-<Space>", swapNextScreen)
+	, ("M-S-<Space>", nextScreen)
+	, ("M-<Tab>", toggleWS)
+	, ("M-n",  moveTo Next EmptyWS)
+	-- moving windows
+	, ("M-C-<U>", windows W.swapUp)
+	, ("M-C-<D>", windows W.swapDown)
+	, ("M-C-<L>", windows W.swapMaster)
+	, ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
+	, ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
+	, ("M-C-<Space>", shiftNextScreen)
+	, ("M-C-n",  shiftTo Next EmptyWS)
+	-- fullscreen and floating
+	, ("M-S-<R>", withFocused $ windows . (\w -> W.float w (W.RationalRect (0.0) (0.0) (1.0) (1.0))))
+	, ("M-<R>", withFocused $ windows . W.sink)
+	-- change layout
+	, ("M-,", sendMessage Shrink)
+	, ("M-.", sendMessage Expand)
+	, ("M-~", sendMessage NextLayout)
+	, ("M-<", sendMessage (IncMasterN (-1)))
+	, ("M->", sendMessage (IncMasterN 1))
+	]
+	++
+	[("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..5::Int] (XMonad.workspaces c)]
+	++
+	[("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..5 :: Int] (XMonad.workspaces c)]
+	++
+	[("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..5::Int] (XMonad.workspaces c)]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
