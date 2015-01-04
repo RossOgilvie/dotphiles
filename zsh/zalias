@@ -12,6 +12,7 @@ yaourt() { /usr/bin/yaourt $* && rehash;  }
 
 
 # modified commands
+alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias sudo='sudo '
 alias diff='colordiff'
 alias df='df -h'
