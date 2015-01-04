@@ -10,8 +10,8 @@ xcompmgr -cCfF -D 6&
 
 ## Swaps some keys around
 ## Makes caps lock into a launcher key
-#xmodmap /home/ross/.xmodmap_standard
-#xmodmap /home/ross/.xmodmap_greek
+xmodmap /home/ross/.xmodmap_standard
+xmodmap /home/ross/.xmodmap_greek
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard_setup &
 
