@@ -28,10 +28,13 @@ ${if_match "${exec /home/ross/.scripts/volume speaker}"=="on"}\
 <icon=/usr/share/icons/stlarch_icons/vol1.xbm/> \
 ${endif}\
 ${exec /home/ross/.scripts/volume level}% \
-${exec /home/ross/.scripts/volume mute_status} \
+${exec /home/ross/.scripts/volume mute_status}\
 #########################################
 # ---NET---
 #########################################
+${if_match "${exec samsung-tools -B status | grep enabled}"=="Bluetooth is enabled"}\
+<icon=/usr/share/icons/stlarch_icons/bluetooth1.xbm/> \
+${endif}\
 ${if_match "${exec samsung-tools -W status | grep enabled}"=="Wireless is enabled"}\
 <icon=/usr/share/icons/stlarch_icons/wireless1.xbm/> \
 ${endif}\
