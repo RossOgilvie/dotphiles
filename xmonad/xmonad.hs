@@ -22,7 +22,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.NoBorders
 --import XMonad.Layout.PerWorkspace
---import XMonad.Layout.ShowWName
+import XMonad.Layout.ShowWName
 import XMonad.Layout.Spacing
 --import XMonad.Layout.ToggleLayouts
 import XMonad.Util.EZConfig
@@ -69,7 +69,7 @@ myKeyBindings c = mkKeymap c (rawKeys c)
 
 rawKeys :: XConfig Layout -> [(String, X ())]
 rawKeys c = concatMap ($ c) keymaps where
-	keymaps = [baseKeys, spawnKeys, fKeys, focusKeys]
+	keymaps = [baseKeys, spawnKeys, fKeys, focusKeys, mediaKeys]
 
 baseKeys :: XConfig Layout -> [(String, X ())]
 baseKeys _ =
@@ -89,25 +89,39 @@ spawnKeys _ =
 	 , ("M-f", spawn "firefox-aurora")
 	 , ("M-r", spawn "firefox-aurora -P Rdio -no-remote")
 	 , ("M-u", spawn "/home/ross/.scripts/keyboard_setup_udev")
-	 , ("M-v", spawn "urxvt -e alsamixer")
+	 , ("M-v", spawn "pavucontrol")
 	-- Toggle Keyboard mapping
 	 , ("M-S-k", spawn "xmodmap /home/ross/.xmodmap_sbrackets && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Square Brackets Activated\"")
 	 , ("M-k", spawn "xmodmap /home/ross/.xmodmap_braces && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Braces Activated\"")
 	]
 
 fKeys _ =
-	[("<F1>", spawn "sudo chvt 2")
-	 , ("<F2>", spawn "/home/ross/.scripts/brightness down")
-	 , ("<F3>", spawn "/home/ross/.scripts/brightness up")
-	 , ("<F4>", spawn "/home/ross/.scripts/screens")
-	 , ("S-<F6>", spawn "/home/ross/.scripts/volume headphone_switch")
-	 , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
-	 , ("<F7>", spawn "/home/ross/.scripts/volume down")
-	 , ("<F8>", spawn "/home/ross/.scripts/volume up")
-	 , ("<F9>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
-	 , ("<F10>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
-	 , ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
-	 , ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
+	[ ("<F1>", spawn "sudo chvt 2")
+	, ("<F2>", spawn "/home/ross/.scripts/brightness down")
+	, ("<F3>", spawn "/home/ross/.scripts/brightness up")
+	, ("<F4>", spawn "/home/ross/.scripts/screens")
+	, ("<F6>", spawn "/home/ross/.scripts/volume toggle")
+	, ("<F7>", spawn "/home/ross/.scripts/volume down")
+	, ("<F8>", spawn "/home/ross/.scripts/volume up")
+	, ("S-<F6>", spawn "/home/ross/.scripts/music_control play")
+	, ("S-<F7>", spawn "/home/ross/.scripts/music_control prev")
+	, ("S-<F8>", spawn "/home/ross/.scripts/music_control next")
+	, ("<F9>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
+	, ("<F10>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
+	, ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
+	, ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
+	, ("S-<F12>", spawn "samsung-tools -B toggle && notify-send -i /usr/share/icons/gnome/scalable/apps/bluetooth-symbolic.svg \"$(samsung-tools -B status)\"")
+	]
+	++
+	[ ("M-<F" ++ show n ++ ">", spawn $ "sleep 0.2 && xdotool key --clearmodifiers --window $(xdotool getactivewindow) F" ++ show n) | n <- [1..12]]
+
+mediaKeys _ =
+	[ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music_control play")
+	, ("<XF86AudioNext>", spawn "/home/ross/.scripts/music_control next")
+	, ("<XF86AudioPrev>", spawn "/home/ross/.scripts/music_control prev")
+	, ("<XF86AudioMute>", spawn "/home/ross/.scripts/volume toggle")
+	, ("<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/volume down")
+	, ("<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/volume up")
 	]
 
 focusKeys c =
@@ -131,14 +145,14 @@ focusKeys c =
 	, ("M-C-<Space>", shiftNextScreen)
 	, ("M-C-n",  shiftTo Next EmptyWS)
 	-- fullscreen and floating
-	, ("M-S-<R>", withFocused $ windows . (\w -> W.float w (W.RationalRect (0.0) (0.0) (1.0) (1.0))))
+	, ("M-S-<R>", withFocused $ windows . (\w -> W.float w (W.RationalRect 0.0 0.0 1.0 1.0)))
 	, ("M-<R>", withFocused $ windows . W.sink)
 	-- change layout
 	, ("M-,", sendMessage Shrink)
 	, ("M-.", sendMessage Expand)
 	, ("M-~", sendMessage NextLayout)
-	, ("M-<", sendMessage (IncMasterN (-1)))
-	, ("M->", sendMessage (IncMasterN 1))
+	, ("M-S-,", sendMessage (IncMasterN (-1)))
+	, ("M-S-.", sendMessage (IncMasterN 1))
 	]
 	++
 	[("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..5::Int] (XMonad.workspaces c)]
@@ -153,13 +167,13 @@ focusKeys c =
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList
 
 	-- mod-button1, Set the window to floating mode and move by dragging
-	[ ((modm, button1), (\w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster))
+	[ ((modm, button1), \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
 
 	-- mod-button2, Raise the window to the top of the stack
-	, ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+	, ((modm, button2), \w -> focus w >> windows W.shiftMaster)
 
 	-- mod-button3, Set the window to floating mode and resize by dragging
-	, ((modm, button3), (\w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster))
+	, ((modm, button3), \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
 
 	-- you may also bind events to the mouse scroll wheel (button4 and button5)
 	]
@@ -176,7 +190,7 @@ myManageHook = composeAll . concat $
 
 lightGrey = "#707070"
 darkGrey = "#303030"
-lightPurple = "#A091BD"
+lightPurple = "#57C7FF"
 
 myLogHook = myLogger 0 >> myLogger 1
 
@@ -188,8 +202,7 @@ statusPipePath scr
 	| scr == 1 = "/tmp/xmonad_status_pipe2"
 
 dumpToPipe :: Int -> String -> IO ()
-dumpToPipe scr s = do
-	IO.writeFile (statusPipePath scr) $ UTF8.decodeString (s++"\n")
+dumpToPipe scr s = IO.writeFile (statusPipePath scr) $ UTF8.decodeString (s++"\n")
 
 makeLogString :: Int -> X String
 makeLogString scr = do
@@ -220,7 +233,7 @@ makeDot st scr w
 
 myLayouts = smartBorders $
 		avoidStruts $
-		--showName $
+		showWName $
 		spacing 5 $
 		tiled ||| Mirror tiled ||| Full
 	where
