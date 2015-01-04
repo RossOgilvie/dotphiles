@@ -79,7 +79,8 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 #ep renaming
-alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}" -non-strict'
+#alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}" -non-strict'
+alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
 
 #power control
 alias reboot='systemctl reboot'

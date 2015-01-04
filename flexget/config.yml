@@ -2,9 +2,10 @@ tasks:
   get_tvshows:
     priority: 1
     inputs:
-      - rss: { url: 'https://ezrss.it/feed/', silent: yes }                      # EZRSS
-      - rss: { url: 'http://showrss.info/feeds/all.rss', silent: yes }          # showRSS, successor to karmorra?
-      - rss: { url: 'http://rss.thepiratebay.se/205', silent: yes }          # *the* pirate bay
+#      - rss: { url: 'https://ezrss.it/feed/', silent: yes }                      # EZRSS
+#      - rss: { url: 'http://showrss.info/feeds/all.rss', silent: yes }          # showRSS, successor to karmorra?
+      - rss: { url: 'https://kickass.so/tv/?rss=1', silent: yes }          # showRSS, successor to karmorra?
+#      - rss: { url: 'http://rss.thepiratebay.se/205', silent: yes }          # *the* pirate bay
 #      - rss: { url: 'http://www.torlock.com/television/rss.xml', silent: yes }  # TorLock (TV)
 #      - rss: { url: 'http://torrentz.eu/feed_verified?q=tv', silent: yes }      # Torrentz (Verified only, TV)
 #      - rss: { url: 'http://rss.bt-chat.com/?group=3', silent: yes }            # BT-Chat (EZTV)
