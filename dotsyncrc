@@ -70,6 +70,7 @@ sublime-text-2:.config/sublime-test-2
 tmux/tmux.conf
 #tmux/tmuxinator
 touchegg:.config/touchegg
+tvnamer:.config/tvnamer
 #vim/dotvim:.vim
 #vim/vimrc
 #vim/gvimrc
