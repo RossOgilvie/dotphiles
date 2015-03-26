@@ -12,9 +12,10 @@ ZSH_CUSTOM=/home/ross/.dotphiles/zsh/oh-my-zsh
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(systemd git-extras rsync colored-man command-not-found cp github history tmux)
+plugins=(systemd git-extras rsync colored-man command-not-found cp github history tmux-ross)
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOQUIT=false
 DISABLE_AUTO_UPDATE=true
 
 source $ZSH/oh-my-zsh.sh
@@ -81,3 +82,5 @@ zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
 ### load aliases
 ###############################
 source ~/.zalias
+
+autoload -U zmv

@@ -14,9 +14,9 @@ case $(hostname) in
 	nyx)
 	ZSH_THEME_HOST_COLOUR="blue";;
 	eris)
-	ZSH_THEME_HOST_COLOUR="cyan";;
-	*)
 	ZSH_THEME_HOST_COLOUR="yellow";;
+	*)
+	ZSH_THEME_HOST_COLOUR="red";;
 esac
 }
 

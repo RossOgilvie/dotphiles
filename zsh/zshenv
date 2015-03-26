@@ -16,6 +16,8 @@ export EDITOR="nano"
 #tell wine where opengl is
 #export LIBGL_DRIVERS_PATH=/usr/lib32/xorg/modules/dri
 
+export BROWSER=firefox-aurora
+
 #for automatic proxy handling
 #export http_proxy="http://localhost:8888/"
 #export https_proxy="https://localhost:8888/"
