@@ -1,3 +1,6 @@
+{-# LANGUAGE UnicodeSyntax #-}
+{-# LANGUAGE PatternGuards #-}
+
 import XMonad hiding ((|||))
 
 import System.Exit
@@ -5,6 +8,7 @@ import qualified System.IO.UTF8 as IO
 import qualified Codec.Binary.UTF8.String as UTF8
 import Data.Maybe ( isJust )
 --import Data.Ratio ((%))
+import qualified Data.List as L (deleteBy,find,splitAt,nub)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -58,8 +62,17 @@ rossConfig = defaultConfig {
 ------------------------------------------------------------------------
 -- workspaces
 
+numberOfWorkspaces :: Int
+numberOfWorkspaces = 6
+
+numberOfHiddenWorkspaces :: Int
+numberOfHiddenWorkspaces = 0
+
+wkspTags ∷ [String]
+wkspTags = map show [1 .. numberOfWorkspaces]
+
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = map show [1 .. 5 :: Int]
+myWorkspaces = map show [1 .. (numberOfWorkspaces + numberOfHiddenWorkspaces)]
 
 ------------------------------------------------------------------------
 -- keybindings
@@ -113,7 +126,7 @@ fKeys _ =
 	, ("S-<F12>", spawn "samsung-tools -B toggle && notify-send -i /usr/share/icons/gnome/scalable/apps/bluetooth-symbolic.svg \"$(samsung-tools -B status)\"")
 	]
 	++
-	[ ("M-<F" ++ show n ++ ">", spawn $ "sleep 0.2 && xdotool key --clearmodifiers --window $(xdotool getactivewindow) F" ++ show n) | n <- [1..12]]
+	[ ("M-<F" ++ show n ++ ">", spawn $ "sleep 0.2 && xdotool key --clearmodifiers --window $(xdotool getactivewindow) F" ++ show n) | n <- [1..12::Int]]
 
 mediaKeys _ =
 	[ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music_control play")
@@ -135,7 +148,8 @@ focusKeys c =
 	, ("M-<Space>", swapNextScreen)
 	, ("M-S-<Space>", nextScreen)
 	, ("M-<Tab>", toggleWS)
-	, ("M-n",  moveTo Next EmptyWS)
+	, ("M-n", moveTo Next EmptyWS)
+	, ("M-<Backspace>", windows $ showSpare)
 	-- moving windows
 	, ("M-C-<U>", windows W.swapUp)
 	, ("M-C-<D>", windows W.swapDown)
@@ -155,11 +169,11 @@ focusKeys c =
 	, ("M-S-.", sendMessage (IncMasterN 1))
 	]
 	++
-	[("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..5::Int] (XMonad.workspaces c)]
+	[("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
 	++
-	[("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..5 :: Int] (XMonad.workspaces c)]
+	[("M-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
 	++
-	[("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..5::Int] (XMonad.workspaces c)]
+	[("M-S-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -192,7 +206,8 @@ lightGrey = "#707070"
 darkGrey = "#303030"
 lightPurple = "#57C7FF"
 
-myLogHook = myLogger 0 >> myLogger 1
+-- myLogHook = myLogger 0 >> myLogger 1
+myLogHook = return ()
 
 myLogger :: Int -> X ()
 myLogger scr = makeLogString scr >>= io . dumpToPipe scr
@@ -210,8 +225,8 @@ makeLogString scr = do
     sort' <- getSortByIndex
 
     -- workspace list
-    let ws = W.hidden st ++ map W.workspace (W.current st : W.visible st)
-    return $ UTF8.encodeString . concatMap (makeDot st scr) . sort' $ ws
+    let ws = filter (\wksp  → W.tag wksp `elem` wkspTags) $ W.workspaces st
+    return $ UTF8.encodeString . intersperse ' ' (18*2) . concatMap (makeDot st scr) . sort' $ ws
 
 --makeDot :: WindowSet -> Int -> WorkspaceId -> String
 makeDot st scr w
@@ -227,6 +242,13 @@ makeDot st scr w
 		isVisible = W.tag w `elem` visibles
 		visibles = map (W.tag . W.workspace) (W.visible st)
 
+intersperse ∷ a → Int → [a] → [a]
+intersperse x n ys = intersperse' x n ys n
+intersperse' ∷ a → Int → [a] → Int → [a]
+intersperse' _ _ [] _ = []
+intersperse' x n (y:ys) m
+	| m == 0 = x : intersperse' x n (y:ys) n
+	| otherwise = y : intersperse' x n ys (m-1)
 
 ------------------------------------------------------------------------
 -- layouts
@@ -238,3 +260,23 @@ myLayouts = smartBorders $
 		tiled ||| Mirror tiled ||| Full
 	where
 		tiled = Tall 1 (3 / 100) (1 / 2)
+
+-----------------------------------
+-- my weird show desktop function
+
+
+showSpare :: W.StackSet String l a s sd -> W.StackSet String l a s sd
+showSpare s
+	= s { W.current = firstHidden, W.visible = secondHidden, W.hidden = normalWksps}
+	where
+		currentScreen = W.current s
+		visibles = W.visible s
+		-- firstHidden ∷ W.Screen String l a s sd
+		firstHidden = case L.find ((show (numberOfWorkspaces+1)==) . W.tag) (W.workspaces s) of
+			Just x → currentScreen { W.workspace = x }
+			Nothing → W.current s
+		-- secondHidden ∷ [W.Screen String l a s sd]
+		secondHidden = case L.find ((show (numberOfWorkspaces+2)==) . W.tag) (W.workspaces s) of
+			Just x → (head visibles) { W.workspace = x } : tail visibles
+			Nothing → visibles
+		normalWksps = filter (\wksp  → W.tag wksp `elem` wkspTags) $ W.workspaces s
