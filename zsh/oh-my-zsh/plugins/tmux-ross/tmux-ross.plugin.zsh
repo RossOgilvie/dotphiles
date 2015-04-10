@@ -57,7 +57,7 @@ if which tmux &> /dev/null
 		export _ZSH_TMUX_FIXED_CONFIG="$zsh_tmux_ross_plugin_path/tmux-ross.only.conf"
 	fi
 
-	local zsh_tmux_ross_session_name="coconuts"
+	local zsh_tmux_ross_session_name=`hostname`
 	# Wrapper function for tmux.
 	function _zsh_tmux_plugin_run()
 	{
