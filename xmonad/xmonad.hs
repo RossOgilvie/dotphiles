@@ -4,46 +4,33 @@
 import XMonad hiding ((|||))
 
 import System.Exit
--- import qualified System.IO.UTF8 as IO
--- import qualified Codec.Binary.UTF8.String as UTF8
-import Data.Maybe ( isJust )
---import Data.Ratio ((%))
-import qualified Data.List as L (deleteBy,find,splitAt,nub)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 import XMonad.Actions.CycleWS
--- import XMonad.Actions.SinkAll
---import XMonad.Actions.FloatKeys
---import XMonad.Actions.NoBorders
-import XMonad.Hooks.DynamicLog
 -- provides ewmh hooks for making touchegg work
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
---import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.NoBorders
---import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ShowWName
 import XMonad.Layout.Spacing
---import XMonad.Layout.ToggleLayouts
 import XMonad.Util.EZConfig
---import XMonad.Util.Loggers
---import XMonad.Util.Run
-import XMonad.Util.WorkspaceCompare
---import XMonad.Util.Scratchpad
 
 main :: IO ()
 main = xmonad .
     ewmh $ --adds support of EWMH functions, makes touchegg work
     rossConfig
 
+
+
+
 ----------------------------------------------------------------------
 -- config itself
 ----------------------------------------------------------------------
-
+unfocusedColour, secondaryColour, highlightColour ∷ String
 unfocusedColour = "#303030"
 secondaryColour = "#707070"
 highlightColour = "#57C7FF"
@@ -72,14 +59,8 @@ rossConfig = defaultConfig {
 numberOfWorkspaces :: Int
 numberOfWorkspaces = 6
 
-numberOfHiddenWorkspaces :: Int
-numberOfHiddenWorkspaces = 0
-
-wkspTags ∷ [String]
-wkspTags = map show [1 .. numberOfWorkspaces]
-
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = map show [1 .. (numberOfWorkspaces + numberOfHiddenWorkspaces)]
+myWorkspaces = map show [1 .. numberOfWorkspaces]
 
 
 
@@ -206,31 +187,6 @@ focusKeys c =
 
 
 
-------------------------------------------------------------------------
--- Mouse bindings: default actions bound to mouse events
-------------------------------------------------------------------------
-
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList
-
-    -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)
-
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
-
-    -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
-
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    ]
-
-
-
-
-
-
-
-
 
 
 ------------------------------------------------------------------------
@@ -262,61 +218,6 @@ myManageHook = composeAll
 
 -- no logging to a status bar
 myLogHook = return ()
--- totally fancy log
--- myLogHook = myLogger 0 >> myLogger 1
---
---
---
---
---
---
--- myLogger :: Int -> X ()
--- myLogger scr = makeLogString scr >>= io . dumpToPipe scr
---
--- statusPipePath scr
---     | scr == 0 = "/tmp/xmonad_status_pipe1"
---     | scr == 1 = "/tmp/xmonad_status_pipe2"
---
--- dumpToPipe :: Int -> String -> IO ()
--- dumpToPipe scr s = IO.writeFile (statusPipePath scr) $ UTF8.decodeString (s++"\n")
---
--- makeLogString :: Int -> X String
--- makeLogString scr = do
---     st <- gets windowset
---     sort' <- getSortByIndex
---
---     -- workspace list
---     let ws = filter (\wksp  → W.tag wksp `elem` wkspTags) $ W.workspaces st
---     return $ UTF8.encodeString . intersperse ' ' (18*2) . concatMap (makeDot st scr) . sort' $ ws
---
--- --makeDot :: WindowSet -> Int -> WorkspaceId -> String
--- makeDot st scr w
---     | isCurrentOnThisScreen && isCurrent        = xmobarColor lightPurple "" "●"
---     | not isCurrentOnThisScreen && isCurrent    = xmobarColor lightGrey "" "●"
---     | not isCurrentOnThisScreen && isVisible    = xmobarColor lightPurple "" "●"
---     | isCurrentOnThisScreen && isVisible        = xmobarColor lightGrey "" "●"
---     | isJust (W.stack w)    = xmobarColor darkGrey "" "●"
---     | otherwise                = xmobarColor darkGrey "" "○"
---     where
---         isCurrentOnThisScreen = W.screen (W.current st) == S scr
---         isCurrent = W.tag w == W.currentTag st
---         isVisible = W.tag w `elem` visibles
---         visibles = map (W.tag . W.workspace) (W.visible st)
---
--- intersperse ∷ a → Int → [a] → [a]
--- intersperse x n ys = intersperse' x n ys n
--- intersperse' ∷ a → Int → [a] → Int → [a]
--- intersperse' _ _ [] _ = []
--- intersperse' x n (y:ys) m
---     | m == 0 = x : intersperse' x n (y:ys) n
---     | otherwise = y : intersperse' x n ys (m-1)
-
-
-
-
-
-
-
 
 
 
@@ -337,27 +238,3 @@ myLayouts = smartBorders $
         tiled ||| Mirror tiled ||| Full
     where
         tiled = Tall 1 (3 / 100) (1 / 2)
-
-
-
-
-
------------------------------------
--- my weird show desktop function
------------------------------------
-
-showSpare :: W.StackSet String l a s sd -> W.StackSet String l a s sd
-showSpare s
-    = s { W.current = firstHidden, W.visible = secondHidden, W.hidden = normalWksps}
-    where
-        currentScreen = W.current s
-        visibles = W.visible s
-        -- firstHidden ∷ W.Screen String l a s sd
-        firstHidden = case L.find ((show (numberOfWorkspaces+1)==) . W.tag) (W.workspaces s) of
-            Just x → currentScreen { W.workspace = x }
-            Nothing → W.current s
-        -- secondHidden ∷ [W.Screen String l a s sd]
-        secondHidden = case L.find ((show (numberOfWorkspaces+2)==) . W.tag) (W.workspaces s) of
-            Just x → (head visibles) { W.workspace = x } : tail visibles
-            Nothing → visibles
-        normalWksps = filter (\wksp  → W.tag wksp `elem` wkspTags) $ W.workspaces s
