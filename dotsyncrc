@@ -29,6 +29,7 @@ git/gitignore
 #i3status:.config/i3status
 nano/nanorc
 #ssh
+latex/ross.sty:texmf/tex/latex/commonstuff/ross.sty
 tmux/tmux.conf
 #tmux/tmuxinator
 touchegg:.config/touchegg
