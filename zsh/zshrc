@@ -2,56 +2,34 @@
 ### oh-my-zsh
 ############################
 
-# Path to your oh-my-zsh configuration.
-ZSH=/usr/share/oh-my-zsh
-ZSH_CUSTOM=/home/ross/.dotphiles/zsh/oh-my-zsh
-
-# Set name of the theme to load.
-#ZSH_THEME="agnoster"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(systemd git-extras rsync colored-man command-not-found cp github history tmux-ross)
-
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOQUIT=true
-DISABLE_AUTO_UPDATE=true
-
-source $ZSH/oh-my-zsh.sh
+# source $HOME/.zshrc_ohmyzsh
 
 
-# Pimp my prompt
-#PROMPT="%{$fg[magenta]%}%n@%m %1~$%{$reset_color%} "
-# ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} on "
-# ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[magenta]%}"
-# ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
-# ZSH_THEME_GIT_PROMPT_UNTRACKED="?"
-# ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
-# PROMPT='%{$fg[magenta]%}%n@%m %2~$(git_prompt_info)$%{$reset_color%} '
-source $ZSH_CUSTOM/themes/ross.zsh-theme
+############################
+### oh-my-zsh
+############################
+ZSH_CUSTOM='/home/ross/.dotphiles/zsh/prezto'
+fpath=($ZSH_CUSTOM/themes $fpath)
+# source /usr/lib/prezto/init.zsh
+source /home/ross/.zprezto_init.sh
 
-# Custom completions
-fpath=($ZSH_CUSTOM/completion $fpath)
-
-#disable annoying autocorrect
-unsetopt correct
 
 #no tabs when tabbing
 zstyle ':completion:*' insert-tab false
 
-###############################
+autoload -U zmv
+
 ### enable extra tab completions
 ###############################
 #complete -cf sudo
 #complete -cf man
-compctl -c xrun
-compctl -k "(help mount unmount ssh permissions)" bari como
+# compctl -c xrun
+# compctl -k "(help status uni home default)" proxies px
 # compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox mount unmount refresh_mount)" artemis
+compctl -k "(help mount unmount ssh permissions)" bari como
 compctl -k "(help ssh remote mount unmount)" eris
 compctl -k "(help up down mute unmute toggle level)" volume
 compctl -k "(inc dec level)" keyboard_backlight
-compctl -k "(help status uni home default)" proxies px
 compctl -k "(help status on mirror off toggle auto wallpaper)" screens
 
 
@@ -88,5 +66,3 @@ eval "$(stack --bash-completion-script "$(which stack)")"
 ### load aliases
 ###############################
 source ~/.zalias
-
-autoload -U zmv

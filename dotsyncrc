@@ -55,6 +55,9 @@ zsh/zprofile
 zsh/zshenv
 zsh/zshrc
 zsh/zalias
+zsh/zpreztorc
+zsh/zprezto_init.sh
+zsh/zshrc_ohmyzsh
 [endfiles]
 
 # Hosts to sync

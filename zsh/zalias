@@ -15,47 +15,32 @@ yaourt() { /usr/bin/yaourt $* && rehash;  }
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias sudo='sudo '
 alias diff='colordiff'
-alias df='df -h'
-alias du='du -c -h'
 alias mkdir='mkdir -p -v'
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
-alias ..='cd ..'
-alias ...='cd ../..'
 alias cp='rsync --progress -ah'
 alias ssh='ssh -YC'
 alias top='htop'
 
 # new commands
 alias du1='du --max-depth=1'
-#alias hist='history | grep $1'      # requires an argument
 alias openports='netstat --all --numeric --programs --inet --inet6'
-alias pg='ps -Af | grep -e ^UID -e $1'         # requires an argument (note: /usr/bin/pg is installed by the util-linux package; maybe a different alias name should be used)
-alias px='proxies'
+alias pg='ps -Af | grep -e ^UID -e $1'
 alias so='source ~/.zshrc'
 alias n='nano'
 alias sn='sudo nano'
-alias s='/opt/sublime-text/sublime_text'
-alias ss='sudo /opt/sublime-text/sublime_text'
-alias g='git'
-alias gr='grep'
-alias l='less'
-alias hask='ghci'
-alias j='journalctl'
+alias jl='journalctl'
 alias sc='systemctl'
-alias fuck='$(thefuck $(fc -ln -1))'
+
 fix-mouse() {
     printf '\e[?1000l'
     }
 
-# ls
-alias ls='ls -hF --color=auto --group-directories-first'
-alias ll='ls -l'
-alias la='ls -A'
-alias lla='ll -A'
+## Show contents on directory change
 cd() {
     builtin cd "$@" && ls
 }
+## Show contents on blank command entry
 auto-ls () {
 if [[ $#BUFFER -eq 0 ]]; then
     echo ""
@@ -70,15 +55,7 @@ zle -N accept-line auto-ls
 #trash-cli
 alias tr='trash'
 alias trls='trash-list'
-alias rm="echo don\'t forget tr for trash\. Also sudo doesn\'t work\, use a backspace\.; rm -I"
-
-#global aliases
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g L="| less"
-alias -g G='| grep'
-alias -g Z='&> /dev/null &'
+alias rm="rm -I"
 
 # safety features
 alias chown='chown --preserve-root'
@@ -86,7 +63,6 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 #ep renaming
-#alias fix-eps='filebot  -rename . --db "thetvdb" --format "{n}.{s.pad(2)}x{e.pad(2)}.{t}" -non-strict'
 alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
 
 #power control
@@ -94,10 +70,6 @@ alias reboot='systemctl reboot'
 alias halt='systemctl poweroff'
 alias suspend='systemctl suspend'
 alias hibernate='systemctl hibernate'
-
-ebg() {
-    $* &> /dev/null &
-}
 
 #### fun
 hack() {
@@ -114,6 +86,6 @@ sc-start netctl-auto@wlan0.service
 }
 
 ### cat a script
-show() {
-cat $(which $1)
-}
+# show() {
+# cat $(which $1)
+# }
