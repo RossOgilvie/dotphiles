@@ -1,8 +1,16 @@
 ! REMAP RIGHT ALT TO MODE-SWITCH
+
 clear mod1
-clear mod5
 add mod1 = Alt_L
+! Right Alt Key
 keycode 108 = Mode_switch
+
+!clear control
+!add control = Control_L
+!clear mod5
+! Right Ctrl Key
+!keycode 105 = ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key
+!add mod5 = ISO_Level3_Shift Multi_key
 
 ! GET ->, => AND :: FOR HASKELL-ING
 keycode 20 = minus underscore 0x01002192
@@ -10,18 +18,25 @@ keycode 21 = equal plus 0x010021d2
 keycode 47 = semicolon colon 0x01002237
 
 ! ADD GREEK LETTERS ON MODE_SWITCH
+! GRAVE VOWELS ON SHIFT+MODE_SWITCH
+! AND GERMAN LETTERS ON ALTGR
 keycode 24 = q Q Greek_psi Greek_PSI
 keycode 25 = w W Greek_omega Greek_OMEGA
-keycode 26 = e E Greek_epsilon egrave
+!keycode 26 = e E Greek_epsilon egrave ediaeresis Ediaeresis
+keycode 26 = e E Greek_epsilon ediaeresis
 keycode 27 = r R Greek_rho Greek_RHO
 keycode 28 = t T Greek_tau Greek_TAU
 keycode 29 = y Y Greek_upsilon Greek_UPSILON
-keycode 30 = u U u ugrave
-keycode 31 = i I Greek_iota igrave
-keycode 32 = o O Greek_omicron ograve
+!keycode 30 = u U u ugrave udiaeresis Udiaeresis
+keycode 30 = u U u udiaeresis
+!keycode 31 = i I Greek_iota igrave idiaeresis Idiaeresis
+keycode 31 = i I Greek_iota idiaeresis
+!keycode 32 = o O Greek_omicron ograve odiaeresis Odiaeresis
+keycode 32 = o O Greek_omicron odiaeresis
 keycode 33 = p P Greek_pi Greek_PI
 
-keycode 38 = a A Greek_alpha agrave
+!keycode 38 = a A Greek_alpha agrave adiaeresis Adiaeresis
+keycode 38 = a A Greek_alpha adiaeresis
 keycode 39 = s S Greek_sigma Greek_SIGMA
 keycode 40 = d D Greek_delta Greek_DELTA
 keycode 41 = f F Greek_phi Greek_PHI
@@ -35,6 +50,6 @@ keycode 52 = z Z Greek_zeta Greek_ZETA
 keycode 53 = x X Greek_xi Greek_XI
 keycode 54 = c C Greek_chi Greek_CHI
 keycode 55 = v V Greek_theta Greek_THETA
-keycode 56 = b B Greek_beta Greek_BETA
+keycode 56 = b B Greek_beta ssharp
 keycode 57 = n N Greek_nu Greek_NU
 keycode 58 = m M Greek_mu Greek_MU
