@@ -79,6 +79,12 @@ zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
 
 
 ###############################
+### stack autocomplete
+###############################
+autoload -U +X bashcompinit && bashcompinit
+eval "$(stack --bash-completion-script "$(which stack)")"
+
+###############################
 ### load aliases
 ###############################
 source ~/.zalias

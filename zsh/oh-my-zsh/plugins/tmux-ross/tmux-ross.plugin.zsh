@@ -78,7 +78,7 @@ if which tmux &> /dev/null
 			    # Make sure we are not already in a tmux session
 			    if [[ -z "$TMUX" ]]; then
 			        # Kill defunct sessions first
-			        old_sessions=$(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:)
+			        old_sessions=$(tmux ls 2>/dev/null | grep "^$zsh_tmux_ross_session_name""[0-9]\{14\}" | cut -f 1 -d:)
 			        for old_session_id in $old_sessions; do
 			            \tmux kill-session -t $old_session_id
 			        done
