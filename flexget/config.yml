@@ -46,7 +46,7 @@ tasks:
       magnetization_timeout: 30
       content_filename: "{{series_name}}.{{series_season}}x{{series_episode}}.{{tvdb_ep_name}}"
       path: /mnt/seagate2/downloads/
-      movedone: /mnt/seagate2/tv/{{series_name}}/{{series_name}} Season {{series_season}}
+      movedone: /mnt/seagate2/tv/{{series_name}}
     verify_ssl_certificates: no
     disable: seen
 
