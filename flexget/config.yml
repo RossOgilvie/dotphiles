@@ -1,10 +1,11 @@
+
 tasks:
   get_tvshows:
     priority: 1
     inputs:
 #      - rss: { url: 'https://ezrss.it/feed/', silent: yes }                      # EZRSS
 #      - rss: { url: 'http://showrss.info/feeds/all.rss', silent: yes }          # showRSS, successor to karmorra?
-      - rss: { url: 'https://kickass.so/tv/?rss=1', silent: yes }          # showRSS, successor to karmorra?
+      - rss: { url: 'https://kat.cr/tv/?rss=1', silent: yes }          # showRSS, successor to karmorra?
 #      - rss: { url: 'http://rss.thepiratebay.se/205', silent: yes }          # *the* pirate bay
 #      - rss: { url: 'http://www.torlock.com/television/rss.xml', silent: yes }  # TorLock (TV)
 #      - rss: { url: 'http://torrentz.eu/feed_verified?q=tv', silent: yes }      # Torrentz (Verified only, TV)
@@ -20,16 +21,18 @@ tasks:
         - '*.rar'
         - '*.zip'
         - '*.avi'  
+        - '*.exe'  
     exists_series:
-      - /mnt/seagate3/TV/
-      - /mnt/seagate3/Downloads/
+      - /mnt/seagate2/tv/
+      - /mnt/seagate2/downloads/
     configure_series:
       from:
-        trakt_list: 
-          username: Ross_Ogilvie
-          password: 366pjcrcy8up676u8w6ew4z3qymv52uxjmu7
-          api_key: 1b284dee73edeacaea2b3cd227dcac10
-          custom: Download
+        listdir: /mnt/seagate2/tv/watching
+#        trakt_list: 
+#          username: Ross_Ogilvie
+#          password: 366pjcrcy8up676u8w6ew4z3qymv52uxjmu7
+#          api_key: 1b284dee73edeacaea2b3cd227dcac10
+#          custom: Download
       settings:
         tracking: no
         target: hdtv <720p
@@ -39,12 +42,13 @@ tasks:
     deluge:
       username: root
       password: fishyfishy
-      main_file_only: true
-      content_filename: "{{series_name}}.{{trakt_season}}x{{trakt_episode}}.{{trakt_ep_name}}"
-      path: /mnt/seagate3/Downloads/
-      movedone: /mnt/seagate3/TV/{{series_name}}/{{series_name}} Season {{series_season}}
+      main_file_only: yes
+      magnetization_timeout: 30
+      content_filename: "{{series_name}}.{{series_season}}x{{series_episode}}.{{tvdb_ep_name}}"
+      path: /mnt/seagate2/downloads/
+      movedone: /mnt/seagate2/tv/{{series_name}}
     verify_ssl_certificates: no
-    disable_builtins: [seen]
+    disable: seen
 
 schedules:
   - tasks: '*'

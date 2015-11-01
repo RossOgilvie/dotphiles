@@ -89,3 +89,7 @@ sc-start netctl-auto@wlan0.service
 # show() {
 # cat $(which $1)
 # }
+
+######### some common paths
+s2=/mnt/seagate2
+bp3=/mnt/btrfs-pool3
