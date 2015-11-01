@@ -1,19 +1,11 @@
 ############################
-### oh-my-zsh
-############################
-
-# source $HOME/.zshrc_ohmyzsh
-
-
-############################
-### oh-my-zsh
+### prezto
 ############################
 ZSH_CUSTOM='/home/ross/.dotphiles/zsh/prezto'
 
 autoload promptinit
 fpath=($ZSH_CUSTOM/themes $fpath)
 promptinit
-# source /usr/lib/prezto/init.zsh
 source /home/ross/.zprezto_init.sh
 
 
@@ -63,7 +55,7 @@ zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
 ### stack autocomplete
 ###############################
 autoload -U +X bashcompinit && bashcompinit
-eval "$(stack --bash-completion-script "$(which stack)")"
+[ $(hostname) = nyx ] && eval "$(stack --bash-completion-script "$(which stack)")"
 
 ###############################
 ### load aliases
