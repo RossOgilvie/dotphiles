@@ -16,4 +16,4 @@ fi
 ##############
 ## Xmonad WM
 ##############
-exec ~/.xmonad/xmonad > /home/ross/.xmonad_errors 2>&1
+exec /home/ross/.scripts/persist /home/ross/.local/bin/xmonad-x86_64-linux > /home/ross/.xmonad_errors 2>&1

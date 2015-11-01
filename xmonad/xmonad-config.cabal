@@ -17,7 +17,11 @@ cabal-version:       >=1.10
 
 executable xmonad-x86_64-linux
   main-is: xmonad.hs
-  -- ghc-options: -Wall -Werror
+  -- hs-source-dirs: .
+  other-modules:
+    XmonadConfig
+    , XmonadKeys
+  -- ghc-options: -Wall
   build-depends: base
     , containers
     , utf8-string

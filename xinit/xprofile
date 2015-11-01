@@ -23,6 +23,9 @@ numlockx on
 ## Enable my wicked triple finger swipe gestures
 ##touchegg &
 
+## hide the mouse pointer
+##unclutter &
+
 ## set correct pointer for wm windows
 xsetroot -cursor_name left_ptr
 
@@ -46,4 +49,6 @@ xrdb -merge ~/.Xresources
 # [[ -S $_xmonad_status_pipe2 ]] || mkfifo $_xmonad_status_pipe2
 # ln -s /dev/null $_xmonad_status_pipe2
 
-xfce4-panel &
+# xfce4-panel &
+
+lock_screen &

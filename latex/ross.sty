@@ -1,0 +1,116 @@
+%\ProvidesPackage{ross}[Local macros by Ross Ogilvie]
+
+%% Common packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+%set up pages the way I like them and provide a quick command to do the headings
+\usepackage{listings}
+\usepackage{enumerate}
+
+\newcommand{\fancyhdr}{
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[left=0.75in, top=1in, right=0.75in, bottom=1in]{geometry}
+\pagestyle{plain}
+}
+
+\newcommand{\makeheading}[1]{\rhead{#1\\Ross Ogilvie -- University of Sydney -- rosso@maths.usyd.edu.au \\\today}\thispagestyle{fancy}}
+
+\setlength{\parskip}{2ex}
+\setlength{\parindent}{0in}
+% \setcounter{secnumdepth}{0}
+
+%Add math environs
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{thm}[defn]{Theorem}
+\newtheorem{cor}[defn]{Corollary}
+\newtheorem{remark}[defn]{Remark}
+
+\newcommand{\labelthis}[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
+
+%make lists use bracketed roman numerals
+\renewcommand{\labelenumi}{(\roman{enumi})}
+%useful commands
+\newcommand{\bra}[1]{\left(#1\right)}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{{\left\Vert#1\right\Vert}}
+\newcommand{\set}[2]{\left\{\left. #1 \;\right|\; #2 \right\}}
+\newcommand{\iprod}[2]{\left\langle #1 , #2 \right\rangle}
+\newcommand{\Set}[2]{\left\{\; #1 \;\mid\; #2 \;\right\}}
+\newcommand{\vt}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+\newcommand{\Partial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\cross}[4]{\left[#1,#2;\, #3, #4\right]}
+\newcommand{\conj}{\overline}
+\newcommand{\cji}[1]{\overline{#1}^{-1}}
+\newcommand{\imply}{\Rightarrow}
+
+\newcommand{\aside}[1]{{\it ASIDE:} #1}
+
+\DeclareMathOperator*{\img}{img}
+% \DeclareMathOperator*{\deg}{deg}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\ad}{ad}
+\DeclareMathOperator*{\Ad}{Ad}
+\DeclareMathOperator{\pp}{pp.}
+\DeclareMathOperator{\sign}{sign}
+\renewcommand{\Re}{\mathfrak{R}\text{e}\,}
+\renewcommand{\Im}{\mathfrak{I}\text{m}\,}
+
+\newcommand{\iu}{i}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{C}\text{P}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\T}{\mathbb{T}}
+\renewcommand{\S}{\mathbb{S}}
+\renewcommand{\H}{\mathbb{H}}
+
+
+
+%% Allow unicode input of greek characters
+\usepackage[utf8x]{inputenc}
+
+% Straight up greek lower. All except omicron
+\let\textalpha=\alpha
+\let\textbeta=\beta
+\let\textgamma=\gamma
+\let\textdelta=\delta
+\let\textepsilon=\varepsilon
+\let\textzeta=\zeta
+\let\texteta=\eta
+\let\texttheta=\theta
+\let\textiota=\iota
+\let\textkappa=\kappa
+\let\textlambda=\lambda
+\let\textmu=\mu
+\let\textnu=\nu
+\let\textxi=\xi
+\let\textpi=\pi
+\let\textrho=\rho
+\let\textsigma=\sigma
+\let\texttau=\tau
+\let\textupsilon=\upsilon
+\let\textphi=\phi
+\let\textchi=\chi
+\let\textpsi=\psi
+\let\textomega=\omega
+
+% straight uppercase
+\let\textGamma=\Gamma
+\let\textDelta=\Delta
+\let\textTheta=\Theta
+\let\textLambda=\Lambda
+\let\textXi=\Xi
+\let\textPi=\Pi
+\let\textSigma=\Sigma
+\let\textUpsilon=\Upsilon
+\let\textPhi=\Phi
+\let\textPsi=\Psi
+\let\textOmega=\Omega
