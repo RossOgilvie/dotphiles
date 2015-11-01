@@ -126,3 +126,7 @@ alias haddock='cabal haddock --haddock-options=-U --haddock-options=--print-miss
 show() {
 cat $(which $1)
 }
+
+######### some common paths
+s2=/mnt/seagate2
+bp3=/mnt/btrfs-pool3
