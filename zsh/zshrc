@@ -6,8 +6,9 @@ ZSH_CUSTOM='/home/ross/.dotphiles/zsh/prezto'
 autoload promptinit
 fpath=($ZSH_CUSTOM/themes $fpath)
 promptinit
+prompt josh
 source /home/ross/.zprezto_init.sh
-
+pmodload tmux-ross
 
 #no tabs when tabbing
 zstyle ':completion:*' insert-tab false

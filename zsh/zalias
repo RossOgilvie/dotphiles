@@ -25,16 +25,16 @@ alias top='htop'
 # new commands
 alias du1='du --max-depth=1'
 alias openports='netstat --all --numeric --programs --inet --inet6'
-alias pg='ps -Af | grep -e ^UID -e $1'
+alias pg="ps -Af | grep -e \"^UID\" -e"
 alias so='source ~/.zshrc'
 alias n='nano'
 alias sn='sudo nano'
 alias jl='journalctl'
 alias sc='systemctl'
 
-fix-mouse() {
-    printf '\e[?1000l'
-    }
+#fix-mouse() {
+#    printf '\e[?1000l'
+#    }
 
 ## Show contents on directory change
 cd() {
