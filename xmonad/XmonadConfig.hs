@@ -28,7 +28,8 @@ getWorkspace k
     | otherwise = head myWorkspaces
 
 scratchpads = [
-     NS "clock" "urxvt -e /home/ross/.scripts/clock" (title =? "clock") (customFloating $ W.RationalRect (4/9) (4/9) (1/9) (1/9))
+    --  NS "clock" "urxvt -e /home/ross/.scripts/clock" (title =? "clock") (customFloating $ W.RationalRect (3/9) (4/9) (3/9) (1/9))
+     NS "clock" "aclock" (className =? "Aclock") (customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3))
  ]
 
 lojDigits = ["no","pa","re","ci","vo","mu","xa","bi","so"]

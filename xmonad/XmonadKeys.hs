@@ -35,6 +35,7 @@ rawKeys c = concatMap ($ c) keymaps where
 baseKeys :: XConfig Layout -> [(String, X ())]
 baseKeys _ =
     [ ("M-h", spawn "hibernate")
+    -- , ("M-s", spawn "sleep")
     , ("M-<Escape>", kill)
     , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
     , ("M-C-S-r", spawn "pkill -fx /home/ross/.local/bin/xmonad-x86_64-linux")
@@ -49,11 +50,12 @@ spawnKeys _ =
     , ("M-c", spawn "gnome-calculator")
     , ("M-e", spawn "thunar")
     , ("M-f", spawn "firefox-aurora")
-    , ("M-h", spawn "hibernate")
     , ("M-l", spawn "/home/ross/.scripts/lock_screen")
-    , ("M-s", spawn "sleep")
     , ("M-r", spawn "firefox-aurora -P Rdio -no-remote")
+    , ("M-s", spawn "spotify")
     -- , ("M-u", spawn "/home/ross/.scripts/keyboard_setup_udev")
+    , ("M-m", spawn "/home/ross/.scripts/eris mount && notify-send -i /usr/share/icons/gnome/48x48/devices/drive-multidisk.png \"Eris Mounted\"")
+    , ("M-S-m", spawn "/home/ross/.scripts/eris unmount && notify-send -i /usr/share/icons/elementary/actions/48/remove.svg \"Eris Unmounted\"")
     , ("M-v", spawn "pavucontrol")
     -- Toggle Keyboard mapping
     , ("M-k", spawn "xmodmap /home/ross/.xmodmap_braces && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Braces Activated\"")
@@ -76,9 +78,9 @@ fKeys _ =
     , ("S-<F6>", spawn "sudo /home/ross/.scripts/bluetooth-connect")
     , ("<F7>", spawn "/home/ross/.scripts/volume down")
     , ("<F8>", spawn "/home/ross/.scripts/volume up")
-    , ("S-<F6>", spawn "/home/ross/.scripts/music_control play")
-    , ("S-<F7>", spawn "/home/ross/.scripts/music_control prev")
-    , ("S-<F8>", spawn "/home/ross/.scripts/music_control next")
+    , ("S-<F6>", spawn "/home/ross/.scripts/music-control play")
+    , ("S-<F7>", spawn "/home/ross/.scripts/music-control prev")
+    , ("S-<F8>", spawn "/home/ross/.scripts/music-control next")
     , ("<F9>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
     , ("<F10>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
     , ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
@@ -90,9 +92,9 @@ fKeys _ =
 
 
 mediaKeys _ =
-    [ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music_control play")
-    , ("<XF86AudioNext>", spawn "/home/ross/.scripts/music_control next")
-    , ("<XF86AudioPrev>", spawn "/home/ross/.scripts/music_control prev")
+    [ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music-control play")
+    , ("<XF86AudioNext>", spawn "/home/ross/.scripts/music-control next")
+    , ("<XF86AudioPrev>", spawn "/home/ross/.scripts/music-control prev")
     , ("<XF86AudioMute>", spawn "/home/ross/.scripts/volume toggle")
     , ("<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/volume down")
     , ("<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/volume up")

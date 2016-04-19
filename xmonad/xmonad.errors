@@ -1,0 +1,61 @@
+
+xmonad.hs:3:8:
+    Could not find module ‘XmonadKeys’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:4:8:
+    Could not find module ‘XmonadConfig’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:6:8:
+    Could not find module ‘XMonad’
+    Perhaps you meant DsMonad (needs flag -package-key ghc-7.10.2)
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:7:18:
+    Could not find module ‘XMonad.StackSet’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:13:8:
+    Could not find module ‘XMonad.Actions.CycleWS’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:15:8:
+    Could not find module ‘XMonad.Hooks.EwmhDesktops’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:16:8:
+    Could not find module ‘XMonad.Hooks.ManageDocks’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:17:8:
+    Could not find module ‘XMonad.Hooks.ManageHelpers’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:18:8:
+    Could not find module ‘XMonad.Layout.LayoutCombinators’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:19:8:
+    Could not find module ‘XMonad.Layout.NoBorders’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:20:8:
+    Could not find module ‘XMonad.Layout.ShowWName’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:21:8:
+    Could not find module ‘XMonad.Layout.Spacing’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:22:8:
+    Could not find module ‘XMonad.Util.EZConfig’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:23:8:
+    Could not find module ‘XMonad.Util.NamedScratchpad’
+    Use -v to see a list of the files searched for.
+
+xmonad.hs:27:8:
+    Could not find module ‘XMonad.Util.Run’
+    Use -v to see a list of the files searched for.
