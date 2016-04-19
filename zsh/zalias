@@ -31,6 +31,8 @@ alias n='nano'
 alias sn='sudo nano'
 alias jl='journalctl'
 alias sc='systemctl'
+alias fuck-wifi='sc restart netctl-auto@wlan0.service'
+alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
 
 #fix-mouse() {
 #    printf '\e[?1000l'
@@ -78,10 +80,10 @@ cat /dev/urandom | hexdump -C | grep "ca fe"
 
 hotspot ()
 {
-sc-stop netctl-auto@wlan0.service
+sc stop netctl-auto@wlan0.service
 #sc-stop dnsmasq.service
 sudo create_ap wlan0 eth0 Ogilvie fishyfishy
-sc-start netctl-auto@wlan0.service
+sc start netctl-auto@wlan0.service
 #sc-start dnsmasq.service
 }
 

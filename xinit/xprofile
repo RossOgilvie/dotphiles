@@ -34,6 +34,10 @@ xrdb -merge ~/.Xresources
 
 #export PATH
 
+udiskie -2 -a -T -N &
+
+thunar --daemon &
+
 #############
 ## Autostarts
 #############

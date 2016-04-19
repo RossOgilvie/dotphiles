@@ -9,8 +9,8 @@
 
 # Global Config
 [user]
-  name = Ross Ogilvie
-  email = ross@rossogilvie.id.au
+	name = Ross Ogilvie
+	email = ross@rossogilvie.id.au
 
 [branch "master"]
   remote = origin
