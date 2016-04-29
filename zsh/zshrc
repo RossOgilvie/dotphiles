@@ -15,18 +15,6 @@ zstyle ':completion:*' insert-tab false
 
 autoload -U zmv
 
-### enable extra tab completions
-###############################
-#complete -cf sudo
-#complete -cf man
-# compctl -c xrun
-# compctl -k "(help status uni home default)" proxies px
-# compctl -k "(help vnc vnc-remote ssh remote uni xbmc openbox mount unmount refresh_mount)" artemis
-compctl -k "(help mount unmount ssh permissions)" bari como
-compctl -k "(help ssh remote mount unmount)" eris
-compctl -k "(help up down mute unmute toggle level)" volume
-compctl -k "(inc dec level)" keyboard_backlight
-compctl -k "(help status on mirror off toggle auto wallpaper)" screens
 
 
 ###############################
@@ -53,10 +41,15 @@ zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
 
 
 ###############################
-### stack autocomplete
+### automatic autocompletes
 ###############################
 autoload -U +X bashcompinit && bashcompinit
 [ $(hostname) = nyx ] && eval "$(stack --bash-completion-script "$(which stack)")"
+eval "$(como bash-completion)"
+eval "$(eris bash-completion)"
+eval "$(volume bash-completion)"
+eval "$(keyboard_backlight bash-completion)"
+eval "$(screens bash-completion)"
 
 ###############################
 ### load aliases
