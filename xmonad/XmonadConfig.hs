@@ -6,8 +6,7 @@ import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.Util.NamedScratchpad
 
-
-myTerminal = "urxvt"
+myTerminal = "sakura"
 
 unfocusedColour, secondaryColour, highlightColour ∷ String
 unfocusedColour = "#303030"

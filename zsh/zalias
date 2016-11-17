@@ -19,14 +19,14 @@ alias mkdir='mkdir -p -v'
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
 alias cp='rsync --progress -ah'
-alias ssh='ssh -YC'
+#alias ssh='ssh -YC'
 alias top='htop'
 
 # new commands
 alias du1='du --max-depth=1'
 alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg="ps -Af | grep -e \"^UID\" -e"
-alias so='source ~/.zshrc'
+alias so='source ~/.zalias'
 alias n='nano'
 alias sn='sudo nano'
 alias jl='journalctl'
@@ -95,3 +95,11 @@ sc start netctl-auto@wlan0.service
 ######### some common paths
 s2=/mnt/seagate2
 bp3=/mnt/btrfs-pool3
+
+###### work
+alias work='atom /home/ross/documents/Uni/Thesis; for i in {1..5}; do echo work; sleep 0.2; done;'
+
+spellcheck()
+{
+hunspell -i utf-8 -l -t -d en_AU,/home/ross/.hunspell/maths $1 | sort | uniq | grep -v "[αβγδεζηθικλμνξοπρστυφχψωΓΔΘΚΛΞΠΣΥΦΨΩ0123456789]" | hunspell -a | less
+}

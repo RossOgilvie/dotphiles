@@ -1,6 +1,26 @@
 ! Change caps lock key to launcher
 clear Lock
-keycode 66 = XF86Go
+keycode  66 = XF86Go
+
+! REMAP RIGHT ALT TO MODE-SWITCH
+clear mod1
+add mod1 = Alt_L
+! Right Alt Key
+keycode 108 = Mode_switch Mode_switch Mode_switch Mode_switch
+
+! Add some dead keys
+keycode  15 = 6 asciicircum 6 dead_circumflex
+keycode  18 = 9 parenleft 9 dead_breve
+keycode  19 = 0 parenright 0 dead_abovering
+keycode  20 = minus underscore minus dead_macron
+keycode  48 = apostrophe quotedbl dead_acute dead_diaeresis
+keycode  49 = grave asciitilde dead_grave dead_tilde
+keycode  60 = period greater dead_abovedot greater
 
 !swap normal <-> shift to get default tilde and braces
-keycode  49 = asciitilde grave asciitilde grave
+keycode  49 = asciitilde grave dead_tilde dead_grave
+
+! set ->, => and :: for haskell
+keycode 20 = minus underscore 0x01002192 dead_macron
+keycode 21 = equal plus 0x010021d2
+keycode 47 = semicolon colon 0x01002237

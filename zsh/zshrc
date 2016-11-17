@@ -50,6 +50,7 @@ eval "$(eris bash-completion)"
 eval "$(volume bash-completion)"
 eval "$(keyboard_backlight bash-completion)"
 eval "$(screens bash-completion)"
+eval "$(wallpaper bash-completion)"
 
 ###############################
 ### load aliases

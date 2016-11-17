@@ -15,6 +15,8 @@ xmodmap /home/ross/.xmodmap_greek
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard_setup &
 
+/home/ross/.scripts/wallpaper refresh &
+
 ## Set up my custom global keyboard shortcuts
 # /home/ross/.scripts/persist xbindkeys -n &
 
@@ -55,4 +57,4 @@ thunar --daemon &
 
 # xfce4-panel &
 
-lock_screen &
+# lock_screen &

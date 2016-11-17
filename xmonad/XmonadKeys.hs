@@ -37,6 +37,7 @@ baseKeys _ =
     [ ("M-h", spawn "hibernate")
     -- , ("M-s", spawn "sleep")
     , ("M-<Escape>", kill)
+    , ("M-S-<Escape>", spawn "xkill")
     , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
     , ("M-C-S-r", spawn "pkill -fx /home/ross/.local/bin/xmonad-x86_64-linux")
     , ("M-d", sendMessage ToggleStruts)
@@ -44,24 +45,31 @@ baseKeys _ =
     ]
 
 spawnKeys _ =
-    [ ("M-<Return>", spawn myTerminal)
+    [ ("M-<Return>", spawn "sakura")
+    , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
     , ("M-a", spawn "atom")
     , ("M-b", spawn "/home/ross/.scripts/bluetooth_connect")
     , ("M-c", spawn "gnome-calculator")
-    , ("M-e", spawn "thunar")
-    , ("M-f", spawn "firefox-aurora")
+    , ("M-e", spawn "nemo --no-desktop")
+    -- , ("M-e", spawn "thunar")
+    , ("M-f", spawn "firefox")
+
+    -- Toggle Keyboard mapping
+    -- , ("M-S-j", spawn "xmodmap /home/ross/.xmodmap_numbers && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Numbers Activated\"")
+    -- , ("M-j", spawn "xmodmap /home/ross/.xmodmap_symbols && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Symbols Activated\"")
+    , ("M-k", spawn "/home/ross/.scripts/keyboard_setup && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Keyboard Set-up\"")
+    , ("M-j", spawn "xmodmap /home/ross/.xmodmap_braces && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Braces Activated\"")
+    , ("M-S-j", spawn "xmodmap /home/ross/.xmodmap_sbrackets && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Square Brackets Activated\"")
+
     , ("M-l", spawn "/home/ross/.scripts/lock_screen")
+    , ("M-m", spawn "/home/ross/.scripts/eris mount && notify-send -i /usr/share/icons/gnome/48x48/devices/drive-multidisk.png \"Eris Mounted\"")
+    , ("M-S-m", spawn "/home/ross/.scripts/eris unmount && notify-send -i /usr/share/icons/elementary/actions/48/remove.svg \"Eris Unmounted\"")
+
     , ("M-r", spawn "firefox-aurora -P Rdio -no-remote")
     , ("M-s", spawn "spotify")
     -- , ("M-u", spawn "/home/ross/.scripts/keyboard_setup_udev")
-    , ("M-m", spawn "/home/ross/.scripts/eris mount && notify-send -i /usr/share/icons/gnome/48x48/devices/drive-multidisk.png \"Eris Mounted\"")
-    , ("M-S-m", spawn "/home/ross/.scripts/eris unmount && notify-send -i /usr/share/icons/elementary/actions/48/remove.svg \"Eris Unmounted\"")
     , ("M-v", spawn "pavucontrol")
-    -- Toggle Keyboard mapping
-    , ("M-k", spawn "xmodmap /home/ross/.xmodmap_braces && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Braces Activated\"")
-    , ("M-S-k", spawn "xmodmap /home/ross/.xmodmap_sbrackets && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Square Brackets Activated\"")
-    , ("M-j", spawn "xmodmap /home/ross/.xmodmap_symbols && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Symbols Activated\"")
-    , ("M-S-j", spawn "xmodmap /home/ross/.xmodmap_numbers && notify-send -i /usr/share/icons/gnome/48x48/devices/keyboard.png \"Numbers Activated\"")
+    , ("M-w", spawn "/home/ross/.scripts/wallpaper reddit")
     ]
 
 scratches _ =
