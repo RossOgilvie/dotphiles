@@ -1,60 +1,45 @@
-
-## set up the correct number of screens
-/home/ross/.scripts/screens &
+###############
+## Set-up
+###############
 
 ## Turn down the brightness
-xbacklight =25
+xbacklight =25 &
+
+## Set up the screens and then lock
+(/home/ross/.scripts/screens ; /home/ross/.scripts/lock_screen) &
 
 ## This enables window transparency
-xcompmgr -cCfF -D 6&
+xcompmgr -cCfF -D 6 &
 
-## Swaps some keys around
-## Makes caps lock into a launcher key
-xmodmap /home/ross/.xmodmap_standard
-xmodmap /home/ross/.xmodmap_greek
+## Turn on the numlock
+numlockx on &
+
+## Swaps some keys around. Makes caps lock into a launcher key.
+# xmodmap /home/ross/.xmodmap_standard &
+# xmodmap /home/ross/.xmodmap_greek &
+
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard_setup &
 
-/home/ross/.scripts/wallpaper refresh &
-
-## Set up my custom global keyboard shortcuts
-# /home/ross/.scripts/persist xbindkeys -n &
-
-numlockx on
-
 ## Enable my wicked triple finger swipe gestures
-##touchegg &
-
-## hide the mouse pointer
-##unclutter &
+# touchegg &
 
 ## set correct pointer for wm windows
-xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr &
 
 ## set xresources
-xrdb -merge ~/.Xresources
-
-#export PATH
-
-udiskie -2 -a -T -N &
-
-thunar --daemon &
+xrdb -merge ~/.Xresources &
 
 #############
 ## Autostarts
 #############
 
 ## Kupfer is my launcher
+# Run it persistently so it can't be killed.
 /home/ross/.scripts/persist kupfer --no-splash &
 
-# _xmonad_status_pipe1=/tmp/xmonad_status_pipe1
-# [[ -S $_xmonad_status_pipe1 ]] || mkfifo $_xmonad_status_pipe1
-# xmobar /home/ross/.xmobarrc1 &
+## For automounting usb drives
+udiskie -2 -a -T -N &
 
-# _xmonad_status_pipe2=/tmp/xmonad_status_pipe2
-# [[ -S $_xmonad_status_pipe2 ]] || mkfifo $_xmonad_status_pipe2
-# ln -s /dev/null $_xmonad_status_pipe2
-
-# xfce4-panel &
-
-# lock_screen &
+## So explorer windows open quickly
+thunar --daemon &
