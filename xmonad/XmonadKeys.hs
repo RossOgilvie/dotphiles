@@ -38,12 +38,19 @@ baseKeys _ =
     -- , ("M-s", spawn "sleep")
     , ("M-<Escape>", kill)
     , ("M-S-<Escape>", spawn "xkill")
-    , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
-    , ("M-C-S-r", spawn "pkill -fx /home/ross/.local/bin/xmonad-x86_64-linux")
+    -- , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
+    , ("M-C-r", do
+        whenX (recompile True) $ do
+            broadcastMessage ReleaseResources
+            restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
+    , ("M-C-S-r", do
+        broadcastMessage ReleaseResources
+        restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
     , ("M-d", sendMessage ToggleStruts)
     , ("M-C-S-<Escape>", io exitSuccess)
     ]
 
+spawnKeys :: XConfig Layout -> [(String, X ())]
 spawnKeys _ =
     [ ("M-<Return>", spawn "sakura")
     , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
@@ -72,10 +79,12 @@ spawnKeys _ =
     , ("M-w", spawn "/home/ross/.scripts/wallpaper reddit")
     ]
 
+scratches :: XConfig Layout -> [(String, X ())]
 scratches _ =
     [ ("M-<Space>", namedScratchpadAction scratchpads "clock")
     ]
 
+fKeys :: XConfig Layout -> [(String, X ())]
 fKeys _ =
     [ ("<F1>", spawn "/home/ross/.scripts/battery")
     , ("<F2>", spawn "/home/ross/.scripts/brightness down")
@@ -98,7 +107,7 @@ fKeys _ =
     ++
     [ ("M-<F" ++ show n ++ ">", spawn $ "sleep 0.2 && xdotool key --clearmodifiers --window $(xdotool getactivewindow) F" ++ show n) | n <- [1..12::Int]]
 
-
+mediaKeys :: XConfig Layout -> [(String, X ())]
 mediaKeys _ =
     [ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music-control play")
     , ("<XF86AudioNext>", spawn "/home/ross/.scripts/music-control next")
@@ -108,7 +117,7 @@ mediaKeys _ =
     , ("<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/volume up")
     ]
 
-
+focusKeys  :: XConfig Layout -> [(String, X ())]
 focusKeys c =
     [
     -- moving focus
