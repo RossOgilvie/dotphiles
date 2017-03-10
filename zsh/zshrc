@@ -46,7 +46,7 @@ zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
 autoload -U +X bashcompinit && bashcompinit
 [ $(hostname) = nyx ] && eval "$(stack --bash-completion-script "$(which stack)")"
 eval "$(como bash-completion)"
-eval "$(eris bash-completion)"
+eval "$(geras bash-completion)"
 eval "$(volume bash-completion)"
 eval "$(keyboard_backlight bash-completion)"
 eval "$(screens bash-completion)"

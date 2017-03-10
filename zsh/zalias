@@ -28,11 +28,14 @@ alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg="ps -Af | grep -e \"^UID\" -e"
 alias so='source ~/.zalias'
 alias n='nano'
+alias l='less'
 alias sn='sudo nano'
-alias jl='journalctl'
+alias j='journalctl'
 alias sc='systemctl'
+nt() { systemctl $1 netctl-auto@wlan0.service }
 alias fuck-wifi='sc restart netctl-auto@wlan0.service'
 alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
+alias steam-wine='WINEDEBUG=-all wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe >/dev/null 2>&1 &'
 
 #fix-mouse() {
 #    printf '\e[?1000l'
@@ -101,5 +104,5 @@ alias work='atom /home/ross/documents/Uni/Thesis; for i in {1..5}; do echo work;
 
 spellcheck()
 {
-hunspell -i utf-8 -l -t -d en_AU,/home/ross/.hunspell/maths $1 | sort | uniq | grep -v "[αβγδεζηθικλμνξοπρστυφχψωΓΔΘΚΛΞΠΣΥΦΨΩ0123456789]" | hunspell -a | less
+hunspell -i utf-8 -l -t -d en_AU,/home/ross/.dotphiles/hunspell/hunspell_latex $1 | sort | uniq | grep -v "[αβγδεζηθικλμνξοπρστυφχψωΓΔΘΚΛΞΠΣΥΦΨΩ0123456789]" | hunspell -a | less
 }
