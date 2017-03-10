@@ -25,8 +25,8 @@ git/gitignore
 #git/gitattributes
 #git/tigrc
 #git/gitk
-hunspell/hunspell_en_AU
-hunspell/hunspell_latex.dic
+#hunspell/hunspell_latex.raw:hunspell_en_AU
+#hunspell/hunspell_latex.raw:hunspell_latex.dic
 #i3:.config/i3
 #i3status:.config/i3status
 nano/nanorc
