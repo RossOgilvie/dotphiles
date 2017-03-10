@@ -14,10 +14,6 @@ xcompmgr -cCfF -D 6 &
 ## Turn on the numlock
 numlockx on &
 
-## Swaps some keys around. Makes caps lock into a launcher key.
-# xmodmap /home/ross/.xmodmap_standard &
-# xmodmap /home/ross/.xmodmap_greek &
-
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard_setup &
 
@@ -28,7 +24,7 @@ numlockx on &
 xsetroot -cursor_name left_ptr &
 
 ## set xresources
-xrdb -merge ~/.Xresources &
+xrdb -merge ~/.dotphiles/xinit/Xresources &
 
 #############
 ## Autostarts

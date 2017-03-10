@@ -25,28 +25,18 @@ git/gitignore
 #git/gitattributes
 #git/tigrc
 #git/gitk
-#hunspell/hunspell_latex.raw:hunspell_en_AU
-#hunspell/hunspell_latex.raw:hunspell_latex.dic
-#i3:.config/i3
-#i3status:.config/i3status
 nano/nanorc
 #ssh
 latex/ross.sty:texmf/tex/latex/commonstuff/ross.sty
 tmux/tmux.conf
-#tmux/tmuxinator
 touchegg:.config/touchegg
 tvnamer:.config/tvnamer
-xbindkeys/xbindkeysrc
 xinit/xinitrc
 xinit/xprofile
-xinit/Xresources
 xmodmap/xmodmap_standard
 xmodmap/xmodmap_greek
-xmodmap/xmodmap_latex
 xmodmap/xmodmap_braces
 xmodmap/xmodmap_sbrackets
-xmobar/xmobarrc1
-xmobar/xmobarrc2
 xmonad
 yaourt/yaourtrc
 #zsh/fasdrc
@@ -65,7 +55,6 @@ zsh/zprezto_init.sh
 ## hostname                     type=masterhost, ANY or NONE    files=dotfile:tolink,another:tolink
 [hosts]
 nyx git=ANY
-eris git=ANY
 #host1.example.com               git=ANY                        files=custom/dotfile    #git repo, pull from anywhere and link a custom dotfile
 #host2.example.com               git=ANY                                                #git repo, pull from anywhere
 #host3.example.com               git=ANY                                                #git repo, pull from anywhere
