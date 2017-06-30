@@ -38,7 +38,6 @@ baseKeys _ =
     -- , ("M-s", spawn "sleep")
     , ("M-<Escape>", kill)
     , ("M-S-<Escape>", spawn "xkill")
-    -- , ("M-C-r", spawn "/home/ross/.scripts/xmonad_recompile")
     , ("M-C-r", do
         whenX (recompile True) $ do
             broadcastMessage ReleaseResources
@@ -54,11 +53,11 @@ spawnKeys :: XConfig Layout -> [(String, X ())]
 spawnKeys _ =
     [ ("M-<Return>", spawn "sakura")
     , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
-    , ("M-a", spawn "atom")
+    , ("M-w", spawn "code")
+    , ("M-S-w", spawn "mousepad")
     , ("M-b", spawn "/home/ross/.scripts/bluetooth_connect")
     , ("M-c", spawn "gnome-calculator")
-    , ("M-e", spawn "nemo --no-desktop")
-    -- , ("M-e", spawn "thunar")
+    , ("M-e", spawn "nemo")
     , ("M-f", spawn "firefox")
 
     -- Toggle Keyboard mapping
@@ -72,16 +71,14 @@ spawnKeys _ =
     , ("M-m", spawn "/home/ross/.scripts/eris mount && notify-send -i /usr/share/icons/gnome/48x48/devices/drive-multidisk.png \"Eris Mounted\"")
     , ("M-S-m", spawn "/home/ross/.scripts/eris unmount && notify-send -i /usr/share/icons/elementary/actions/48/remove.svg \"Eris Unmounted\"")
 
-    , ("M-r", spawn "firefox-aurora -P Rdio -no-remote")
     , ("M-s", spawn "spotify")
-    -- , ("M-u", spawn "/home/ross/.scripts/keyboard_setup_udev")
     , ("M-v", spawn "pavucontrol")
-    , ("M-w", spawn "/home/ross/.scripts/wallpaper reddit")
+    -- , ("M-w", spawn "/home/ross/.scripts/wallpaper reddit")
     ]
 
 scratches :: XConfig Layout -> [(String, X ())]
 scratches _ =
-    [ ("M-<Space>", namedScratchpadAction scratchpads "clock")
+    [ ("<XF86Go>", namedScratchpadAction scratchpads "clock")
     ]
 
 fKeys :: XConfig Layout -> [(String, X ())]
