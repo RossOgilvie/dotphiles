@@ -1,3 +1,4 @@
+resolver: lts-8.20
 packages:
 - .
 extra-deps:
@@ -5,4 +6,3 @@ extra-deps:
 - xmonad-contrib-0.13
 - X11-1.8
 - X11-xft-0.3.1
-resolver: lts-7.19

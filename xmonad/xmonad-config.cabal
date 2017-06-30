@@ -22,6 +22,7 @@ executable xmonad-x86_64-linux
     XmonadConfig
     , XmonadKeys
   -- ghc-options: -Wall
+  ghc-options: -dynamic
   build-depends: base
     , containers
     , utf8-string

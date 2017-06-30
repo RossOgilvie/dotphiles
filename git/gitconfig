@@ -9,7 +9,7 @@
 
 # Global Config
 [user]
-	name = Ross Ogilvie
+	name = RossOgilvie
 	email = ross@rossogilvie.id.au
 
 [branch "master"]
