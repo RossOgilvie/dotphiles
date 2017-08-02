@@ -3,7 +3,8 @@
 XMONAD_DIR=/home/ross/.xmonad
 
 cd $XMONAD_DIR
-stack install --local-bin-path $XMONAD_DIR
+stack install --local-bin-path $XMONAD_DIR 
+# --force-dirty --ghc-options=-fforce-recomp
 success=$?
 
 if [[ $success -eq 0 ]]; then

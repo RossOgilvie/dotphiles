@@ -42,9 +42,6 @@ baseKeys _ =
         whenX (recompile True) $ do
             broadcastMessage ReleaseResources
             restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
-    , ("M-C-S-r", do
-        broadcastMessage ReleaseResources
-        restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
     , ("M-d", sendMessage ToggleStruts)
     , ("M-C-S-<Escape>", io exitSuccess)
     ]

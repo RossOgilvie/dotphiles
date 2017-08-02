@@ -27,18 +27,19 @@ main = xmonad . ewmh $ rossConfig
 
 rossConfig = def {
     terminal           = myTerminal,
-    modMask            = mod4Mask,
+    modMask            = myModKey,
     workspaces         = myWorkspaces,
-    borderWidth        = 1,
+    borderWidth        = myBorderWidth,
     normalBorderColor  = unfocusedColour,
     focusedBorderColor = highlightColour,
     focusFollowsMouse  = False,
-    manageHook         = myManageHook <+> manageDocks <+> manageScratchPad,
+    XMonad.clickJustFocuses = False,
+
+    keys               = myKeyBindings,
     handleEventHook    = docksEventHook,
     logHook            = myLogHook,
     layoutHook         = myLayouts,
-    keys               = myKeyBindings,
-    XMonad.clickJustFocuses = False
+    manageHook         = myManageHook <+> manageDocks <+> manageScratchPad
 }
 
 ------------------------------------------------------------------------

@@ -16,5 +16,4 @@ fi
 ##############
 ## Xmonad WM
 ##############
-exec /home/ross/.xmonad/xmonad > /tmp/xmonad_runtime_log 2>&1
-# exec /home/ross/.xmonad/xmonad-x86_64-linux > /tmp/xmonad_runtime_log 2>&1
+exec /home/ross/.xmonad/xmonad-x86_64-linux > /tmp/xmonad_runtime_log 2>&1
