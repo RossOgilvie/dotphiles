@@ -5,6 +5,7 @@ module XmonadConfig where
 import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.Util.NamedScratchpad
+import XMonad.Hooks.ManageHelpers
 
 myTerminal ∷ String
 myTerminal = "sakura"
@@ -31,7 +32,9 @@ getWorkspace k
 scratchpads ∷ [NamedScratchpad]
 scratchpads = [
     --  NS "clock" "urxvt -e /home/ross/.scripts/clock" (title =? "clock") (customFloating $ W.RationalRect (3/9) (4/9) (3/9) (1/9))
-     NS "clock" "aclock" (className =? "Aclock") (customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3))
+    NS "clock" "aclock" (className =? "Aclock") (customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3))
+    -- , NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (0) (0) (1) (1))
+    , NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (doFullFloat)
  ]
 
 -- This appears to be more complicated than necessary because it is allowing for the conversion of numbers greater than 9. It breaks a number into its digits using toDigits, then maps the digit lookup to each digit and concats the result.

@@ -78,7 +78,7 @@ spawnKeys _ =
 
 scratches :: XConfig Layout -> [(String, X ())]
 scratches _ =
-    [ ("<XF86Go>", namedScratchpadAction scratchpads "clock")
+    [ ("<XF86Go>", namedScratchpadAction scratchpads "conky")
     ]
 
 fKeys :: XConfig Layout -> [(String, X ())]
@@ -88,6 +88,7 @@ fKeys _ =
     , ("<F3>", spawn "/home/ross/.scripts/brightness up")
     , ("<F4>", spawn "/home/ross/.scripts/screens")
     , ("S-<F4>", spawn "/home/ross/.scripts/screens off")
+    , ("C-<F4>", spawn "/home/ross/.scripts/wallpaper random")
     , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
     , ("S-<F6>", spawn "sudo /home/ross/.scripts/bluetooth-connect")
     , ("<F7>", spawn "/home/ross/.scripts/volume down")
@@ -126,7 +127,7 @@ focusKeys c =
     , ("M-n", moveTo Next EmptyWS)
     , ("M-<Home>", moveTo Prev NonEmptyWS)
     , ("M-<End>", moveTo Next NonEmptyWS)
-    , ("M-<Tab>", toggleWS)
+    , ("M-<Tab>", toggleWS' ["NSP"])
     -- , ("M-<Backspace>", windows $ showSpare)
     -- moving windows
     , ("M-C-<L>", windows W.swapUp)

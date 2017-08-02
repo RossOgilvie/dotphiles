@@ -3,7 +3,7 @@
 ###############
 
 ## Turn down the brightness
-xbacklight =25 &
+xbacklight =10 &
 
 ## Set up the screens and then lock
 (/home/ross/.scripts/screens ; /home/ross/.scripts/lock_screen) &
