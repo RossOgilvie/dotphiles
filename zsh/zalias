@@ -1,14 +1,14 @@
-#alias for yaourt. Also, refresh zsh path after an install.
-alias y='yaourt'
-alias ys='yaourt -Sy'
-alias yq='yaourt -Ss'
-alias yqi='yaourt -Qi'
-alias yql='yaourt -Ql'
-alias yqli='yaourt -Qli'
-alias yr='yaourt -Rsn'
-alias yu='yaourt -Syu'
-alias yolo='yaourt -Syua --noconfirm'
-yaourt() { /usr/bin/yaourt $* && rehash;  }
+#alias for yay. Also, refresh zsh path after an install.
+# alias y='yay'
+# alias ys='yay -Sy'
+# alias yq='yay -Ss'
+# alias yqi='yay -Qi'
+# alias yql='yay -Ql'
+# alias yqli='yay -Qli'
+# alias yr='yay -Rsn'
+# alias yu='yay -Syu'
+# alias yolo='yay -Syua --noconfirm'
+yay() { /usr/bin/yay $* && rehash;  }
 
 
 # modified commands
@@ -22,29 +22,21 @@ alias cp='rsync --progress -ah'
 #alias ssh='ssh -YC'
 alias top='htop'
 
+alias ls='ls --color'
+alias la='ls -al'
+
 # new commands
 alias du1='du --max-depth=1'
 alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg="ps -Af | grep -e \"^UID\" -e"
-alias so='source ~/.zalias'
 alias n='nano'
 alias l='less'
 alias sn='sudo nano'
-alias j='journalctl'
+alias jc='journalctl'
 alias sc='systemctl'
-nt() { systemctl $1 netctl-auto@wlan0.service }
-alias fuck-wifi='sc restart netctl-auto@wlan0.service'
+
 alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
-alias steam-wine='WINEDEBUG=-all wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe >/dev/null 2>&1 &'
 
-#fix-mouse() {
-#    printf '\e[?1000l'
-#    }
-
-## Show contents on directory change
-cd() {
-    builtin cd "$@" && ls
-}
 ## Show contents on blank command entry
 auto-ls () {
 if [[ $#BUFFER -eq 0 ]]; then
@@ -57,9 +49,6 @@ fi
 }
 zle -N accept-line auto-ls
 
-#trash-cli
-alias tr='trash'
-alias trls='trash-list'
 alias rm="rm -I"
 
 # safety features
@@ -71,8 +60,6 @@ alias chgrp='chgrp --preserve-root'
 alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
 
 #power control
-alias reboot='systemctl reboot'
-alias halt='systemctl poweroff'
 alias suspend='systemctl suspend'
 alias hibernate='systemctl hibernate'
 
@@ -89,18 +76,6 @@ sudo create_ap wlan0 eth0 Ogilvie fishyfishy
 sc start netctl-auto@wlan0.service
 #sc-start dnsmasq.service
 }
-
-### cat a script
-# show() {
-# cat $(which $1)
-# }
-
-######### some common paths
-s2=/mnt/seagate2
-bp3=/mnt/btrfs-pool3
-
-###### work
-alias work='atom /home/ross/documents/Uni/Thesis; for i in {1..5}; do echo work; sleep 0.2; done;'
 
 spellcheck()
 {

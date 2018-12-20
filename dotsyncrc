@@ -38,17 +38,10 @@ xmodmap/xmodmap_greek
 xmodmap/xmodmap_braces
 xmodmap/xmodmap_sbrackets
 xmonad
-yaourt/yaourtrc
-#zsh/fasdrc
-#zsh/dotzsh:.zsh
-#zsh/zlogin
-#zsh/zlogout
+zsh
 zsh/zprofile
 zsh/zshenv
 zsh/zshrc
-zsh/zalias
-zsh/zpreztorc
-zsh/zprezto_init.sh
 [endfiles]
 
 # Hosts to sync

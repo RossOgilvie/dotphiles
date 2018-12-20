@@ -1,0 +1,40 @@
+#####################
+##  Turn on the completion system
+#####################
+autoload -Uz compinit && compinit
+
+# Add some functions to the search path
+fpath=(/usr/share/zsh/site-functions $fpath)
+
+# cache completions
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/zcompcache
+
+# Use menus
+zstyle ':completion:*' menu yes select
+# match uppercase from lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# activate color-completion
+eval $(dircolors -b) # color setup. exports LS_COLORS
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# Ignore functions we don't have
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# Kill processes in style
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
+
+#####################
+##  Load the completions for some specific functions
+#####################
+autoload -U +X bashcompinit && bashcompinit
+eval "$(stack --bash-completion-script "$(which stack)")"
+eval "$(dora bash-completion)"
+# eval "$(geras bash-completion)"
+eval "$(volume bash-completion)"
+eval "$(keyboard_backlight bash-completion)"
+eval "$(screens bash-completion)"
+eval "$(wallpaper bash-completion)"
+eval "$(wifi bash-completion)"

@@ -1,58 +1,30 @@
 ############################
-### prezto
+### modules
 ############################
-ZSH_CUSTOM='/home/ross/.dotphiles/zsh/prezto'
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOQUIT=true
+source ~/.zsh/modules/tmux_autostart.zsh
 
-autoload promptinit
-fpath=($ZSH_CUSTOM/themes $fpath)
-promptinit
-prompt josh
-source /home/ross/.zprezto_init.sh
-pmodload tmux-ross
+# source ~/.zsh/modules/arrow_navigation.zsh
 
-#no tabs when tabbing
-zstyle ':completion:*' insert-tab false
+source ~/.zsh/modules/fix_special_keys.zsh
 
-autoload -U zmv
+autoload -Uz zmv
 
-
+HISTFILE=~/.zhistory
 
 ###############################
-### ssh autocomplete
+### autocompletes
 ###############################
-# ssh, scp, ping, host
-zstyle ':completion:*:scp:*' tag-order \
-      'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
-zstyle ':completion:*:scp:*' group-order \
-      users files all-files hosts-domain hosts-host hosts-ipaddr
-zstyle ':completion:*:ssh:*' tag-order \
-      users 'hosts:-host hosts:-domain:domain hosts:-ipaddr:IP\ address *'
-zstyle ':completion:*:ssh:*' group-order \
-      hosts-domain hosts-host users hosts-ipaddr
-
-zstyle ':completion:*:(ssh|scp):*:hosts-host' ignored-patterns \
-      '*.*' loopback localhost
-zstyle ':completion:*:(ssh|scp):*:hosts-domain' ignored-patterns \
-      '<->.<->.<->.<->' '^*.*' '*@*'
-zstyle ':completion:*:(ssh|scp):*:hosts-ipaddr' ignored-patterns \
-      '^<->.<->.<->.<->' '127.0.0.<->'
-zstyle ':completion:*:(ssh|scp):*:users' ignored-patterns \
-      adm bin daemon halt lp named shutdown sync
-
-
-###############################
-### automatic autocompletes
-###############################
-autoload -U +X bashcompinit && bashcompinit
-[ $(hostname) = nyx ] && eval "$(stack --bash-completion-script "$(which stack)")"
-eval "$(como bash-completion)"
-eval "$(geras bash-completion)"
-eval "$(volume bash-completion)"
-eval "$(keyboard_backlight bash-completion)"
-eval "$(screens bash-completion)"
-eval "$(wallpaper bash-completion)"
+source ~/.zsh/zcompletes
 
 ###############################
 ### load aliases
 ###############################
-source ~/.zalias
+source ~/.zsh/zalias
+
+###############################
+### prompts
+###############################
+autoload -Uz promptinit && promptinit
+prompt suse
