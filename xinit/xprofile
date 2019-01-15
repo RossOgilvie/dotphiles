@@ -6,7 +6,7 @@
 xbacklight =10 &
 
 ## Set up the screens and then lock
-(/home/ross/.scripts/screens ; /home/ross/.scripts/lock_screen) &
+(/home/ross/.scripts/screens ; /home/ross/.scripts/lock-screen) &
 
 ## This enables window transparency
 compton -cCfF &
@@ -14,11 +14,13 @@ compton -cCfF &
 ## Turn on the numlock
 numlockx on &
 
+## Set fan to max
+samsung-tools --cpu overclock
+
 ## Start a daemon script that sets up keyboards
-/home/ross/.scripts/keyboard_setup &
+/home/ross/.scripts/keyboard-setup &
 
 ## Enable my wicked triple finger swipe gestures
-# touchegg &
 libinput-gestures-setup start &
 
 ## set correct pointer for wm windows
@@ -34,6 +36,9 @@ xrdb -merge ~/.dotphiles/xinit/Xresources &
 ## Kupfer is my launcher
 # Run it persistently so it can't be killed.
 /home/ross/.scripts/persist kupfer --no-splash &
+
+#cairo-dock &
+#plank &
 
 ## For automounting usb drives
 udiskie -2 -a -T -N &
