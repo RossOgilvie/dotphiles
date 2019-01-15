@@ -18,7 +18,7 @@ set autoindent
 set backupdir "~/.backup/nano"
 
 # Do backwards searches by default.
-unset backwards
+# unset backwards
 
 # Use bold text instead of reverse video text.
 set boldtext
@@ -33,7 +33,7 @@ set brackets string ""')>]}"
 set casesensitive
 
 # Constantly display the cursor position in the status bar.
-set const
+# set const
 
 # Use cut to end of line by default.
 #unset cut
