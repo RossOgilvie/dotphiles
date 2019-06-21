@@ -1,31 +1,34 @@
-#alias for yay. Also, refresh zsh path after an install.
-# alias y='yay'
-# alias ys='yay -Sy'
-# alias yq='yay -Ss'
-# alias yqi='yay -Qi'
-# alias yql='yay -Ql'
-# alias yqli='yay -Qli'
-# alias yr='yay -Rsn'
-# alias yu='yay -Syu'
-# alias yolo='yay -Syua --noconfirm'
-yay() { /usr/bin/yay $* && rehash;  }
-
-
-# modified commands
-alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
-alias sudo='sudo '
-alias diff='colordiff'
-alias mkdir='mkdir -p -v'
+###############################
+## Modified commands
+###############################
+# alias sudo='sudo '
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
+alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
+alias stack='stack --resolver lts-13.3'
+
+alias mkdir='mkdir -p -v'
+alias ls='ls --color --si'
+alias la='ls -al'
+alias df='df --si'
+alias du='du --si'
+
+# safety features
+alias rm="rm -I"
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+###############################
+## Replace Commands
+###############################
 alias cp='rsync --progress -ah'
-#alias ssh='ssh -YC'
+alias diff='colordiff'
 alias top='htop'
 
-alias ls='ls --color'
-alias la='ls -al'
-
-# new commands
+###############################
+## New Commands
+###############################
 alias du1='du --max-depth=1'
 alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg="ps -Af | grep -e \"^UID\" -e"
@@ -34,8 +37,22 @@ alias l='less'
 alias sn='sudo nano'
 alias jc='journalctl'
 alias sc='systemctl'
-
+alias suspend='systemctl suspend'
+alias hibernate='systemctl hibernate'
+alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
 alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
+
+#aliases for yay. Also, refresh zsh path after an install.
+alias y='yay'
+alias ys='yay -Sy'
+alias yq='yay -Ss'
+alias yqi='yay -Qi'
+alias yql='yay -Ql'
+alias yqli='yay -Qli'
+alias yr='yay -Rsn'
+alias yu='yay -Syu'
+# alias yolo='yay -Syua --noconfirm'
+yay() { /usr/bin/yay $* && rehash;  }
 
 ## Show contents on blank command entry
 auto-ls () {
@@ -49,23 +66,9 @@ fi
 }
 zle -N accept-line auto-ls
 
-alias rm="rm -I"
-
-# safety features
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
-
-#ep renaming
-alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
-
-#power control
-alias suspend='systemctl suspend'
-alias hibernate='systemctl hibernate'
-
 #### fun
 hack() {
-cat /dev/urandom | hexdump -C | grep "ca fe"
+cat /dev/urandom | hexdump -C | grep "de ad"
 }
 
 hotspot ()

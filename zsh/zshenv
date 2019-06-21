@@ -14,8 +14,6 @@
 #change the default editor to nano
 export EDITOR="nano"
 
-export BROWSER=firefox-aurora
-
 #Add my misc scripts to the path, and the current directory
 typeset -U path
-path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin . $path)
+path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin $path)

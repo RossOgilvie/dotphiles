@@ -3,7 +3,7 @@
 ###############
 
 ## Turn down the brightness
-xbacklight =10 &
+xbacklight =20 &
 
 ## Set up the screens and then lock
 (/home/ross/.scripts/screens ; /home/ross/.scripts/lock-screen) &
@@ -32,13 +32,6 @@ xrdb -merge ~/.dotphiles/xinit/Xresources &
 #############
 ## Autostarts
 #############
-
-## Kupfer is my launcher
-# Run it persistently so it can't be killed.
-/home/ross/.scripts/persist kupfer --no-splash &
-
-#cairo-dock &
-#plank &
 
 ## For automounting usb drives
 udiskie -2 -a -T -N &
