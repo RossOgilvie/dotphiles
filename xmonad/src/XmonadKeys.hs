@@ -46,7 +46,7 @@ fnKeyActiveIf act = do
 -- The trick is to call "ungrabKey" from the X11 library to release Xmonad's grab and let the even pass through.
 -- The return (All True) is the signal to continue processing with the normal hooks. I think that it should be All False in the case that we ungrab, but it seems to work this way.
 fnKeyActiveEventHook :: Event -> X All
-fnKeyActiveEventHook (KeyEvent {ev_event_type = t, ev_state = m, ev_keycode = code})
+fnKeyActiveEventHook KeyEvent {ev_event_type = t, ev_state = m, ev_keycode = code}
     | t == keyPress = withDisplay $ \dpy -> do
         XConf { theRoot = rootw } <- ask
         s  <- io $ keycodeToKeysym dpy code 0
@@ -75,16 +75,11 @@ rawKeys c = concatMap ($ c) keymaps where
 
 baseKeys :: XConfig Layout -> [(String, X ())]
 baseKeys _ =
-    [ ("M-h", spawn "hibernate")
-    -- , ("M-s", spawn "sleep")
-    , ("M-<Escape>", kill)
+    [ ("M-<Escape>", kill)
     , ("M-S-<Escape>", spawn "xkill")
-    , ("M-C-r", do
-        whenX (recompile True) $ do
+    , ("M-C-r", whenX (recompile True) $ do
             broadcastMessage ReleaseResources
             restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
-    , ("M-d", sendMessage ToggleStruts)
-    , ("M-t", toggleFnKeyActive)
     , ("M-C-S-<Escape>", io exitSuccess)
     ]
 
@@ -94,18 +89,16 @@ spawnKeys _ =
     , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
     , ("M-<Print>", spawn "/home/ross/.scripts/screenshot")
     , ("M-w", spawn "mousepad")
-    , ("M-b", spawn "/home/ross/.scripts/bluetooth_connect")
     , ("M-S-c", spawn "gnome-calculator")
     , ("M-S-e", spawn myFileBrowser)
     , ("M-f", spawn myWebBrowser)
     , ("M-<XF86Go>", spawn myLauncher)
+    , ("M-S-<XF86Go>", spawn myWindowSwitcher)
     , ("M-s", spawn "spotify")
     , ("M-v", spawn "pavucontrol")
+    , ("M-z", spawn "zotero")
 
-    -- , ("M-w", spawn "sudo /home/ross/.scripts/wifi toggle")
     , ("M-l", spawn "/home/ross/.scripts/lock-screen")
-    , ("M-m", spawn "/home/ross/.scripts/dora mount && notify-send -i /usr/share/icons/gnome/48x48/devices/drive-multidisk.png \"Dora Mounted\"")
-    , ("M-S-m", spawn "/home/ross/.scripts/dora unmount && notify-send -i /usr/share/icons/elementary/actions/48/remove.svg \"Dora Unmounted\"")
  
     -- , ("M-k", spawn "/home/ross/.scripts/keyboard setup notify")
     -- Pressing either bracket key flips it to the other one. Acts as a natural toggle.
@@ -139,6 +132,8 @@ functionKeys _ =
     -- Use this to do the keyboard stuff instead
     , ("<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard setup notify")
     , ("<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard greek notify")
+    , ("S-<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard greek notify")
     -- F6-F8 are music keys, handled below in media keys
     -- F9
     , ("<XF86KbdBrightnessDown>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
@@ -152,8 +147,9 @@ functionKeys _ =
 
 fKeys :: XConfig Layout -> [(String, X ())]
 fKeys _ =
+    [ ("M-<F1>", toggleFnKeyActive >> spawn "notify-send \"Function key toggle\"")    
     -- F1
-    [ ("<F1>", spawn "/home/ross/.scripts/battery")
+    , ("<F1>", spawn "/home/ross/.scripts/battery")
     -- F2
     , ("<F2>", spawn "/home/ross/.scripts/brightness down")
     -- F3
@@ -162,10 +158,11 @@ fKeys _ =
     , ("<F4> <F4>", spawn "/home/ross/.scripts/monitor auto")
     , ("<F4> m", spawn "/home/ross/.scripts/monitor mirror")
     , ("<F4> o", spawn "/home/ross/.scripts/monitor off")
-    , ("<F4> <Tab>", spawn "/home/ross/.scripts/monitor off")
+    , ("<F4> <Esc>", spawn "/home/ross/.scripts/monitor off")
     -- F5
     -- Use this to do the keyboard stuff instead
     , ("<F5>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<F5>", spawn "/home/ross/.scripts/keyboard greek notify")
     -- F6
     , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
     , ("S-<F6>", spawn "/home/ross/.scripts/music-control play")
@@ -209,22 +206,22 @@ focusKeys c =
     -- moving focus
     ("M-<L>", windows W.focusUp)
     , ("M-<R>", windows W.focusDown)
-    -- , ("M-<Space>", windows W.focusMaster)
     , ("M-<Backspace>", swapNextScreen >> nextScreen)
     , ("M-S-<Backspace>", nextScreen)
-    , ("M-n", moveTo Next EmptyWS)
-    , ("M-<Home>", moveTo Prev NonEmptyWS)
-    , ("M-<End>", moveTo Next NonEmptyWS)
+    , ("M-<Space>", moveTo Next EmptyWS)
     , ("M-<Tab>", toggleWS' ["NSP"])
+    -- , ("M-<Space>", windows W.focusMaster)
+    -- , ("M-<Home>", moveTo Prev NonEmptyWS)
+    -- , ("M-<End>", moveTo Next NonEmptyWS)
     -- , ("M-<Backspace>", windows $ showSpare)
     -- moving windows
     , ("M-C-<L>", windows W.swapUp)
     , ("M-C-<R>", windows W.swapDown)
-    , ("M-C-<Space>", windows W.swapMaster)
     , ("M-C-<Backspace>", shiftNextScreen >> nextScreen)
-    , ("M-C-n",  shiftTo Next EmptyWS)
-    , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
-    , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
+    , ("M-C-<Space>",  shiftTo Next EmptyWS)
+    -- , ("M-C-<Space>", windows W.swapMaster)
+    -- , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
+    -- , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)
     -- fullscreen and floating
     , ("M-<U>", withFocused $ windows . (\w -> W.float w (W.RationalRect 0.0 0.0 1.0 1.0)))
     , ("M-<D>", withFocused $ windows . W.sink)

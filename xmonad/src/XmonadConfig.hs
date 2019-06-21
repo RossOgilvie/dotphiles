@@ -14,8 +14,9 @@ myTerminal, myLauncher, myFileBrowser, myWebBrowser ∷ String
 myTerminal = "sakura"
 myFileBrowser = "thunar"
 -- myFileBrowser = "pantheon-files"
-myWebBrowser = "firefox && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
-myLauncher = "rofi -matching fuzzy -modi combi -show combi -combi-modi drun,run"
+myWebBrowser = "firefox -P Ross && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
+myLauncher = "rofi -modi combi,drun -show drun -combi-modi drun,run"
+myWindowSwitcher = "rofi -matching fuzzy -show window"
 
 unfocusedColour, secondaryColour, highlightColour ∷ String
 unfocusedColour = "#303030"
@@ -30,7 +31,7 @@ fore     = "#DEE3E0"
 back     = "#282c34"
 winType = "#c678dd"
 
-gapSize ∷ Int
+gapSize ∷ Integer
 gapSize = 4
 
 myBorderWidth ∷ Dimension
@@ -46,20 +47,20 @@ myWorkspaces = ["I","II","III","IV","V","VI"]
 
 scratchpads ∷ [NamedScratchpad]
 scratchpads = [
-    NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (doFullFloat)
+    NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     , NS "calc" "gnome-calculator" (className =? "Gnome-calculator") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
  ]
 
 -- This appears to be more complicated than necessary because it is allowing for the conversion of numbers greater than 9. It breaks a number into its digits using toDigits, then maps the digit lookup to each digit and concats the result.
-lojShow ∷ Int → String
-lojShow n = concatMap (lojDigits!!) $ toDigits n
+-- lojShow ∷ Int → String
+-- lojShow n = concatMap (lojDigits!!) $ toDigits n
 
-lojDigits ∷ [String]
-lojDigits = ["no","pa","re","ci","vo","mu","xa","bi","so"]
+-- lojDigits ∷ [String]
+-- lojDigits = ["no","pa","re","ci","vo","mu","xa","bi","so"]
 
-toDigits ∷ Int → [Int]
-toDigits n = let ds = length $ show n in reverse . take ds . unfold (`divMod` 10) $ n
+-- toDigits ∷ Int → [Int]
+-- toDigits n = let ds = length $ show n in reverse . take ds . unfold (`divMod` 10) $ n
 
 unfold ∷ (a → (a,b)) → a → [b]
 unfold f x = b : unfold f a

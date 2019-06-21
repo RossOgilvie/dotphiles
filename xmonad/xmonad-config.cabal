@@ -1,30 +1,33 @@
-name:                xmonad-config
-version:             0.1.0.0
-synopsis:            My Xmonad config
--- description:
--- homepage:
-license:             BSD3
--- license-file:     
-author:              Ross Ogilvie
-maintainer:          ross@rossogilvie.id.au
--- copyright:        
-category:            System
-build-type:          Simple
--- extra-source-files:
-cabal-version:       >=1.10
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 57c77dc541efbec4d764ceb3403430877a22d2d7ed17df60c39f97e8d422f5b4
+
+name:           xmonad-config
+version:        0.1.0.0
+synopsis:       My Xmonad config
+category:       System
+author:         Ross Ogilvie
+maintainer:     ross@rossogilvie.id.au
+license:        BSD3
+build-type:     Simple
 
 executable xmonad-x86_64-linux
-  hs-source-dirs:      src
-  main-is:             xmonad.hs
+  main-is: xmonad.hs
   other-modules:
-    XmonadConfig
-    , XmonadKeys
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  -- ghc-options: -Wall
-  build-depends:       
-    base
+      XmonadConfig
+      XmonadKeys
+      Paths_xmonad_config
+  hs-source-dirs:
+      src
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      X11
+    , base
     , containers
-    , X11
     , xmonad
     , xmonad-contrib
-  default-language:    Haskell2010
+  default-language: Haskell2010

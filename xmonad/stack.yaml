@@ -1,22 +1,8 @@
-resolver: lts-9.0
+resolver: lts-13.3
 
 packages:
 - .
 
 extra-deps: []
-# - xmonad-0.13
-# - xmonad-contrib-0.13
-# - X11-xft-0.3.1
-# - X11-1.8
 flags: {}
 extra-package-dbs: []
-
-# Control whether we use the GHC we find on the path
-# system-ghc: true
-
-# Extra directories used by stack for building
-# extra-include-dirs: [/path/to/dir]
-# extra-lib-dirs: [/path/to/dir]
-
-# Allow a newer minor version of GHC than the snapshot specifies
-# compiler-check: newer-minor
