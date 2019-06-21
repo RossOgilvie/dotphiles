@@ -11,11 +11,11 @@
 set autoindent
 
 # Create backup files in "filename~"
-#set backup
+# set backup
 
 # Set the directory where nano puts unique backup files if file backups
 # are enabled.
-set backupdir "~/.backup/nano"
+# set backupdir "~/.backup/nano"
 
 # Do backwards searches by default.
 # unset backwards
@@ -108,7 +108,7 @@ unset rebinddelete
 # Interpret the numeric keypad keys so that they all work properly. You should
 # only need to use this option if they don't, as mouse support won't work
 # properly with this option enabled.
-unset rebindkeypad
+# unset rebindkeypad
 
 # Do extended regular expression searches by default.
 unset regexp
