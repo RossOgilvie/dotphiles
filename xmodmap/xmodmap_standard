@@ -8,16 +8,29 @@ add mod1 = Alt_L
 ! Right Alt Key
 keycode 108 = Mode_switch Mode_switch Mode_switch Mode_switch
 
-! Add some dead keys
+! For German
+keycode  15 = 6 asciicircum 6 dead_circumflex
+
+keycode 26 = e E ediaeresis Ediaeresis
+keycode 30 = u U udiaeresis Udiaeresis
+keycode 31 = i I idiaeresis Idiaeresis
+keycode 32 = o O odiaeresis Odiaeresis
+
+keycode 38 = a A adiaeresis Adiaeresis
+keycode 39 = s S ssharp
+keycode 13 = 4 dollar EuroSign
+
+! Add some dead keys aka combining accents
+! Type these dead keys first, then the combining letter.
 keycode  15 = 6 asciicircum 6 dead_circumflex
 keycode  18 = 9 parenleft 9 dead_breve
 keycode  19 = 0 parenright 0 dead_abovering
 keycode  20 = minus underscore minus dead_macron
+
 keycode  48 = apostrophe quotedbl dead_acute dead_diaeresis
-keycode  49 = grave asciitilde dead_grave dead_tilde
 keycode  60 = period greater dead_abovedot greater
 
-!swap normal <-> shift to get default tilde and braces
+!swap normal <-> shift to get default tilde
 keycode  49 = asciitilde grave dead_tilde dead_grave
 
 ! set ->, => and :: for haskell
