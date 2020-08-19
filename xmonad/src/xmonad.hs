@@ -70,7 +70,7 @@ myManageHook =
     composeAll
         $ [ isFullscreen --> doFullFloat
           , className =? "Xmessage" --> doFloat
-          , className =? "vlc" --> doFullFloat
+        --   , className =? "vlc" --> doFullFloat
           , stringProperty "WM_WINDOW_ROLE" =?  "GtkFileChooserDialog" --> doRectFloat (W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
           ]
 

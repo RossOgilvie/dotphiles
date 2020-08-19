@@ -34,6 +34,11 @@ instance ExtensionClass FnKeyActive where
 -- toggles the bool value of FnKeyActive
 -- Good to use as a key binding action
 toggleFnKeyActive = XS.modify $ FnKeyActive . not . getFnKeyActive
+notifyFnKeyActive = do
+    active <- XS.gets getFnKeyActive
+    if active 
+        then spawn "notify-send \"Function keys active\""
+        else spawn "notify-send \"Function keys not active\""
 
 -- An example of a function that only runs an action if the bool is True
 fnKeyActiveIf :: X () -> X ()
@@ -93,10 +98,13 @@ spawnKeys _ =
     , ("M-S-e", spawn myFileBrowser)
     , ("M-f", spawn myWebBrowser)
     , ("M-<XF86Go>", spawn myLauncher)
-    , ("M-S-<XF86Go>", spawn myWindowSwitcher)
+    , ("M-<Space>", spawn myWindowSwitcher)
     , ("M-s", spawn "spotify")
     , ("M-v", spawn "pavucontrol")
+    , ("M-x", spawn "xournalpp")
     , ("M-z", spawn "zotero")
+    , ("M-o", spawn "okular")
+    , ("M-t", spawn "thunderbird")
 
     , ("M-l", spawn "/home/ross/.scripts/lock-screen")
  
@@ -111,7 +119,7 @@ spawnKeys _ =
 scratches :: XConfig Layout -> [(String, X ())]
 scratches _ =
     [ ("<XF86Go>", namedScratchpadAction scratchpads "conky")
-    , ("M-e", namedScratchpadAction scratchpads "thunar")
+    , ("M-e", namedScratchpadAction scratchpads "nemo")
     , ("M-c", namedScratchpadAction scratchpads "calc")
     ]
 
@@ -147,11 +155,12 @@ functionKeys _ =
 
 fKeys :: XConfig Layout -> [(String, X ())]
 fKeys _ =
-    [ ("M-<F1>", toggleFnKeyActive >> spawn "notify-send \"Function key toggle\"")    
+    [ ("M-<F1>", toggleFnKeyActive >> notifyFnKeyActive)    
     -- F1
     , ("<F1>", spawn "/home/ross/.scripts/battery")
     -- F2
     , ("<F2>", spawn "/home/ross/.scripts/brightness down")
+    , ("S-<F2>", spawn "xset dpms force off")
     -- F3
     , ("<F3>", spawn "/home/ross/.scripts/brightness up")
     -- F4
@@ -208,8 +217,8 @@ focusKeys c =
     , ("M-<R>", windows W.focusDown)
     , ("M-<Backspace>", swapNextScreen >> nextScreen)
     , ("M-S-<Backspace>", nextScreen)
-    , ("M-<Space>", moveTo Next EmptyWS)
     , ("M-<Tab>", toggleWS' ["NSP"])
+    -- , ("M-<Space>", moveTo Next EmptyWS)
     -- , ("M-<Space>", windows W.focusMaster)
     -- , ("M-<Home>", moveTo Prev NonEmptyWS)
     -- , ("M-<End>", moveTo Next NonEmptyWS)
@@ -218,7 +227,7 @@ focusKeys c =
     , ("M-C-<L>", windows W.swapUp)
     , ("M-C-<R>", windows W.swapDown)
     , ("M-C-<Backspace>", shiftNextScreen >> nextScreen)
-    , ("M-C-<Space>",  shiftTo Next EmptyWS)
+    -- , ("M-C-<Space>",  shiftTo Next EmptyWS)
     -- , ("M-C-<Space>", windows W.swapMaster)
     -- , ("M-C-<Home>", shiftTo Prev NonEmptyWS >> moveTo Prev NonEmptyWS)
     -- , ("M-C-<End>", shiftTo Next NonEmptyWS >> moveTo Next NonEmptyWS)

@@ -3,13 +3,13 @@
 ###############
 
 ## Turn down the brightness
-xbacklight =20 &
+sudo light -S 50 &
 
 ## Set up the screens and then lock
-(/home/ross/.scripts/screens ; /home/ross/.scripts/lock-screen) &
+(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
 
 ## This enables window transparency
-compton -cCfF &
+# compton -cCfF &
 
 ## Turn on the numlock
 numlockx on &
@@ -21,7 +21,7 @@ samsung-tools --cpu overclock
 /home/ross/.scripts/keyboard-setup &
 
 ## Enable my wicked triple finger swipe gestures
-libinput-gestures-setup start &
+# libinput-gestures-setup start &
 
 ## set correct pointer for wm windows
 xsetroot -cursor_name left_ptr &
@@ -34,7 +34,7 @@ xrdb -merge ~/.dotphiles/xinit/Xresources &
 #############
 
 ## For automounting usb drives
-udiskie -2 -a -T -N &
+# udiskie -2 -a -T -N &
 
 ## So explorer windows open quickly
 # thunar --daemon &

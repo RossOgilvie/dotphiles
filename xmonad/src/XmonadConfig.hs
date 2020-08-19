@@ -12,9 +12,9 @@ myModKey = mod4Mask
 
 myTerminal, myLauncher, myFileBrowser, myWebBrowser ∷ String
 myTerminal = "sakura"
-myFileBrowser = "thunar"
+myFileBrowser = "nemo"
 -- myFileBrowser = "pantheon-files"
-myWebBrowser = "firefox -P Ross && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
+myWebBrowser = "firefox && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
 myLauncher = "rofi -modi combi,drun -show drun -combi-modi drun,run"
 myWindowSwitcher = "rofi -matching fuzzy -show window"
 
@@ -42,14 +42,15 @@ numberOfWorkspaces = 6
 
 myWorkspaces :: [WorkspaceId]
 -- myWorkspaces = map lojShow [1 .. numberOfWorkspaces]
-myWorkspaces = ["I","II","III","IV","V","VI"]
+myWorkspaces = ["eins", "zwei", "drei", "vier", "fünf", "sechs"]
 
-
+-- RationalRect are left margin, top margin, width, height in rational fraction of screen size
 scratchpads ∷ [NamedScratchpad]
 scratchpads = [
     NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
-    , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
-    , NS "calc" "gnome-calculator" (className =? "Gnome-calculator") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    -- , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    , NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4/6) (1/6) (2/6) (4/6))
  ]
 
 -- This appears to be more complicated than necessary because it is allowing for the conversion of numbers greater than 9. It breaks a number into its digits using toDigits, then maps the digit lookup to each digit and concats the result.
@@ -62,9 +63,9 @@ scratchpads = [
 -- toDigits ∷ Int → [Int]
 -- toDigits n = let ds = length $ show n in reverse . take ds . unfold (`divMod` 10) $ n
 
-unfold ∷ (a → (a,b)) → a → [b]
-unfold f x = b : unfold f a
-    where (a,b) = f x
+-- unfold ∷ (a → (a,b)) → a → [b]
+-- unfold f x = b : unfold f a
+--     where (a,b) = f x
 
 getWorkspace ∷ Int → WorkspaceId
 getWorkspace k
