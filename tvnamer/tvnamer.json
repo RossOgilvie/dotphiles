@@ -2,7 +2,7 @@
     "always_move": false, 
     "always_rename": false, 
     "batch": false, 
-    "custom_filename_character_blacklist": "", 
+    "custom_filename_character_blacklist": ":", 
     "episode_separator": "-", 
     "episode_single": "%02d", 
     "extension_pattern": "(\\.[a-zA-Z0-9]+)$", 

@@ -5,14 +5,14 @@ ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOQUIT=true
 source ~/.zsh/modules/tmux_autostart.zsh
 
-# source ~/.zsh/modules/arrow_navigation.zsh
+source ~/.zsh/modules/directory.zsh
 
 source ~/.zsh/modules/fix_special_keys.zsh
 
 autoload -Uz zmv
 
 # history stuff
-HISTFILE=~/.zhistory
+HISTFILE=~/.zsh/history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt SHARE_HISTORY

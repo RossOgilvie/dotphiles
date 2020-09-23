@@ -17,3 +17,6 @@ export EDITOR="nano"
 #Add my misc scripts to the path, and the current directory
 typeset -U path
 path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin $path)
+
+#Qt use independent theme configuration
+export QT_QPA_PLATFORMTHEME="qt5ct"

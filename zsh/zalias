@@ -5,7 +5,7 @@
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
-alias stack='stack --resolver lts-13.3'
+#alias stack='stack --resolver lts-13.3'
 
 alias mkdir='mkdir -p -v'
 alias ls='ls --color --si'
@@ -24,7 +24,7 @@ alias chgrp='chgrp --preserve-root'
 ###############################
 alias cp='rsync --progress -ah'
 alias diff='colordiff'
-alias top='htop'
+alias top='glances'
 
 ###############################
 ## New Commands
@@ -42,6 +42,8 @@ alias hibernate='systemctl hibernate'
 alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
 alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
 
+alias ctan='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+
 #aliases for yay. Also, refresh zsh path after an install.
 alias y='yay'
 alias ys='yay -Sy'
@@ -49,9 +51,9 @@ alias yq='yay -Ss'
 alias yqi='yay -Qi'
 alias yql='yay -Ql'
 alias yqli='yay -Qli'
-alias yr='yay -Rsn'
+alias yr='yay -Rsnc'
 alias yu='yay -Syu'
-# alias yolo='yay -Syua --noconfirm'
+alias yolo='yay -w; pause; yay -Syu --noconfirm'
 yay() { /usr/bin/yay $* && rehash;  }
 
 ## Show contents on blank command entry

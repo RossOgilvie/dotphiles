@@ -31,10 +31,12 @@ zstyle ':completion:*:kill:*'   force-list always
 #####################
 autoload -U +X bashcompinit && bashcompinit
 eval "$(stack --bash-completion-script "$(which stack)")"
-eval "$(dora bash-completion)"
+# eval "$(dora bash-completion)"
 # eval "$(geras bash-completion)"
+eval "$(banach bash-completion)"
 eval "$(volume bash-completion)"
 eval "$(keyboard-backlight bash-completion)"
 eval "$(monitor bash-completion)"
 eval "$(wallpaper bash-completion)"
 eval "$(wifi bash-completion)"
+eval "$(vpn bash-completion)"

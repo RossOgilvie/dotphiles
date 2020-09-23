@@ -8,7 +8,7 @@ keycode 108 = Mode_switch Mode_switch Mode_switch Mode_switch
 ! ADD GREEK LETTERS ON MODE_SWITCH
 keycode 24 = q Q Greek_psi Greek_PSI
 keycode 25 = w W Greek_omega Greek_OMEGA
-keycode 26 = e E Greek_episilon Greek_EPSILON
+keycode 26 = e E Greek_epsilon Greek_EPSILON
 keycode 27 = r R Greek_rho Greek_RHO
 keycode 28 = t T Greek_tau infinity
 keycode 29 = y Y Greek_upsilon Greek_UPSILON
