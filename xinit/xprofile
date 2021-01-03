@@ -10,12 +10,13 @@ sudo light -S 50 &
 
 ## This enables window transparency
 # compton -cCfF &
+picom --detect-client-opacity -D 5 -b
 
 ## Turn on the numlock
 numlockx on &
 
 ## Set fan to max
-samsung-tools --cpu overclock
+samsung-tools --cpu silent
 
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard-setup &
