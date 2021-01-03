@@ -10,6 +10,7 @@ import System.Exit
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified Data.List        as L
 
 import XMonad.Hooks.ManageDocks
 
@@ -91,6 +92,7 @@ baseKeys _ =
 spawnKeys :: XConfig Layout -> [(String, X ())]
 spawnKeys _ =
     [ ("M-<Return>", spawn myTerminal)
+    , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
     , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
     , ("M-<Print>", spawn "/home/ross/.scripts/screenshot")
     , ("M-w", spawn "mousepad")
@@ -240,10 +242,13 @@ focusKeys c =
     , ("M-~", sendMessage NextLayout)
     , ("M-S-,", sendMessage (IncMasterN (-1)))
     , ("M-S-.", sendMessage (IncMasterN 1))
+    -- A way to get to the hidden named scratchpad workspace
+    , ("M-n", windows $ W.greedyView "NSP")
     ]
+    -- The workspaces list is numbered highest to lowest
     ++
-    [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
+    [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
     ++
-    [("M-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
+    [("M-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
     ++
-    [("M-S-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
+    [("M-S-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]

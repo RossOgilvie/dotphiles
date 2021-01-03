@@ -8,14 +8,15 @@ import           XmonadConfig
 -- import XMonad hiding ((|||))
 import           XMonad
 
--- provides ewmh hooks for making touchegg work
+-- provides ewmh hooks. These allow other programs to interact with desktop state, eg window lists, worsppace switching
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 
 import           XMonad.Hooks.DynamicLog
--- import XMonad.Util.Run (spawnPipe)
+
 import           System.IO
+import qualified Data.List as L
 
 -- import XMonad.Layout.LayoutCombinators
 import           XMonad.Layout.NoBorders
@@ -38,15 +39,14 @@ import           XMonad.Util.NamedScratchpad
 
 
 main :: IO ()
---adds support of EWMH functions, makes touchegg work
-main = xmonad . ewmh $ rossConfig
+main = xmonad rossConfig
 
 ----------------------------------------------------------------------
 -- config itself
 ----------------------------------------------------------------------
 
 
-rossConfig = def
+rossConfig = ewmh $ def
     { terminal                = myTerminal
     , modMask                 = myModKey
     , workspaces              = myWorkspaces
@@ -83,8 +83,9 @@ manageScratchPad = namedScratchpadManageHook scratchpads
 -- status bar and logging
 ------------------------------------------------------------------------
 
--- no logging to a status bar
-myLogHook = return ()
+-- The ewmh log hook supplies the window list to other programs
+-- Filter out the NSP named scratchpad workspace
+myLogHook = ewmhDesktopsLogHookCustom (namedScratchpadFilterOutWorkspace)
 
 ------------------------------------------------------------------------
 -- layouts

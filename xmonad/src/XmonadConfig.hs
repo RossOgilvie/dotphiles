@@ -7,6 +7,8 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Hooks.ManageHelpers
 import XMonad.StackSet as W
 
+import qualified Data.List as L
+
 myModKey ∷ KeyMask
 myModKey = mod4Mask
 
@@ -15,8 +17,8 @@ myTerminal = "sakura"
 myFileBrowser = "nemo"
 -- myFileBrowser = "pantheon-files"
 myWebBrowser = "firefox && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
-myLauncher = "rofi -modi combi,drun -show drun -combi-modi drun,run"
-myWindowSwitcher = "rofi -matching fuzzy -show window"
+myLauncher = "/home/ross/.config/rofi/launcher.sh"
+myWindowSwitcher = "/home/ross/.config/rofi/switcher.sh"
 
 unfocusedColour, secondaryColour, highlightColour ∷ String
 unfocusedColour = "#303030"
@@ -38,11 +40,16 @@ myBorderWidth ∷ Dimension
 myBorderWidth = 1
 
 numberOfWorkspaces :: Int
-numberOfWorkspaces = 6
+numberOfWorkspaces = 5
 
 myWorkspaces :: [WorkspaceId]
 -- myWorkspaces = map lojShow [1 .. numberOfWorkspaces]
-myWorkspaces = ["eins", "zwei", "drei", "vier", "fünf", "sechs"]
+--myWorkspaces = ["eins", "zwei", "drei", "vier", "fünf", "sechs"]
+
+-- For some reason, rofi reads the workspaces in the reverse order
+-- If you just reverse the logging output, this breaks firefox remembering which workspace you were on.
+-- Make the original list backwards!
+myWorkspaces = L.reverse $ map ((++"d").show) [1..numberOfWorkspaces]
 
 -- RationalRect are left margin, top margin, width, height in rational fraction of screen size
 scratchpads ∷ [NamedScratchpad]
