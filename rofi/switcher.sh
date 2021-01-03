@@ -1,0 +1,1 @@
+launchers/misc/switcher.sh

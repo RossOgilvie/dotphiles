@@ -18,16 +18,17 @@ DOTFILES=.dotphiles
 [files]
 # Uncomment examples below
 dotsyncrc
-#conky:.config/conky
+conky:.config/conky
 flexget:.flexget
 git/gitconfig
 git/gitignore
 #git/gitattributes
 #git/tigrc
 #git/gitk
-nano/nanorc
-#ssh
 latex/ross.sty:texmf/tex/latex/commonstuff/ross.sty
+nano/nanorc
+rofi:.config/rofi
+#ssh
 tmux/tmux.conf
 touchegg:.config/touchegg
 tvnamer:.config/tvnamer

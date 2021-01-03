@@ -1,0 +1,9 @@
+rofi.font: Fira Mono 11
+rofi.color-enabled: true
+rofi.color-window: argb:FF191919, argb:60181818, #191919
+rofi.color-normal: argb:0095C7AE, #A09894, argb:0095C7AE, argb:80101218, #95C7AE
+rofi.padding: 10
+rofi.line-margin: 10
+rofi.separator-style: solid
+rofi.show-icons: true
+rofi.terminal: sakura
