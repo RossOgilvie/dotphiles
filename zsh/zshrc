@@ -23,6 +23,12 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
+# I have copy and paste in tmux on ctrl+c,v so need to move these functions
+# The pointless ones I don't understand I dumped all on ctrl+s, since this was already a useless one.
+stty intr ^Q
+stty start ^S
+stty lnext ^S
+
 ###############################
 ### autocompletes
 ###############################
@@ -36,5 +42,7 @@ source ~/.zsh/zalias
 ###############################
 ### prompts
 ###############################
-autoload -Uz promptinit && promptinit
-prompt suse
+#autoload -Uz promptinit && promptinit
+#prompt suse
+autoload -Uz colors && colors
+PROMPT="%{$fg_bold[white]%}%(4~|%-1~/…/%2~|%3~)/ ≫  %{$reset_color%}"

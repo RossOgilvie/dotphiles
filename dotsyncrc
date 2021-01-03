@@ -27,6 +27,7 @@ git/gitignore
 #git/gitk
 latex/ross.sty:texmf/tex/latex/commonstuff/ross.sty
 nano/nanorc
+powerline:.config/powerline
 rofi:.config/rofi
 #ssh
 tmux/tmux.conf
