@@ -1,0 +1,156 @@
+*{
+  all: unset;
+}
+window {
+  background-color: #121212;
+/*  background-color: #000000; */
+	color: #ffd5cd;
+  font-family: Museo Sans;
+}
+
+button {
+  all: unset;
+  background-color: #121212;
+  padding: 10px;
+}
+
+/////////////////////////////
+// SLIDERS 
+/////////////////////////////
+.sliders scale trough highlight {
+	border-radius: 10px;
+}
+.sliders scale trough {
+	background-color: #4e4e4e;
+	border-radius: 50px;
+	min-height: 5px;
+  min-width: 170px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.sliders .icon {
+  font-family: Iosevka;
+  font-size: 25px;
+  min-width: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.sliders .label {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+
+
+.slider-vol {
+  margin-top: 10px;
+  color: #c47eb7;
+}
+.slider-vol scale trough highlight {
+	background-color: #c47eb7;
+}
+// .slider-vol-icon {
+//   color: #c47eb7;
+// }
+
+
+.slider-bright {
+  color: #84afdb;
+}
+.slider-bright scale trough highlight {
+	background-color: #84afdb;
+}
+// .slider-bright-icon {
+  // color: #84afdb;
+// }
+
+.slider-ram {
+  color: #D35D6E;
+}
+.slider-ram scale trough highlight {
+	background-color: #D35D6E;;
+}
+.slider-ram .icon {
+  font-size: 25px;
+}
+
+
+.slider-battery {
+  color: #90c861;
+  margin-bottom: 20px;
+}
+.slider-battery scale trough highlight {
+	background-color: #90c861;
+}
+.slider-battery .icon {
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+/////////////////////////////
+// CLOCK 
+/////////////////////////////
+
+.time {
+  margin: 15px 65px 10px 65px;
+  font-size: 60px;
+}
+.minute {
+  color: #57C7FF;
+}
+.day {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px 20px 10px 20px;
+  // color: #90c861;
+}
+.time-sydney {
+  // color: #a8a8a8;
+  font-size: 16px;
+  margin: 0px 0px 15px 0px;
+}
+
+
+/////////////////////////////
+// POWER
+/////////////////////////////
+
+
+.powermenu button:hover {
+  color: #FFFFFF;
+}
+.shutdown{
+  color: #D35D6E;
+}
+.reboot{
+  color: #84afdb;
+}
+.suspend{
+  color: #c47eb7;
+}
+.lock {
+  color: #90c861;
+}
+.exit{
+  color: #ffd5cd;
+}
+
+
+.pfp {
+  background-image: url("/tmp/battery-icon");
+  background-repeat: no-repeat;
+  background-size: 200px;
+  min-height: 200px;
+  min-width: 200px;
+  margin: 80px 20px 0px 65px;
+  border-radius: 500px;
+}

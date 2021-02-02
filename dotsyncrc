@@ -19,6 +19,7 @@ DOTFILES=.dotphiles
 # Uncomment examples below
 dotsyncrc
 conky:.config/conky
+eww:.config/eww
 flexget:.flexget
 git/gitconfig
 git/gitignore
