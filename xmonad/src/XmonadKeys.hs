@@ -33,7 +33,7 @@ instance ExtensionClass FnKeyActive where
     extensionType = PersistentExtension
 
 -- toggles the bool value of FnKeyActive
--- Good to use as a key binding action
+-- Good to use as a key-bound action
 toggleFnKeyActive = XS.modify $ FnKeyActive . not . getFnKeyActive
 notifyFnKeyActive = do
     active <- XS.gets getFnKeyActive
@@ -49,7 +49,7 @@ fnKeyActiveIf act = do
 
 -- An event hook that fights with Xmomad's processing of keypresses
 -- Xmonad grabs all key presses that match its list of key bindings. They do not get passed through to the underlying window, even if the action performed is nothing (because how could Xmonad know nothing was happening)
--- The trick is to call "ungrabKey" from the X11 library to release Xmonad's grab and let the even pass through.
+-- The trick is to call "ungrabKey" from the X11 library to release Xmonad's grab and let the event pass through.
 -- The return (All True) is the signal to continue processing with the normal hooks. I think that it should be All False in the case that we ungrab, but it seems to work this way.
 fnKeyActiveEventHook :: Event -> X All
 fnKeyActiveEventHook KeyEvent {ev_event_type = t, ev_state = m, ev_keycode = code}
@@ -87,128 +87,6 @@ baseKeys _ =
             broadcastMessage ReleaseResources
             restart "/home/ross/.xmonad/xmonad-x86_64-linux" True)
     , ("M-C-S-<Escape>", io exitSuccess)
-    ]
-
-spawnKeys :: XConfig Layout -> [(String, X ())]
-spawnKeys _ =
-    [ ("M-<Return>", spawn myTerminal)
-    , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
-    , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
-    , ("M-<Print>", spawn "/home/ross/.scripts/screenshot")
-    , ("M-w", spawn "mousepad")
-    , ("M-S-c", spawn "gnome-calculator")
-    , ("M-S-e", spawn myFileBrowser)
-    , ("M-f", spawn myWebBrowser)
-    , ("M-<XF86Go>", spawn myLauncher)
-    , ("M-<Space>", spawn myWindowSwitcher)
-    , ("M-s", spawn "spotify")
-    , ("M-v", spawn "pavucontrol")
-    , ("M-x", spawn "xournalpp")
-    , ("M-z", spawn "zotero")
-    , ("M-o", spawn "okular")
-    , ("M-t", spawn "thunderbird")
-
-    , ("M-l", spawn "/home/ross/.scripts/lock-screen")
- 
-    -- , ("M-k", spawn "/home/ross/.scripts/keyboard setup notify")
-    -- Pressing either bracket key flips it to the other one. Acts as a natural toggle.
-    , ("M-{", spawn "/home/ross/.scripts/keyboard brackets notify")
-    , ("M-}", spawn "/home/ross/.scripts/keyboard brackets notify")
-    , ("M-[", spawn "/home/ross/.scripts/keyboard braces notify")
-    , ("M-]", spawn "/home/ross/.scripts/keyboard braces notify")
-    ]
-
-scratches :: XConfig Layout -> [(String, X ())]
-scratches _ =
-    [ ("<XF86Go>", namedScratchpadAction scratchpads "conky")
-    , ("M-e", namedScratchpadAction scratchpads "nemo")
-    , ("M-c", namedScratchpadAction scratchpads "calc")
-    ]
-
-functionKeys :: XConfig Layout -> [(String, X ())]
-functionKeys _ =
-    -- F1
-    [ ("<XF86Launch1>", spawn "/home/ross/.scripts/battery")
-    -- F2
-    , ("<XF86MonBrightnessDown>", spawn "/home/ross/.scripts/brightness down")
-    -- F3
-    , ("<XF86MonBrightnessUp>", spawn "/home/ross/.scripts/brightness up")
-    -- F4
-    , ("<XF86Display> <XF86Display>", spawn "/home/ross/.scripts/monitor auto")
-    , ("<XF86Display> m", spawn "/home/ross/.scripts/monitor mirror")
-    , ("<XF86Display> o", spawn "/home/ross/.scripts/monitor off")
-    , ("<XF86Display> <Tab>", spawn "/home/ross/.scripts/monitor off")
-    -- F5
-    -- Use this to do the keyboard stuff instead
-    , ("<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard setup notify")
-    , ("<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard setup notify")
-    , ("S-<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard greek notify")
-    , ("S-<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard greek notify")
-    -- F6-F8 are music keys, handled below in media keys
-    -- F9
-    , ("<XF86KbdBrightnessDown>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
-    -- F10
-    , ("<XF86KbdBrightnessUp>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
-    -- F11
-    , ("<XF86Launch3>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
-    -- F12
-    , ("<XF86WLAN>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
-    ]
-
-fKeys :: XConfig Layout -> [(String, X ())]
-fKeys _ =
-    [ ("M-<F1>", toggleFnKeyActive >> notifyFnKeyActive)    
-    -- F1
-    , ("<F1>", spawn "/home/ross/.scripts/battery")
-    -- F2
-    , ("<F2>", spawn "/home/ross/.scripts/brightness down")
-    , ("S-<F2>", spawn "xset dpms force off")
-    -- F3
-    , ("<F3>", spawn "/home/ross/.scripts/brightness up")
-    -- F4
-    , ("<F4> <F4>", spawn "/home/ross/.scripts/monitor auto")
-    , ("<F4> m", spawn "/home/ross/.scripts/monitor mirror")
-    , ("<F4> o", spawn "/home/ross/.scripts/monitor off")
-    , ("<F4> <Esc>", spawn "/home/ross/.scripts/monitor off")
-    -- F5
-    -- Use this to do the keyboard stuff instead
-    , ("<F5>", spawn "/home/ross/.scripts/keyboard setup notify")
-    , ("S-<F5>", spawn "/home/ross/.scripts/keyboard greek notify")
-    -- F6
-    , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
-    , ("S-<F6>", spawn "/home/ross/.scripts/music-control play")
-    -- F7
-    , ("<F7>", spawn "/home/ross/.scripts/volume down")
-    , ("S-<F7>", spawn "/home/ross/.scripts/music-control prev")
-    -- F8
-    , ("<F8>", spawn "/home/ross/.scripts/volume up")
-    , ("S-<F8>", spawn "/home/ross/.scripts/music-control next")
-    -- F9
-    , ("<F9>", spawn "sudo /home/ross/.scripts/keyboard_backlight down")
-    -- F10
-    , ("<F10>", spawn "sudo /home/ross/.scripts/keyboard_backlight up")
-    -- F11
-    , ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
-    -- F12
-    , ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
-    ]
-     -- , ("C-<F4>", spawn "/home/ross/.scripts/wallpaper random")
-    -- , ("S-<F12>", spawn "sudo /home/ross/.scripts/wifi toggle && notify-send -i /usr/share/icons/gnome/scalable/apps/bluetooth-symbolic.svg \"$(samsung-tools -B status)\"")
-    -- ]
-
-mediaKeys :: XConfig Layout -> [(String, X ())]
-mediaKeys _ =
-    [ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music-control play")
-    , ("<XF86AudioNext>", spawn "/home/ross/.scripts/music-control next")
-    , ("<XF86AudioPrev>", spawn "/home/ross/.scripts/music-control prev")
-    -- These are the functions keys on my laptop
-    , ("<XF86AudioMute>", spawn "/home/ross/.scripts/volume toggle")
-    , ("<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/volume down")
-    , ("<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/volume up")
-    -- Shift version of the above to make up for lack of controls
-    , ("S-<XF86AudioMute>", spawn "/home/ross/.scripts/music-control play")
-    , ("S-<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/music-control prev")
-    , ("S-<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/music-control next")
     ]
 
 focusKeys  :: XConfig Layout -> [(String, X ())]
@@ -252,3 +130,126 @@ focusKeys c =
     [("M-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
     ++
     [("M-S-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
+
+spawnKeys :: XConfig Layout -> [(String, X ())]
+spawnKeys _ =
+    [ ("M-<Return>", spawn myTerminal)
+    , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
+    , ("M-<Print>", spawn "/home/ross/.scripts/screenshot")
+    , ("M-w", spawn "mousepad")
+    , ("M-S-c", spawn "gnome-calculator")
+    , ("M-S-e", spawn myFileBrowser)
+    , ("M-f", spawn myWebBrowser)
+    , ("M-<XF86Go>", spawn myLauncher)
+    , ("M-s", spawn "spotify")
+    , ("M-v", spawn "pavucontrol")
+    , ("M-x", spawn "xournalpp")
+    , ("M-z", spawn "zotero")
+    , ("M-o", spawn "okular")
+    , ("M-t", spawn "thunderbird")
+
+    , ("M-l", spawn "/home/ross/.scripts/lock-screen")
+ 
+    -- , ("M-k", spawn "/home/ross/.scripts/keyboard setup notify")
+    -- Pressing either bracket key flips it to the other one. Acts as a natural toggle.
+    , ("M-{", spawn "/home/ross/.scripts/keyboard brackets notify")
+    , ("M-}", spawn "/home/ross/.scripts/keyboard brackets notify")
+    , ("M-[", spawn "/home/ross/.scripts/keyboard braces notify")
+    , ("M-]", spawn "/home/ross/.scripts/keyboard braces notify")
+    ]
+
+scratches :: XConfig Layout -> [(String, X ())]
+scratches _ =
+    [ ("<XF86Go>", namedScratchpadAction scratchpads "eww")
+    -- I dont have a "Game" key, so press it on this other combination.
+    -- This is a work around so I can call it in a script for the switcher, which doesn't work well when modifiers are around.
+    -- ("<XF86Game>", namedScratchpadAction scratchpads "conky")
+    -- , ("S-<XF86Go>", spawn "xdotool key --clearmodifiers XF86Game")
+    , ("M-e", namedScratchpadAction scratchpads "nemo")
+    , ("M-c", namedScratchpadAction scratchpads "calc")
+    ]
+
+fKeys :: XConfig Layout -> [(String, X ())]
+fKeys _ =
+    [ ("M-<F1>", toggleFnKeyActive >> notifyFnKeyActive)    
+    -- F1
+    , ("<F1>", spawn "/home/ross/.scripts/battery")
+    -- F2
+    , ("<F2>", spawn "/home/ross/.scripts/brightness down")
+    , ("S-<F2>", spawn "xset dpms force off")
+    -- F3
+    , ("<F3>", spawn "/home/ross/.scripts/brightness up")
+    -- F4
+    , ("<F4> <F4>", spawn "/home/ross/.scripts/monitor auto")
+    , ("<F4> m", spawn "/home/ross/.scripts/monitor mirror")
+    , ("<F4> o", spawn "/home/ross/.scripts/monitor off")
+    , ("<F4> <Esc>", spawn "/home/ross/.scripts/monitor off")
+    -- F5
+    -- Use this to do the keyboard stuff instead
+    , ("<F5>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<F5>", spawn "/home/ross/.scripts/keyboard greek notify")
+    -- F6
+    , ("<F6>", spawn "/home/ross/.scripts/volume toggle")
+    , ("S-<F6>", spawn "/home/ross/.scripts/music-control play")
+    -- F7
+    , ("<F7>", spawn "/home/ross/.scripts/volume down")
+    , ("S-<F7>", spawn "/home/ross/.scripts/music-control prev")
+    -- F8
+    , ("<F8>", spawn "/home/ross/.scripts/volume up")
+    , ("S-<F8>", spawn "/home/ross/.scripts/music-control next")
+    -- F9
+    , ("<F9>", spawn "/home/ross/.scripts/keyboard_backlight down")
+    -- F10
+    , ("<F10>", spawn "/home/ross/.scripts/keyboard_backlight up")
+    -- F11
+    , ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
+    -- F12
+    , ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
+    ]
+
+functionKeys :: XConfig Layout -> [(String, X ())]
+functionKeys _ =
+    [ 
+    -- F1
+    ("<XF86Launch1>", spawn "/home/ross/.scripts/battery")
+    -- F2
+    , ("<XF86MonBrightnessDown>", spawn "/home/ross/.scripts/brightness down")
+    -- F3
+    , ("<XF86MonBrightnessUp>", spawn "/home/ross/.scripts/brightness up")
+    -- F4
+    , ("<XF86Display> <XF86Display>", spawn "/home/ross/.scripts/monitor auto")
+    , ("<XF86Display> m", spawn "/home/ross/.scripts/monitor mirror")
+    , ("<XF86Display> o", spawn "/home/ross/.scripts/monitor off")
+    , ("<XF86Display> <Tab>", spawn "/home/ross/.scripts/monitor off")
+    -- F5
+    -- Use this to do the keyboard stuff instead
+    , ("<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<XF86TouchpadOn>", spawn "/home/ross/.scripts/keyboard greek notify")
+    , ("S-<XF86TouchpadOff>", spawn "/home/ross/.scripts/keyboard greek notify")
+    -- F6-F8 are music keys, handled below in media keys
+    -- F9
+    , ("<XF86KbdBrightnessDown>", spawn "/home/ross/.scripts/keyboard_backlight down")
+    -- F10
+    , ("<XF86KbdBrightnessUp>", spawn "/home/ross/.scripts/keyboard_backlight up")
+    -- F11
+    , ("<XF86Launch3>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
+    -- F12
+    , ("<XF86WLAN>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
+    ]
+
+
+mediaKeys :: XConfig Layout -> [(String, X ())]
+mediaKeys _ =
+    [ ("<XF86AudioPlay>", spawn "/home/ross/.scripts/music-control play")
+    , ("<XF86AudioNext>", spawn "/home/ross/.scripts/music-control next")
+    , ("<XF86AudioPrev>", spawn "/home/ross/.scripts/music-control prev")
+    -- These are the functions keys on my laptop
+    , ("<XF86AudioMute>", spawn "/home/ross/.scripts/volume toggle")
+    , ("<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/volume down")
+    , ("<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/volume up")
+    -- Shift version of the above to make up for lack of controls
+    , ("S-<XF86AudioMute>", spawn "/home/ross/.scripts/music-control play")
+    , ("S-<XF86AudioLowerVolume>", spawn "/home/ross/.scripts/music-control prev")
+    , ("S-<XF86AudioRaiseVolume>", spawn "/home/ross/.scripts/music-control next")
+    ]

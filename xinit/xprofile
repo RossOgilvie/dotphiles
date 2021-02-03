@@ -2,24 +2,21 @@
 ## Set-up
 ###############
 
-## Turn down the brightness
-sudo light -S 50 &
-
-## Set up the screens and then lock
-(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
-
 ## This enables window transparency
 # compton -cCfF &
-picom --detect-client-opacity -D 5 -b
+picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
+
+## Turn down the brightness
+sudo light -S 50 &
 
 ## Turn on the numlock
 numlockx on &
 
-## Set fan to max
+## Set fans to stun! Or silent, as the case may be.
 samsung-tools --cpu silent
 
 ## Start a daemon script that sets up keyboards
-/home/ross/.scripts/keyboard-setup &
+/home/ross/.scripts/keyboard setup hidden &
 
 ## Enable my wicked triple finger swipe gestures
 # libinput-gestures-setup start &
@@ -27,15 +24,17 @@ samsung-tools --cpu silent
 ## set correct pointer for wm windows
 xsetroot -cursor_name left_ptr &
 
-## set xresources
-xrdb -merge ~/.dotphiles/xinit/Xresources &
+## start the eww widgets daemon
+eww daemon
 
-#############
-## Autostarts
-#############
+## set xresources
+# xrdb -merge ~/.dotphiles/xinit/Xresources &
 
 ## For automounting usb drives
 # udiskie -2 -a -T -N &
 
 ## So explorer windows open quickly
 # thunar --daemon &
+
+## Set up the screens and then lock
+(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &

@@ -18,7 +18,8 @@ myFileBrowser = "nemo"
 -- myFileBrowser = "pantheon-files"
 myWebBrowser = "firefox && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
 myLauncher = "/home/ross/.config/rofi/launcher.sh"
-myWindowSwitcher = "/home/ross/.config/rofi/switcher.sh"
+myWindowSwitcher = "/home/ross/.config/rofi/combi-switcher.sh"
+
 
 unfocusedColour, secondaryColour, highlightColour ∷ String
 unfocusedColour = "#303030"
@@ -54,7 +55,8 @@ myWorkspaces = L.reverse $ map ((++"d").show) [1..numberOfWorkspaces]
 -- RationalRect are left margin, top margin, width, height in rational fraction of screen size
 scratchpads ∷ [NamedScratchpad]
 scratchpads = [
-    NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    NS "eww" "eww open together" (className =? "eww-together") defaultFloating
+    -- NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     -- , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     , NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4/6) (1/6) (2/6) (4/6))
