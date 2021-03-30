@@ -125,11 +125,11 @@ focusKeys c =
     ]
     -- The workspaces list is numbered highest to lowest
     ++
-    [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
+    [("M-" ++ show k, windows $ W.greedyView i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
     ++
-    [("M-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
+    [("M-C-" ++ show k, windows $ W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
     ++
-    [("M-S-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (L.reverse $ XMonad.workspaces c)]
+    [("M-S-C-" ++ show k, windows $ W.greedyView i . W.shift i) | (k, i) <- zip [1..numberOfWorkspaces] (XMonad.workspaces c)]
 
 spawnKeys :: XConfig Layout -> [(String, X ())]
 spawnKeys _ =
@@ -160,11 +160,7 @@ spawnKeys _ =
 
 scratches :: XConfig Layout -> [(String, X ())]
 scratches _ =
-    [ ("<XF86Go>", namedScratchpadAction scratchpads "eww")
-    -- I dont have a "Game" key, so press it on this other combination.
-    -- This is a work around so I can call it in a script for the switcher, which doesn't work well when modifiers are around.
-    -- ("<XF86Game>", namedScratchpadAction scratchpads "conky")
-    -- , ("S-<XF86Go>", spawn "xdotool key --clearmodifiers XF86Game")
+    [ ("<XF86Go>", spawn "/home/ross/.scripts/eww-control")
     , ("M-e", namedScratchpadAction scratchpads "nemo")
     , ("M-c", namedScratchpadAction scratchpads "calc")
     ]

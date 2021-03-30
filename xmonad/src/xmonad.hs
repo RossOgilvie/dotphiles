@@ -59,7 +59,7 @@ rossConfig = ewmh $ def
     , handleEventHook         = fnKeyActiveEventHook
     , logHook                 = myLogHook
     , layoutHook              = myLayouts
-    , manageHook = myManageHook <+> manageDocks <+> manageScratchPad
+    , manageHook              = myManageHook <+> manageScratchPad
     }
 
 ------------------------------------------------------------------------
@@ -70,6 +70,8 @@ myManageHook =
     composeAll
         $ [ isFullscreen --> doFullFloat
           , className =? "Xmessage" --> doFloat
+          , className =? "eww" --> doFloat 
+          , className =? "eww" --> doIgnore  
         --   , className =? "vlc" --> doFullFloat
           , stringProperty "WM_WINDOW_ROLE" =?  "GtkFileChooserDialog" --> doRectFloat (W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
           ]

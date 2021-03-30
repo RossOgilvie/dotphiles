@@ -46,19 +46,15 @@ numberOfWorkspaces = 5
 myWorkspaces :: [WorkspaceId]
 -- myWorkspaces = map lojShow [1 .. numberOfWorkspaces]
 --myWorkspaces = ["eins", "zwei", "drei", "vier", "fünf", "sechs"]
-
--- For some reason, rofi reads the workspaces in the reverse order
--- If you just reverse the logging output, this breaks firefox remembering which workspace you were on.
--- Make the original list backwards!
-myWorkspaces = L.reverse $ map ((++"d").show) [1..numberOfWorkspaces]
+myWorkspaces = map ((++"d").show) [1..numberOfWorkspaces]
 
 -- RationalRect are left margin, top margin, width, height in rational fraction of screen size
 scratchpads ∷ [NamedScratchpad]
 scratchpads = [
-    NS "eww" "eww open together" (className =? "eww-together") defaultFloating
+    -- NS "eww" "eww open-many clock sliders windows powermenu" (className =? "Eww") defaultFloating 
     -- NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     -- , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
-    , NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4/6) (1/6) (2/6) (4/6))
  ]
 
