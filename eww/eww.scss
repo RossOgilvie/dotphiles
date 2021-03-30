@@ -2,16 +2,18 @@
   all: unset;
 }
 window {
-  background-color: #121212;
-/*  background-color: #000000; */
-	color: #ffd5cd;
-  font-family: Museo Sans;
+	background-color: #212121;
+//	background-color: #1A73E9; //highlight blue
+//	color: #ffd5cd;
+	color: #ffffff;
+//	font-family: Museo Sans;
+	font-family: Noto Sans;
 }
 
 button {
   all: unset;
-  background-color: #121212;
-  padding: 10px;
+//  background-color: #212121;
+  padding: 20px;
 }
 
 /////////////////////////////
@@ -24,9 +26,9 @@ button {
 	background-color: #4e4e4e;
 	border-radius: 50px;
 	min-height: 5px;
-  min-width: 170px;
-  margin-top: 10px;
-  margin-left: 20px;
+	min-width: 170px;
+	margin-top: 10px;
+	margin-left: 20px;
 }
 .sliders .icon {
   font-family: Iosevka;
@@ -99,9 +101,11 @@ button {
 /////////////////////////////
 // CLOCK 
 /////////////////////////////
-
+// .clock {
+//   margin-right: 50px;
+// }
 .time {
-  margin: 15px 65px 10px 65px;
+  margin: 0px 65px 10px 65px;
   font-size: 60px;
 }
 .minute {
@@ -126,19 +130,24 @@ button {
 
 
 .powermenu button:hover {
-  color: #FFFFFF;
+  color: #000000;
+	background-color: #1A73E9;
 }
 .shutdown{
-  color: #D35D6E;
+color: #FFFFFF;
+//  color: #D35D6E;
 }
 .reboot{
-  color: #84afdb;
+color: #FFFFFF;
+//  color: #84afdb;
 }
 .suspend{
-  color: #c47eb7;
+color: #FFFFFF;
+//  color: #c47eb7;
 }
 .lock {
-  color: #90c861;
+color: #FFFFFF;
+//  color: #90c861;
 }
 .exit{
   color: #ffd5cd;
@@ -153,4 +162,13 @@ button {
   min-width: 200px;
   margin: 80px 20px 0px 65px;
   border-radius: 500px;
+}
+
+
+
+/////////////////////////////
+// WINDOW LIST
+/////////////////////////////
+.windows {
+  padding-left: 20px;
 }

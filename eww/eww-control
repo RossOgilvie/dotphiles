@@ -1,0 +1,13 @@
+#!/bin/sh
+
+open="false"
+if [[ `eww windows` =~ '*' ]]; then open="true"; fi
+
+case $open in
+   "true")
+        eww close-all
+        ;;
+   "false"|*)
+        eww open-many sliders clock windows powermenu
+        ;;
+esac
