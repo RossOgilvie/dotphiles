@@ -10,12 +10,6 @@ window {
 	font-family: Noto Sans;
 }
 
-button {
-  all: unset;
-//  background-color: #212121;
-  padding: 20px;
-}
-
 /////////////////////////////
 // SLIDERS 
 /////////////////////////////
@@ -127,7 +121,9 @@ button {
 /////////////////////////////
 // POWER
 /////////////////////////////
-
+.powermenu button {
+  padding: 20px;
+}
 
 .powermenu button:hover {
   color: #000000;

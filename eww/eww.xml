@@ -38,8 +38,12 @@
     </def>
 
     <def name="windows">
-        <box orientation="h" halign="left" valign="center" space-evenly="false">
-        {{window-list}}
+        <box orientation="v" valign="center">
+        <button halign="start" onclick="eww close-all; ~/.scripts/workspaces switch 0"><label limit-width="100" text="{{window-list-0}}" /></button>
+        <button halign="start" onclick="eww close-all; ~/.scripts/workspaces switch 1"><label limit-width="100" text="{{window-list-1}}" /></button>
+        <button halign="start" onclick="eww close-all; ~/.scripts/workspaces switch 2"><label limit-width="100" text="{{window-list-2}}" /></button>
+        <button halign="start" onclick="eww close-all; ~/.scripts/workspaces switch 3"><label limit-width="100" text="{{window-list-3}}" /></button>
+        <button halign="start" onclick="eww close-all; ~/.scripts/workspaces switch 4"><label limit-width="100" text="{{window-list-4}}" /></button>
         </box>
     </def>
 
@@ -50,7 +54,7 @@
           <button class="reboot" onclick="reboot">r</button>
           <button class="suspend" onclick="sleep">s</button>
           <button class="lock" onclick="~/.scripts/lock-screen">l</button>
-          <button class="exit" onclick="eww close powermenu">x</button>
+          <button class="exit" onclick="eww close-all">x</button>
         </box>
     </def>
 
@@ -81,7 +85,11 @@
     <script-var name="battery-remaining" interval="1s">cat '/sys/class/power_supply/BAT1/capacity'</script-var>
     <script-var name="bat-icon" interval="1s">~/.scripts/battery icon</script-var>
 
-    <script-var name="window-list" interval="1s">~/.scripts/window-list</script-var>
+    <script-var name="window-list-0" interval="1s">~/.scripts/workspaces list 0</script-var>
+    <script-var name="window-list-1" interval="1s">~/.scripts/workspaces list 1</script-var>
+    <script-var name="window-list-2" interval="1s">~/.scripts/workspaces list 2</script-var>
+    <script-var name="window-list-3" interval="1s">~/.scripts/workspaces list 3</script-var>
+    <script-var name="window-list-4" interval="1s">~/.scripts/workspaces list 4</script-var>
   </variables>
 
   <windows>
