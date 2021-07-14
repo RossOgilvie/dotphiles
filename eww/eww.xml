@@ -54,7 +54,7 @@
           <button class="reboot" onclick="reboot">r</button>
           <button class="suspend" onclick="sleep">s</button>
           <button class="lock" onclick="~/.scripts/lock-screen">l</button>
-          <button class="exit" onclick="eww close-all">x</button>
+          <button class="vpn" onclick="~/.scripts/nordvpn-toggle">v</button>
         </box>
     </def>
 
