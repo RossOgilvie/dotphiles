@@ -9,6 +9,8 @@ ghc-options:
 - -threaded
 - -rtsopts
 - -with-rtsopts=-N
+other-extensions:
+- UnicodeSyntax
 dependencies:
 - base
 - containers
