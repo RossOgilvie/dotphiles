@@ -54,7 +54,8 @@ scratchpads = [
     -- NS "eww" "eww open-many clock sliders windows powermenu" (className =? "Eww") defaultFloating 
     -- NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
     -- , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
-    NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
+    NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1/8) (1/8) (6/8) (6/8))
+    , NS "terminal" "sakura" (className =? "Sakura") (customFloating $ W.RationalRect (1/2) (0) (1/2) (1))
     , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4/6) (1/6) (2/6) (4/6))
  ]
 

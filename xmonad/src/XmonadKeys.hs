@@ -27,7 +27,7 @@ import Data.Monoid (All(..))
 ------------------------------------------------------------------------
 
 -- This data type is effectively a mutable singleton using ExtensibleState
-data FnKeyActive = FnKeyActive { getFnKeyActive :: Bool } deriving (Typeable,Read,Show)
+newtype FnKeyActive = FnKeyActive { getFnKeyActive :: Bool } deriving (Typeable,Read,Show)
 instance ExtensionClass FnKeyActive where
     initialValue = FnKeyActive True
     extensionType = PersistentExtension
@@ -133,7 +133,7 @@ focusKeys c =
 
 spawnKeys :: XConfig Layout -> [(String, X ())]
 spawnKeys _ =
-    [ ("M-<Return>", spawn myTerminal)
+    [ ("M-S-<Return>", spawn myTerminal)
     , ("M-<Insert>", spawn "/home/ross/.scripts/screenshot")
     , ("M-<Print>", spawn "/home/ross/.scripts/screenshot")
     , ("M-w", spawn "mousepad")
@@ -163,6 +163,7 @@ scratches _ =
     [ ("<XF86Go>", spawn "/home/ross/.scripts/eww-control")
     , ("M-e", namedScratchpadAction scratchpads "nemo")
     , ("M-c", namedScratchpadAction scratchpads "calc")
+    , ("M-<Return>", namedScratchpadAction scratchpads "terminal")
     ]
 
 fKeys :: XConfig Layout -> [(String, X ())]
