@@ -36,6 +36,7 @@ configuration {
 * {
     background:                     #212121ff;
     background-alt:              	#00000000;
+    background-bar:                 #00000000;
     background-bar:                 #151515FF;
     foreground:                     #EDEDEDFF;
     accent:			            	#EDEDED4d;
@@ -117,11 +118,16 @@ element {
 }
 
 element-icon {
+    background-color: inherit;
+    text-color:                     inherit;
     size:                           80px;
     border:                         0px;
+    horizontal-align:               0.5;
 }
 
 element-text {
+    background-color: inherit;
+    text-color:                     inherit;
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
