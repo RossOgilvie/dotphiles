@@ -18,5 +18,5 @@ export EDITOR="nano"
 typeset -U path
 path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin $path)
 
-#Qt use independent theme configuration
-export QT_QPA_PLATFORMTHEME="qt5ct"
+#Qt use gtk theme via qt5-styleplugins
+export QT_QPA_PLATFORMTHEME="gtk2"

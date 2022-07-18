@@ -164,6 +164,7 @@ scratches _ =
     , ("M-e", namedScratchpadAction scratchpads "nemo")
     , ("M-c", namedScratchpadAction scratchpads "calc")
     , ("M-<Return>", namedScratchpadAction scratchpads "terminal")
+    , ("M-<Space>", namedScratchpadAction scratchpads "translate")
     ]
 
 fKeys :: XConfig Layout -> [(String, X ())]
@@ -199,7 +200,7 @@ fKeys _ =
     , -- F10
       ("<F10>", spawn "/home/ross/.scripts/keyboard_backlight up")
     , -- F11
-      ("<F11>", spawn "samsung-tools -c cycle && notify-send \"$(samsung-tools -c status)\"")
+      ("<F11>", spawn "/home/ross/.scripts/log-cheaply silent && /home/ross/.scripts/samsung silent")
     , -- F12
       ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
     ]

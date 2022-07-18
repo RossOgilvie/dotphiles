@@ -8,8 +8,6 @@ alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-di
 #alias stack='stack --resolver lts-13.3'
 
 alias mkdir='mkdir -p -v'
-alias ls='ls --color --si'
-alias la='ls -al'
 alias df='df --si'
 alias du='du --si'
 
@@ -24,7 +22,11 @@ alias chgrp='chgrp --preserve-root'
 ###############################
 alias cp='rsync --progress -ah'
 alias diff='colordiff'
-alias top='glances'
+alias top='htop'
+alias ls='exa -1F --sort name --group-directories-first'
+alias la='exa --long -aF --git --sort name --group-directories-first'
+alias lr='exa --tree --level 3 --sort name --group-directories-first'
+
 
 ###############################
 ## New Commands
@@ -53,8 +55,10 @@ alias yql='yay -Ql'
 alias yqli='yay -Qli'
 alias yr='yay -Rsnc'
 alias yu='yay -Syu'
-alias yolo='yay -w; pause; yay -Syu --noconfirm'
+alias yolo='yay -Pw; pause; yay -Syu --noconfirm'
 yay() { /usr/bin/yay $* && rehash;  }
+
+alias willmore='cd programming/haskell/willmore-hartesian; code .'
 
 ## Show contents on blank command entry
 auto-ls () {
@@ -67,6 +71,8 @@ else
 fi
 }
 zle -N accept-line auto-ls
+
+alias cw='code *.code-workspace'
 
 #### fun
 hack() {

@@ -36,12 +36,11 @@ touchegg:.config/touchegg
 tvnamer:.config/tvnamer
 xinit/xinitrc
 xinit/xprofile
-xmodmap/xmodmap_standard
-xmodmap/xmodmap_greek
-xmodmap/xmodmap_braces
-xmodmap/xmodmap_sbrackets
+#xmodmap/xmodmap_standard
+#xmodmap/xmodmap_greek
+#xmodmap/xmodmap_braces
+#xmodmap/xmodmap_sbrackets
 xmonad
-zsh
 zsh/zprofile
 zsh/zshenv
 zsh/zshrc

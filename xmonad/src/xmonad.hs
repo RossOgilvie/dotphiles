@@ -93,7 +93,8 @@ myLogHook = ewmhDesktopsLogHookCustom namedScratchpadFilterOutWorkspace
 -- layouts
 --------------------------------------------------------------
 layoutOpts =
-  windowArrange . avoidStruts . showWName . smartBorders . standardSpacing
+  windowArrange . avoidStruts . smartBorders . standardSpacing
+--   windowArrange . avoidStruts . showWName . smartBorders . standardSpacing
 
 standardSpacing =
   spacingRaw

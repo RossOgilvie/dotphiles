@@ -1,18 +1,23 @@
 ############################
+### Config Directory
+############################
+ZSH_DIR=~/.dotphiles/zsh
+
+############################
 ### modules
 ############################
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOQUIT=true
-source ~/.zsh/modules/tmux_autostart.zsh
+source $ZSH_DIR/modules/tmux_autostart.zsh
 
-source ~/.zsh/modules/directory.zsh
+source $ZSH_DIR/modules/directory.zsh
 
-source ~/.zsh/modules/fix_special_keys.zsh
+source $ZSH_DIR/modules/fix_special_keys.zsh
 
 autoload -Uz zmv
 
 # history stuff
-HISTFILE=~/.zsh/history
+HISTFILE=$ZSH_DIR/history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt SHARE_HISTORY
@@ -32,12 +37,12 @@ stty lnext ^S
 ###############################
 ### autocompletes
 ###############################
-source ~/.zsh/zcompletes
+source $ZSH_DIR/zcompletes
 
 ###############################
 ### load aliases
 ###############################
-source ~/.zsh/zalias
+source $ZSH_DIR/zalias
 
 ###############################
 ### prompts

@@ -9,11 +9,11 @@ picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --
 ## Turn down the brightness
 sudo light -S 50 &
 
+## Turn down the fan
+sudo /home/ross/.scripts/samsung silent &
+
 ## Turn on the numlock
 numlockx on &
-
-## Set fans to stun! Or silent, as the case may be.
-samsung-tools --cpu silent
 
 ## Start a daemon script that sets up keyboards
 /home/ross/.scripts/keyboard setup hidden &

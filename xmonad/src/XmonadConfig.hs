@@ -10,7 +10,7 @@ myModKey :: KeyMask
 myModKey = mod4Mask
 
 myTerminal, myLauncher, myFileBrowser, myWebBrowser :: String
-myTerminal = "sakura"
+myTerminal = "gnome-terminal"
 myFileBrowser = "nemo"
 -- myFileBrowser = "pantheon-files"
 myWebBrowser = "firefox && notify-send -i /usr/share/icons/elementary/actions/48/process-stop.svg \"Firefox exited\""
@@ -56,8 +56,9 @@ scratchpads =
       -- NS "conky" "conky -c /home/ross/.config/conky/conky.conf" (className =? "conky") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
       -- , NS "thunar" "thunar" (className =? "Thunar") (customFloating $ W.RationalRect (1/8) (1/8) (3/4) (3/4))
       NS "nemo" "nemo" (className =? "Nemo") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (6 / 8) (6 / 8))
-    , NS "terminal" "sakura" (className =? "Sakura") (customFloating $ W.RationalRect (1 / 2) 0 (1 / 2) 1)
-    , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4 / 6) (1 / 6) (2 / 6) (4 / 6))
+    , NS "terminal" "gnome-terminal" (className =? "Gnome-terminal") (customFloating $ W.RationalRect (1 / 2) 0 (1 / 2) 1)
+    , NS "calc" "qalculate-gtk" (className =? "Qalculate-gtk") (customFloating $ W.RationalRect (4 / 6) (0 / 6) (2 / 6) (1 / 4))
+    , NS "translate" "dialect" (className =? "Dialect") (customFloating $ W.RationalRect (1 / 8) (1 / 8) (6 / 8) (6 / 8))
     ]
 
 -- This appears to be more complicated than necessary because it is allowing for the conversion of numbers greater than 9. It breaks a number into its digits using toDigits, then maps the digit lookup to each digit and concats the result.
