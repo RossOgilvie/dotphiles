@@ -123,9 +123,6 @@ set smarthome
 # "spell".
 set speller "aspell"
 
-# Allow nano to be suspended.
-set suspend
-
 # Use a tab size of "n" columns. The value of n must be greater than 0. The
 # default value is 8.
 set tabsize "4"
@@ -134,7 +131,7 @@ set tabsize "4"
 set tabstospaces
 
 # Save automatically on exit, don't prompt.
-unset tempfile
+# unset tempfile
 
 # Disallow file modification.
 #unset view

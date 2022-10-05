@@ -23,6 +23,7 @@ alias chgrp='chgrp --preserve-root'
 alias cp='rsync --progress -ah'
 alias diff='colordiff'
 alias top='htop'
+alias less='most -w'
 alias ls='exa -1F --sort name --group-directories-first'
 alias la='exa --long -aF --git --sort name --group-directories-first'
 alias lr='exa --tree --level 3 --sort name --group-directories-first'
@@ -58,7 +59,8 @@ alias yu='yay -Syu'
 alias yolo='yay -Pw; pause; yay -Syu --noconfirm'
 yay() { /usr/bin/yay $* && rehash;  }
 
-alias willmore='cd programming/haskell/willmore-hartesian; code .'
+alias willmore='cd ~/programming/haskell/willmore-hartesian; code .'
+alias cw='code *.code-workspace'
 
 ## Show contents on blank command entry
 auto-ls () {
@@ -72,7 +74,6 @@ fi
 }
 zle -N accept-line auto-ls
 
-alias cw='code *.code-workspace'
 
 #### fun
 hack() {
