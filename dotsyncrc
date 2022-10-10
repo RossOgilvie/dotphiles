@@ -18,9 +18,7 @@ DOTFILES=.dotphiles
 [files]
 # Uncomment examples below
 dotsyncrc
-conky:.config/conky
 eww:.config/eww
-flexget:.flexget
 git/gitconfig
 git/gitignore
 #git/gitattributes
@@ -31,9 +29,11 @@ nano/nanorc
 powerline:.config/powerline
 rofi:.config/rofi
 #ssh
+stack/config.yaml:.stack/config.yaml
+stack/config.yaml:.stack/config.yaml
 tmux/tmux.conf
-touchegg:.config/touchegg
-tvnamer:.config/tvnamer
+vscode/keybindings.json:.config/Code - OSS/User/keybindings.json
+vscode/settings.json:.config/Code - OSS/User/settings.json
 xinit/xinitrc
 xinit/xprofile
 #xmodmap/xmodmap_standard
