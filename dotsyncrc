@@ -20,26 +20,20 @@ DOTFILES=.dotphiles
 dotsyncrc
 conky:.config/conky
 eww:.config/eww
-flexget:.flexget
 git/gitconfig
 git/gitignore
-#git/gitattributes
-#git/tigrc
-#git/gitk
 latex/ross.sty:texmf/tex/latex/commonstuff/ross.sty
 nano/nanorc
 powerline:.config/powerline
 rofi:.config/rofi
 #ssh
 tmux/tmux.conf
-touchegg:.config/touchegg
-tvnamer:.config/tvnamer
 xinit/xinitrc
 xinit/xprofile
-#xmodmap/xmodmap_standard
-#xmodmap/xmodmap_greek
-#xmodmap/xmodmap_braces
-#xmodmap/xmodmap_sbrackets
+xmodmap/xmodmap_standard
+xmodmap/xmodmap_greek
+xmodmap/xmodmap_braces
+xmodmap/xmodmap_sbrackets
 xmonad
 zsh/zprofile
 zsh/zshenv
@@ -50,6 +44,7 @@ zsh/zshrc
 ## hostname                     type=masterhost, ANY or NONE    files=dotfile:tolink,another:tolink
 [hosts]
 nyx git=ANY
+aion git=ANY
 #host1.example.com               git=ANY                        files=custom/dotfile    #git repo, pull from anywhere and link a custom dotfile
 #host2.example.com               git=ANY                                                #git repo, pull from anywhere
 #host3.example.com               git=ANY                                                #git repo, pull from anywhere

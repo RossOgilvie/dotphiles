@@ -45,7 +45,7 @@ else
 	export ZSH_TMUX_TERM=$ZSH_TMUX_FIXTERM_WITHOUT_256COLOR
 fi
 
-local zsh_tmux_ross_session_name=`hostname`
+local zsh_tmux_ross_session_name=`hostnamectl hostname`
 # Wrapper function for tmux.
 function _zsh_tmux_plugin_run()
 {

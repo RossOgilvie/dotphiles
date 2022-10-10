@@ -4,13 +4,13 @@
 
 ## This enables window transparency
 # compton -cCfF &
-picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
+#picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
 
 ## Turn down the brightness
-sudo light -S 50 &
+#sudo light -S 50 &
 
 ## Turn down the fan
-sudo /home/ross/.scripts/samsung silent &
+#sudo /home/ross/.scripts/samsung silent &
 
 ## Turn on the numlock
 numlockx on &
@@ -28,7 +28,11 @@ xsetroot -cursor_name left_ptr &
 eww daemon
 
 ## set xresources
-# xrdb -merge ~/.dotphiles/xinit/Xresources &
+xrdb -merge ~/.dotphiles/xinit/Xresources &
+
+## Fix screen
+#export GDK_SCALE=2
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 ## For automounting usb drives
 # udiskie -2 -a -T -N &
@@ -37,4 +41,5 @@ eww daemon
 # thunar --daemon &
 
 ## Set up the screens and then lock
-(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
+#(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
+/home/ross/.scripts/monitor off &

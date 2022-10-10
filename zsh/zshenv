@@ -7,10 +7,12 @@
 #   Ben O'Hara <bohara@gmail.com>
 #
 
-
 ###############################
 ### env variables
 ###############################
+
+#export hostname="$(hostnamectl hostname)"
+
 #change the default editor to nano
 export EDITOR="nano"
 
@@ -20,3 +22,8 @@ path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin $
 
 #Qt use gtk theme via qt5-styleplugins
 export QT_QPA_PLATFORMTHEME="gtk2"
+
+if [[ $HOST = "aion" ]] then
+#    export GDK_SCALE=2
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1
+fi
