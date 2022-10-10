@@ -4,10 +4,14 @@
 
 ## This enables window transparency
 # compton -cCfF &
-#picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
+picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
 
 ## Turn down the brightness
-#sudo light -S 50 &
+if [[ $HOST == "aion" ]]; then
+    sudo light -S 30 &
+else
+    sudo light -S 50 &
+fi
 
 ## Turn down the fan
 #sudo /home/ross/.scripts/samsung silent &
@@ -29,10 +33,6 @@ eww daemon
 
 ## set xresources
 xrdb -merge ~/.dotphiles/xinit/Xresources &
-
-## Fix screen
-#export GDK_SCALE=2
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 ## For automounting usb drives
 # udiskie -2 -a -T -N &
