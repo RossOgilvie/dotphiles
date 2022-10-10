@@ -1,0 +1,48 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Material Dark Theme",
+    "editor.tokenColorCustomizations": {
+    "[Material Dark Theme]": {
+        "comments": "#43d4ab"
+    }
+    },
+    "editor.wordWrap": "on",
+    "cSpell.userWords": [
+        "compactification"
+    ],
+    "cSpell.language": "de,en-GB",
+    "editor.fontFamily": "Hack",
+    "cSpell.maxNumberOfProblems": 500,
+    "cSpell.numSuggestions": 5,
+    "cSpell.spellCheckDelayMs": 500,
+    "cSpell.dictionaryDefinitions": [
+        { "name": "mathematicalTerms", "path": "/home/ross/.dotphiles/latex/mathematicalTerms-en.txt"}
+    ],
+    // List of dictionaries to use when checking files.
+    "cSpell.dictionaries": [
+        "mathematicalTerms"
+    ],
+    "editor.autoIndent": "keep",
+    "window.zoomLevel": 0,
+    "cSpell.enableFiletypes": [
+        "!haskell"
+    ],
+    "haskell.diagnosticsOnChange": false,
+    "window.customMenuBarAltFocus": false,
+    "window.menuBarVisibility": "compact",
+    "window.enableMenuBarMnemonics": false,
+    "window.titleBarStyle": "custom",
+    "security.workspace.trust.enabled": false,
+    "haskell.updateBehavior": "prompt",
+    "haskell.formattingProvider": "fourmolu",
+    "[haskell]": {
+        "editor.defaultFormatter": "haskell.haskell"
+    },
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.bind.enter.key": false,
+    "latex-workshop.latex.autoBuild.run": "never",
+    "haskell.plugin.hlint.diagnosticsOn": false,
+    "haskell.manageHLS": "PATH",
+    "haskell.checkProject": false,
+    "haskell.maxCompletions": 10
+}
