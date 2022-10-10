@@ -42,7 +42,6 @@
     "latex-workshop.bind.enter.key": false,
     "latex-workshop.latex.autoBuild.run": "never",
     "haskell.plugin.hlint.diagnosticsOn": false,
-    "haskell.manageHLS": "PATH",
     "haskell.checkProject": false,
     "haskell.maxCompletions": 10
 }
