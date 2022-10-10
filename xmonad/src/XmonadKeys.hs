@@ -74,13 +74,15 @@ fnKeyActiveEventHook _ = return (All True)
 -- keybindings
 ------------------------------------------------------------------------
 
-myKeyBindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeyBindings c = mkKeymap c (rawKeys c)
+myKeyBindings :: String -> XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeyBindings hostname c = mkKeymap c (rawKeys hostname c)
 
-rawKeys :: XConfig Layout -> [(String, X ())]
-rawKeys c = concatMap ($ c) keymaps
+rawKeys :: String -> XConfig Layout -> [(String, X ())]
+rawKeys hostname c = concatMap ($ c) keymaps
   where
-    keymaps = [baseKeys, spawnKeys, scratches, fKeys, functionKeys, focusKeys, mediaKeys]
+    keymaps = if hostname == "nyx" then keymaps_nyx else keymaps_aion
+    keymaps_nyx = [baseKeys, spawnKeys, scratches, fKeys_nyx, functionKeys_nyx, focusKeys, mediaKeys]
+    keymaps_aion = [baseKeys, spawnKeys, scratches, fKeys_aion, functionKeys_aion, focusKeys, mediaKeys]
 
 baseKeys :: XConfig Layout -> [(String, X ())]
 baseKeys _ =
@@ -167,8 +169,8 @@ scratches _ =
     , ("M-<Space>", namedScratchpadAction scratchpads "translate")
     ]
 
-fKeys :: XConfig Layout -> [(String, X ())]
-fKeys _ =
+fKeys_nyx :: XConfig Layout -> [(String, X ())]
+fKeys_nyx _ =
     [ ("M-<F1>", toggleFnKeyActive >> notifyFnKeyActive)
     , -- F1
       ("<F1>", spawn "/home/ross/.scripts/battery")
@@ -205,10 +207,11 @@ fKeys _ =
       ("<F12>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
     ]
 
-functionKeys :: XConfig Layout -> [(String, X ())]
-functionKeys _ =
+functionKeys_nyx :: XConfig Layout -> [(String, X ())]
+functionKeys_nyx _ =
     [ -- F1
-      ("<XF86Launch1>", spawn "/home/ross/.scripts/battery")
+      ("M-<XF86Launch1>", toggleFnKeyActive >> notifyFnKeyActive)
+    , ("<XF86Launch1>", spawn "/home/ross/.scripts/battery")
     , -- F2
       ("<XF86MonBrightnessDown>", spawn "/home/ross/.scripts/brightness down")
     , -- F3
@@ -234,6 +237,60 @@ functionKeys _ =
     , -- F12
       ("<XF86WLAN>", spawn "samsung-tools -W toggle && notify-send -i /usr/share/icons/gnome/48x48/devices/network-wireless.png \"$(samsung-tools -W status)\"")
     ]
+
+fKeys_aion :: XConfig Layout -> [(String, X ())]
+fKeys_aion _ =
+    [ -- F1 
+      ("<F1>", spawn "/home/ross/.scripts/volume toggle")
+    , ("S-<F1>", spawn "/home/ross/.scripts/music-control play")
+    , -- F2
+      ("<F2>", spawn "/home/ross/.scripts/volume down")
+    , ("S-<F2>", spawn "/home/ross/.scripts/music-control prev")
+    , -- F3
+      ("<F3>", spawn "/home/ross/.scripts/volume up")
+    , ("S-<F3>", spawn "/home/ross/.scripts/music-control next")
+    , -- F4
+      ("<F4>", spawn "/home/ross/.scripts/brightness down")
+    , ("S-<F4>", spawn "xset dpms force off")
+    , -- F5
+      ("<F5>", spawn "/home/ross/.scripts/brightness up")
+    , -- F6
+      -- Use this to do the keyboard stuff instead
+      ("<F6>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<F6>", spawn "/home/ross/.scripts/keyboard greek notify")
+    -- , -- F7 I haven't set this up yet, and it works magically anyway?
+      -- ("<F7>", spawn "/home/ross/.scripts/keyboard_backlight down")
+    , -- F8
+      ("<F8> <F8>", spawn "/home/ross/.scripts/monitor auto")
+    , ("<F8> m", spawn "/home/ross/.scripts/monitor mirror")
+    , ("<F8> o", spawn "/home/ross/.scripts/monitor off")
+    , ("<F8> <Esc>", spawn "/home/ross/.scripts/monitor off")
+    , -- F12
+      ("<F12>", spawn "/home/ross/.scripts/battery")
+    , ("M-<F12>", toggleFnKeyActive >> notifyFnKeyActive)
+    ]
+
+functionKeys_aion :: XConfig Layout -> [(String, X ())]
+functionKeys_aion _ =
+    [ -- F1-F3 are music keys, handled below in media keys
+      -- F4
+      ("<XF86MonBrightnessDown>", spawn "/home/ross/.scripts/brightness down")
+    , -- F5
+      ("<XF86MonBrightnessUp>", spawn "/home/ross/.scripts/brightness up")
+    , -- F8
+      ("<XF86Display> <XF86Display>", spawn "/home/ross/.scripts/monitor auto")
+    , ("<XF86Display> m", spawn "/home/ross/.scripts/monitor mirror")
+    , ("<XF86Display> o", spawn "/home/ross/.scripts/monitor off")
+    , ("<XF86Display> <Tab>", spawn "/home/ross/.scripts/monitor off")
+    , -- F6
+      -- Use this to do the keyboard stuff instead
+      ("<XF86TouchpadToggle>", spawn "/home/ross/.scripts/keyboard setup notify")
+    , ("S-<XF86TouchpadToggle>", spawn "/home/ross/.scripts/keyboard greek notify")
+    , -- F12
+      ("<XF86Launch1>", spawn "/home/ross/.scripts/battery")
+    , ("M-<XF86Launch1>", toggleFnKeyActive >> notifyFnKeyActive)
+    ]
+
 
 mediaKeys :: XConfig Layout -> [(String, X ())]
 mediaKeys _ =

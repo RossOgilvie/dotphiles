@@ -1,4 +1,5 @@
 import qualified Data.List as L
+import System.Environment (lookupEnv)
 import XMonad
 import XMonad.Hooks.DynamicLog ()
 
@@ -40,13 +41,16 @@ import XmonadKeys (
  )
 
 main :: IO ()
-main = xmonad rossConfig
+main = do
+  host <- lookupEnv "HOST"
+  let hostname = case host of Just s -> s; Nothing -> "nyx" 
+  xmonad (rossConfig hostname)
 
 ----------------------------------------------------------------------
 -- config itself
 ----------------------------------------------------------------------
 
-rossConfig =
+rossConfig hostname =
   ewmh $
     def
       { terminal = myTerminal
@@ -57,7 +61,7 @@ rossConfig =
       , focusedBorderColor = highlightColour
       , focusFollowsMouse = False
       , XMonad.clickJustFocuses = False
-      , keys = myKeyBindings
+      , keys = myKeyBindings hostname
       , handleEventHook = fnKeyActiveEventHook
       , logHook = myLogHook
       , layoutHook = myLayouts

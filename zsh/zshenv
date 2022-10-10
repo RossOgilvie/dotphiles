@@ -11,7 +11,8 @@
 ### env variables
 ###############################
 
-#export hostname="$(hostnamectl hostname)"
+# this is set at some point, but I need it set earlier for xmonad etc
+export HOST="$(hostnamectl hostname)"
 
 #change the default editor to nano
 export EDITOR="nano"
