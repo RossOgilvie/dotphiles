@@ -29,14 +29,15 @@ rofi:.config/rofi
 stack/config.yaml:.stack/config.yaml
 stack/config.yaml:.stack/config.yaml
 tmux/tmux.conf
-vscode/keybindings.json:.config/Code - OSS/User/keybindings.json
-vscode/settings.json:.config/Code - OSS/User/settings.json
+vscode/keybindings.json:.config/vscode/User/keybindings.json
+vscode/settings.json:.config/vscode/User/settings.json
 xinit/xinitrc
 xinit/xprofile
-xmodmap/xmodmap_standard
-xmodmap/xmodmap_greek
-xmodmap/xmodmap_braces
-xmodmap/xmodmap_sbrackets
+# no need to link these to home, read directly from .dotphiles/xmodmap
+#xmodmap/xmodmap_standard
+#xmodmap/xmodmap_greek
+#xmodmap/xmodmap_braces
+#xmodmap/xmodmap_sbrackets
 xmonad
 zsh/zprofile
 zsh/zshenv
