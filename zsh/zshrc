@@ -3,6 +3,9 @@
 ############################
 ZSH_DIR=~/.dotphiles/zsh
 
+# show all files that get sourced. Used for debug
+# setopt SOURCE_TRACE
+
 ############################
 ### modules
 ############################

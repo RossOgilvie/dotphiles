@@ -1,7 +1,7 @@
 #####################
 ##  Turn on the completion system
 #####################
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d ~/.dotphiles/zsh/zcompcache
 
 # Add some functions to the search path
 fpath=(/usr/share/zsh/site-functions $fpath)
@@ -31,12 +31,13 @@ zstyle ':completion:*:kill:*'   force-list always
 #####################
 autoload -U +X bashcompinit && bashcompinit
 eval "$(stack --bash-completion-script "$(which stack)")"
-# eval "$(dora bash-completion)"
-# eval "$(geras bash-completion)"
 eval "$(banach bash-completion)"
 eval "$(volume bash-completion)"
-eval "$(keyboard-backlight bash-completion)"
 eval "$(monitor bash-completion)"
-eval "$(wifi bash-completion)"
 eval "$(vpn bash-completion)"
+
+if [[ $HOST == "nyx" ]]; then
+eval "$(wifi bash-completion)"
+eval "$(keyboard-backlight bash-completion)"
 eval "$(samsung bash-completion)"
+fi
