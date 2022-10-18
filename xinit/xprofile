@@ -4,7 +4,7 @@
 
 ## This enables window transparency
 # compton -cCfF &
-picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
+# picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
 
 ## Turn down the brightness
 if [[ $HOST == "aion" ]]; then
@@ -12,9 +12,6 @@ if [[ $HOST == "aion" ]]; then
 else
     sudo light -S 50 &
 fi
-
-## Turn down the fan
-#sudo /home/ross/.scripts/samsung silent &
 
 ## Turn on the numlock
 numlockx on &
@@ -33,12 +30,9 @@ eww daemon
 
 ## set xresources
 xrdb -merge ~/.dotphiles/xinit/Xresources &
-
-## For automounting usb drives
-# udiskie -2 -a -T -N &
-
-## So explorer windows open quickly
-# thunar --daemon &
+if [[ $HOST == "aion" ]]; then
+xrdb -merge ~/.dotphiles/xinit/Xresources_aion &
+fi
 
 ## Set up the screens and then lock
 #(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
