@@ -41,5 +41,5 @@ xrdb -merge ~/.dotphiles/xinit/Xresources &
 # thunar --daemon &
 
 ## Set up the screens and then lock
-#(/home/ross/.scripts/monitor off ; /home/ross/.scripts/lock-screen) &
-/home/ross/.scripts/monitor off &
+#(/home/ross/.scripts/monitor off; /home/ross/.scripts/lock-screen) &
+(/home/ross/.scripts/wallpaper random; /home/ross/.scripts/lock-screen) &
