@@ -26,12 +26,11 @@ numlockx on &
 xsetroot -cursor_name left_ptr &
 
 ## start the eww widgets daemon
-eww daemon
+eww daemon &
 
-## set xresources
-xrdb -merge ~/.dotphiles/xinit/Xresources &
+## set xresources for screen scaling
 if [[ $HOST == "aion" ]]; then
-xrdb -merge ~/.dotphiles/xinit/Xresources_aion &
+xrdb -merge ~/.dotphiles/xinit/Xresources &
 fi
 
 ## Set up the screens and then lock
