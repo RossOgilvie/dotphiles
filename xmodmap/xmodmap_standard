@@ -37,3 +37,6 @@ keycode  49 = asciitilde grave dead_tilde dead_grave
 keycode 20 = minus underscore 0x01002192 dead_macron
 keycode 21 = equal plus 0x010021d2
 keycode 47 = semicolon colon 0x01002237
+
+! The weird extra leq geq button remap to shift
+keycode 94 = Shift_L NoSymbol Shift_L
