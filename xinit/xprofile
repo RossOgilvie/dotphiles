@@ -28,10 +28,21 @@ xsetroot -cursor_name left_ptr &
 ## start the eww widgets daemon
 eww daemon &
 
-## set xresources for screen scaling
+## set up screen scaling
 if [[ $HOST == "aion" ]]; then
+# First we tell programs using Xresources that its x2 higher (192 dpi)
 xrdb -merge ~/.dotphiles/xinit/Xresources &
+# We also tell GTK apps to double scale
+export GDK_SCALE=2
+# Sadly, GTK apps also apply Xresources to text, so set this to undo one of these
+# ie x2 x2 x0.5 = x2
+export GDK_DPI_SCALE=0.5
+# Qt should work if you just tell it to
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
 fi
+
+# Qt use the same theme as gtk2
+export QT_QPA_PLATFORMTHEME=gtk2
 
 ## Set up the screens and then lock
 #(/home/ross/.scripts/monitor off; /home/ross/.scripts/lock-screen) &
