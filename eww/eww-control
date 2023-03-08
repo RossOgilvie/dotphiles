@@ -1,13 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
-open="false"
-if [[ `eww windows` =~ '*' ]]; then open="true"; fi
+## Files and cmd
+FILE="/tmp/eww_dashboard_is_open"
+CFG="$HOME/.config/eww/"
+EWW=`which eww`
 
-case $open in
-   "true")
-        eww close-all
-        ;;
-   "false"|*)
-        eww open-many sliders clock windows powermenu
-        ;;
-esac
+## Run eww daemon if not running already
+if [[ ! `pidof eww` ]]; then
+	${EWW} daemon
+	sleep 1
+fi
+
+## Launch or close widgets accordingly
+if [[ ! -f "$FILE" ]]; then
+	touch "$FILE"
+	${EWW} --config "$CFG" open-many \
+	    system \
+		clock
+else
+	${EWW} --config "$CFG" close-all
+	rm "$FILE"
+fi

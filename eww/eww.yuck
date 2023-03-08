@@ -1,0 +1,54 @@
+;; ** Variables ***********************************************************************
+
+;; System vars
+(defpoll MEM_USAGE :interval "5s" `/home/ross/.scripts/system-info mem`)
+(defpoll BLIGHT :interval "5s" `/home/ross/.scripts/brightness level`)
+(defpoll BATTERY :interval "5s" `/home/ross/.scripts/battery level`)
+
+;; Time vars
+(defpoll TIME :interval "5s" `date +\"%H:%M\"`)
+(defpoll TIMESYD :interval "5s" `TZ=\"Australia/Sydney\" date +\"%H:%M\"`)
+(defpoll DAY :interval "60s" `date +\"%a, %d %b\"`)
+
+;; ** Widgets *************************************************************************
+
+;; system
+(defwidget system [] 
+	(box :class "genwin" :vexpand "false" :hexpand "false" 
+		(box :orientation "v" :spacing 35 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(box :class "mem_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "iconmem" :text "#")
+				(scale :min 0 :max 100 :value MEM_USAGE :active "false"))
+			(box :class "bright_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "iconbright" :text "*")
+				(scale :min 0 :max 100 :value BLIGHT :active "false"))
+			(box :class "bat_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "iconbat" :text "%")
+				(scale :min 0 :max 100 :value BATTERY :active "false")))))
+
+;; clock
+(defwidget clock [] 
+	(box :class "genwin" :orientation "h" :spacing 10 :space-evenly true :vexpand "false" :hexpand "false" 
+		(box :orientation "h"
+			(label :class "clock_time" :valign "center" :halign "start" :text TIME) 
+		)
+		(box :orientation "v" :halign "end"
+			(label :class "clock_day" :halign "end" :text DAY) 
+			(label :class "clock_time_syd" :halign "end" :text TIMESYD) 
+		) 
+	) 
+)
+
+
+;; ** Windows *************************************************************************
+
+;; clock
+(defwindow clock :stacking "fg" :focusable "false" :monitor 0
+	:geometry (geometry :x "35%" :y "30%" :width "30%" :height "10%")
+	(clock)
+)
+
+;; system
+(defwindow system :stacking "fg" :focusable "false" :monitor 0
+	    :geometry (geometry :x "35%" :y "50%" :width "30%" :height "10%")
+					(system))
