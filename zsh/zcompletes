@@ -1,14 +1,14 @@
 #####################
 ##  Turn on the completion system
 #####################
-autoload -Uz compinit && compinit -d ~/.dotphiles/zsh/zcompcache
+autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompcache
 
 # Add some functions to the search path
 fpath=(/usr/share/zsh/site-functions $fpath)
 
 # cache completions
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.cache/zsh
+zstyle ':completion:*' cache-path ~/.cache/zsh/zcompcache
 
 # Use menus
 zstyle ':completion:*' menu yes select
