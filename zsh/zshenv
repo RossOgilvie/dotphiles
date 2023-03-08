@@ -16,6 +16,11 @@ export HOST="$(hostnamectl hostname)"
 
 #change the default editor to nano
 export EDITOR="nano"
+#change merge program to meld
+export DIFFPROG="meld"
+
+#make firefox recognise touchscreen scrolling
+MOZ_USE_XINPUT2=1
 
 #Add my misc scripts to the path, and the current directory
 typeset -U path

@@ -10,7 +10,7 @@ ZSH_DIR=~/.dotphiles/zsh
 ### modules
 ############################
 ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOQUIT=true
+ZSH_TMUX_AUTOQUIT=false
 source $ZSH_DIR/modules/tmux_autostart.zsh
 
 source $ZSH_DIR/modules/directory.zsh
@@ -54,3 +54,6 @@ source $ZSH_DIR/zalias
 #prompt suse
 autoload -Uz colors && colors
 PROMPT="%{$fg_bold[white]%}%(4~|%-1~/…/%2~|%3~)/ ≫  %{$reset_color%}"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

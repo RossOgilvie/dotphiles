@@ -4,4 +4,5 @@
 #
 
 ## If the display is up, and we logged into tty1, then run x
-[[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1  ]] && exec startx &> /tmp/x.log
+#[[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1  ]] && exec startx &> /tmp/x.log
+[[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1  ]] && exec hyprland-wrapper &> /tmp/hyprland.log
