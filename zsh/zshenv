@@ -3,15 +3,11 @@
 #
 # Defines environment variables.
 #
-# Authors:
-#   Ben O'Hara <bohara@gmail.com>
-#
-
 ###############################
 ### env variables
 ###############################
 
-# this is set at some point, but I need it set earlier for xmonad etc
+# this is set at some point, but I need it set earlier for some startup scripts
 export HOST="$(hostnamectl hostname)"
 
 #change the default editor to nano
@@ -24,12 +20,7 @@ MOZ_USE_XINPUT2=1
 
 #Add my misc scripts to the path, and the current directory
 typeset -U path
-path=(/home/ross/.scripts /home/ross/.gem/ruby/1.9.1/bin /home/ross/.local/bin $path)
+path=(/home/ross/.scripts /home/ross/.local/bin $path)
 
 #Qt use gtk theme via qt5-styleplugins
-#export QT_QPA_PLATFORMTHEME="gtk2"
-
-#if [[ $HOST = "aion" ]] then
-#    export GDK_SCALE=2
-#    export QT_AUTO_SCREEN_SCALE_FACTOR=1
-#fi
+export QT_QPA_PLATFORMTHEME="gtk2"
