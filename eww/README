@@ -1,8 +1,9 @@
 Project homepage
 https://elkowar.github.io/eww/eww.html
 
-I used the following config as a base
+I used the following configs as a base
 https://github.com/adi1090x/widgets/tree/main/eww/dashboard
+https://github.com/Battlesquid/dotfiles/tree/main
 
 Theme colour codes here
 https://github.com/pop-os/gtk-theme/blob/master/gtk/src/dark/gtk-2.0/gtkrc

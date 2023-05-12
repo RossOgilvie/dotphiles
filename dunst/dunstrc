@@ -11,7 +11,7 @@
     width = 300
     # height = 260
     origin = top-right
-    offset = 24x24
+    offset = 16x16
 
 
     progress_bar = true
@@ -33,12 +33,12 @@
     # Draw a line between multiple notifications
     separator_height = 6
 
-    separator_color = "#2B2928"
+    separator_color = "#B8BDC9"
 
-    background = "#33302F"
-    highlight = "#dae1f2"
-    frame_color = "#dae1f2"
-    foreground = "#dae1f2"
+    background = "#3d3d3d"
+    highlight = "#B8BDC9"
+    frame_color = "#B8BDC9"
+    foreground = "#B8BDC9"
 
     # Set notification padding
     padding = 8
@@ -60,7 +60,7 @@
 
     # Set the font
     # font = "Noto Sans 11"
-    font = "Fira Mono 11"
+    font = "Fira Mono 14"
 
     # Set line height to font height
     line_height = 0
@@ -186,12 +186,18 @@
 [backlight]
     stack_tag = "brightness"
     format = "Brightness: %n%%"
-    highlight = "#fc7b80"
-    frame_color = "#fc7b80"
+    highlight = "#ebba5e"
+    frame_color = "#ebba5e"
 
 [volume]
     stack_tag = "volume"
     format = "Volume: %n%%"
-    highlight = "#cb8cf4"
-    frame_color = "#cb8cf4"
+    highlight = "#9ece6a"
+    frame_color = "#9ece6a"
+
+[power]
+    stack_tag = "power"
+    format = "Battery: %n%%"
+    highlight = "#577bb5"
+    frame_color = "#577bb5"
 

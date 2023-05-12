@@ -1,71 +1,136 @@
+/** Colour scheme *******************************************/
+$red: #f7768e;
+$dark-navy: #222940;
+$light-gray: #777777;
+$gray: #3c3c47;
+$dark-gray: #1F1F26;
+$light-blue: #c0caf5;
+$blue: #577bb5;
+$dark-blue: #364A73;
+$yellow: #ebba5e;
+$purple: #bb9af7; 
+$green: #9ece6a;
+$orange: #ff9e64;
+$teal: #4ba37d;
+$mint: #76c2a1;
+$raisin-black: #20202A;
+// $bg: #1b1b26;
+$bg: #3d3d3d;
+// $bg: rgba(61, 61, 61, 0.95);
+$fg: #B8BDC9;
+
 /** Global *******************************************/
 *{
 	all: unset;
-	font-family: Fira Sans;
+	font-family: Fira Sans, Noto Sans, "Font Awesome 6 Free";
 }
 
 /** Generic window ***********************************/
-.genwin {
-	background-color: #3d3d3d;
+.dashboard {
+	color: $fg;
+	// background-color: $bg;
+	// border-radius: 16px;
+	// margin: 1rem;
+	// padding: 2rem;
+}
+
+.tile {
+	margin: 1rem;
+	padding: 2rem;
 	border-radius: 16px;
+	// color: $fg;
+	background-color: $bg;
+	font-size: 32px;
+}
+
+.darken {
+	background-color: rgba(24, 24, 24, 0.35);
 }
 
 /** System ********************************************/
-.iconmem, .iconbright, .iconbat {
-	font-size : 32px;
+.system_bar {
+	font-size : 20px;
 	font-weight : normal;
 }
-.iconmem {
-	color: #BF616A;
-}
-.iconbright {
-	color: #EBCB8B;
-}
-.iconbat {
-	color: #A3BE8C;
-}
-
-.mem_bar, .bright_bar, .bat_bar, scale trough {
+.system_bar scale trough {
 	all: unset;
-	background-color: #3d3d3d;
+	background-color: #2d2c2d;
 	border-radius: 4px;
 	min-height: 8px;
-	min-width: 240px;
+	min-width: 180px;
 }
-
-.mem_bar, .bright_bar, .bat_bar, scale trough highlight {
+.system_bar scale trough highlight {
 	all: unset;
 	border-radius: 4px;
 }
 
 .mem_bar scale trough highlight {
-	background-color: #BF616A;
+	background-color: $red;
+}
+.mem_bar {
+	color: $red;
+}
+
+.bright_bar {
+	color: $yellow;
 }
 .bright_bar scale trough highlight {
-	background-color: #EBCB8B;
+	background-color: $yellow;
+}
+
+.vol_bar {
+	color: $green;
+}
+.vol_bar scale trough highlight {
+	background-color: $green;
+}
+
+.bat_bar {
+	color: $blue;
 }
 .bat_bar scale trough highlight {
-	background-color: #A3BE8C;
+	background-color: $blue;
 }
 
 /** Clock ********************************************/
-.clock_time {
-	color: #81A1C1;
-	font-size : 70px;
-	font-weight : bold;
-	margin : 0px 0px 0px 10px;
+.time-ring {
+	background-color: $dark-blue;
+	color: $blue;
 }
 
-.clock_day {
-	color: #EBCB8B;
-	font-size : 30px;
-	font-weight : normal;
-	margin : 0px 10px -15px 0px;
+.clock-lbl {
+	background-color: $bg;
+	padding: 8rem;
 }
 
-.clock_time_syd {
-	color: #A3BE8C;
-	font-size : 20px;
-	font-weight : normal;
-	margin : -15px 10px 0px 0px;
+.clock-time {
+	font-size: 72px;
+	color: $fg;
+}
+
+.clock-date {
+	font-size: 16px;
+	color: $light-gray;
+}
+
+
+/** Settings tiles ********************************************/
+
+.tile.reboot:hover {
+	color: $mint;
+}
+
+.tile.shutdown:hover {
+	color: $red;
+}
+
+.tile.bluetooth-on {
+	color: $blue;
+}
+.tile.bluetooth-off:hover {
+	color: $blue;
+}
+
+.tile.wifi-on {
+	color: $mint;
 }

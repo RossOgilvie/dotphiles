@@ -15,8 +15,11 @@ fi
 if [[ ! -f "$FILE" ]]; then
 	touch "$FILE"
 	${EWW} --config "$CFG" open-many \
+		darken \
 	    system \
-		clock
+		clock \
+		power \
+		status
 else
 	${EWW} --config "$CFG" close-all
 	rm "$FILE"

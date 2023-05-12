@@ -4,51 +4,117 @@
 (defpoll MEM_USAGE :interval "5s" `/home/ross/.scripts/system-info mem`)
 (defpoll BLIGHT :interval "5s" `/home/ross/.scripts/brightness level`)
 (defpoll BATTERY :interval "5s" `/home/ross/.scripts/battery level`)
+(defpoll VOLUME :interval "5s" `/home/ross/.scripts/volume level`)
 
 ;; Time vars
-(defpoll TIME :interval "5s" `date +\"%H:%M\"`)
-(defpoll TIMESYD :interval "5s" `TZ=\"Australia/Sydney\" date +\"%H:%M\"`)
-(defpoll DAY :interval "60s" `date +\"%a, %d %b\"`)
+(defpoll TIME :interval "5s" `date +"%H:%M"`)
+(defpoll MINS :interval "5s" `date +"%M"`)
+(defpoll TIMESYD :interval "5s" `TZ="Australia/Sydney" date +"%H:%M"`)
+(defpoll DAY :interval "60s" `date +"%A, %d %b"`)
+
+(defpoll BLUETOOTH :interval "60s" `/home/ross/.scripts/bluetooth status`)
+(defpoll WIFI :interval "60s" `/home/ross/.scripts/wifi is_connected`)
+(defpoll WIFI_SSID :interval "60s" `/home/ross/.scripts/wifi ssid`)
 
 ;; ** Widgets *************************************************************************
 
 ;; system
-(defwidget system [] 
-	(box :class "genwin" :vexpand "false" :hexpand "false" 
-		(box :orientation "v" :spacing 35 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-			(box :class "mem_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :class "iconmem" :text "#")
-				(scale :min 0 :max 100 :value MEM_USAGE :active "false"))
-			(box :class "bright_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :class "iconbright" :text "*")
-				(scale :min 0 :max 100 :value BLIGHT :active "false"))
-			(box :class "bat_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :class "iconbat" :text "%")
-				(scale :min 0 :max 100 :value BATTERY :active "false")))))
+(defwidget system-main[] 
+	(box :class "dashboard system-main" :vexpand "false" :hexpand "false" 
+		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(box :class "system_bar mem_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :text "" :width "20")
+				(scale :min 0 :max 100 :value MEM_USAGE :active "false")
+				(label :text MEM_USAGE)
+			)
+			(box :class "system_bar bright_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :text "" :width "20")
+				(scale :min 0 :max 100 :value BLIGHT :active "false")
+				(label :text BLIGHT)
+			)
+			(box :class "system_bar vol_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :text "" :width "20")
+				(scale :min 0 :max 100 :value VOLUME :active "false")
+				(label :text VOLUME)
+			)
+			(box :class "system_bar bat_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :text "" :width "20")
+				(scale :min 0 :max 100 :value BATTERY :active "false")
+				(label :text BATTERY)
+			)
+		)))
 
-;; clock
-(defwidget clock [] 
-	(box :class "genwin" :orientation "h" :spacing 10 :space-evenly true :vexpand "false" :hexpand "false" 
-		(box :orientation "h"
-			(label :class "clock_time" :valign "center" :halign "start" :text TIME) 
-		)
-		(box :orientation "v" :halign "end"
-			(label :class "clock_day" :halign "end" :text DAY) 
-			(label :class "clock_time_syd" :halign "end" :text TIMESYD) 
-		) 
-	) 
-)
+(defwidget clock-main[]
+  (box :class "dashboard clock-main"
+    (box :class "minutes-box"
+      (circular-progress :class "time-ring"
+                         :thickness 20
+                         :value {MINS / 60 * 100}
+                         :start-at 75
+						 :clockwise true
+        (box :class "clock-lbl"
+             :orientation "v"
+             :space-evenly false
+             :valign "center"
+          (label :class "clock-time" :text TIME)
+          (label :class "clock-date" :text DAY)
+          (label :class "clock-date" :text TIMESYD)
+		)))))
 
+;; power buttons
+(defwidget power-main[]
+  (box :class "dashboard power-main"
+       :spacing 15
+    (button :class "tile reboot" :onclick "reboot" "")
+    (button :class "tile shutdown" :onclick "poweroff" "")))
+
+;; stutus tiles
+(defwidget status-main[]
+  (box :class "dashboard status-main"
+       :spacing 15
+    (button :class "tile bluetooth-${BLUETOOTH}" :onclick "/home/ross/.scripts/eww-control; /home/ross/.scripts/bluetooth toggle" "")
+    (button :class "tile wifi-${WIFI}" :onclick "/home/ross/.scripts/wifi restart" :tooltip WIFI_SSID "")
+))
+
+
+(defwidget darken-main[]
+  (box :class "darken"))
 
 ;; ** Windows *************************************************************************
 
-;; clock
-(defwindow clock :stacking "fg" :focusable "false" :monitor 0
-	:geometry (geometry :x "35%" :y "30%" :width "30%" :height "10%")
-	(clock)
-)
+(defwindow clock 
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :anchor "center")
+  :windowtype "dock"
+  :wm-ignore false
+  (clock-main))
 
-;; system
-(defwindow system :stacking "fg" :focusable "false" :monitor 0
-	    :geometry (geometry :x "35%" :y "50%" :width "30%" :height "10%")
-					(system))
+(defwindow system 
+	:monitor 0
+	:stacking "fg" 
+	:focusable "false" 
+	:geometry (geometry :x "0px" :y "0px" :anchor "top left")
+	; :geometry (geometry :x "0px" :y "0px" :anchor "top left" :width "30%" :height "15%")
+	(system-main))
+
+(defwindow power 
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :anchor "bottom left")
+  :windowtype "dock"
+  :wm-ignore false
+  (power-main))
+
+(defwindow status 
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :anchor "bottom right")
+  :windowtype "dock"
+  :wm-ignore false
+  (status-main))
+
+
+(defwindow darken
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "100%" :anchor "center")
+  :windowtype "dock"
+  :wm-ignore false
+  (darken-main))
