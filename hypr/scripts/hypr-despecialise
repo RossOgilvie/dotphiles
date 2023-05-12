@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+# This command to hyprland moves a window from a special workspace to the current (non-special) workspace and hides the special workspace
+# The intended usage is that I have a special workspace for my file browser, I have opened a file, but it opens into the special workspace not the underlying non-special workspace
+# Ideally this would be a rule, but rule matching doesn't have a workspace filter
+
+hypr_dump=$(hyprctl activewindow -j)
+wks_id=$(echo "$hypr_dump" | jq '.workspace.id')
+wks_name=$(echo "$hypr_dump" | jq -r '.workspace.name|ltrimstr("special:")')
+# the -r is raw, do not return the string with quotes.
+# The name of the special workspace starts with "special:" but to give to the togglespecialworkspace we need the name without the prefix
+# remove the prefix with ltrimstr left trim string.
+
+# If we are on a special workspace, ie the id is negative
+if [[ "$wks_id" -lt "0" ]]; then
+    hyprctl --batch "dispatch movetoworkspace +0; dispatch togglespecialworkspace $wks_name"
+fi
