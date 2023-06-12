@@ -130,6 +130,12 @@ $fg: #B8BDC9;
 .tile.bluetooth-off:hover {
 	color: $blue;
 }
+.tile.vpn-on {
+	color: $yellow;
+}
+.tile.vpn-off:hover {
+	color: $yellow;
+}
 
 .tile.wifi-on {
 	color: $mint;
