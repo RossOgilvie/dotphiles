@@ -16,8 +16,9 @@ if [[ ! -f "$FILE" ]]; then
 	touch "$FILE"
 	${EWW} --config "$CFG" open-many \
 		darken \
-	    system \
 		clock \
+	    system \
+	    windowlist \
 		power \
 		status
 else

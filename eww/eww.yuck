@@ -6,6 +6,9 @@
 (defpoll BATTERY :interval "5s" `/home/ross/.scripts/battery level`)
 (defpoll VOLUME :interval "5s" `/home/ross/.scripts/volume level`)
 
+;; Window list vars
+(defpoll WINDOW_LIST :interval "5s" `/home/ross/.scripts/workspaces`)
+
 ;; Time vars
 (defpoll TIME :interval "5s" `date +"%H:%M"`)
 (defpoll MINS :interval "5s" `date +"%M"`)
@@ -13,9 +16,9 @@
 (defpoll DAY :interval "60s" `date +"%A, %d %b"`)
 
 (defpoll BLUETOOTH :interval "20s" `/home/ross/.scripts/bluetooth status`)
-(defpoll WIFI :interval "20s" `/home/ross/.scripts/wifi is_connected`)
+(defpoll WIFI :interval "2s" `/home/ross/.scripts/wifi is_connected`)
 (defpoll WIFI_SSID :interval "20s" `/home/ross/.scripts/wifi ssid`)
-(defpoll VPN :interval "20s" `/home/ross/.scripts/vpn-status is_connected`)
+(defpoll VPN :interval "2s" `/home/ross/.scripts/vpn-status is_connected`)
 (defpoll VPN_URL :interval "20s" `/home/ross/.scripts/vpn-status url`)
 
 ;; ** Widgets *************************************************************************
@@ -44,6 +47,16 @@
 				(scale :min 0 :max 100 :value BATTERY :active "false")
 				(label :text BATTERY)
 			)
+		)))
+
+;; windowlist
+(defwidget windowlist-main[] 
+	(box :class "dashboard windowlist-main" :vexpand "false" :hexpand "false" 
+		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label  :class "windowlist-label"
+                :text WINDOW_LIST
+                :wrap-text true
+                :width "20")
 		)))
 
 (defwidget clock-main[]
@@ -99,6 +112,13 @@
 	:geometry (geometry :x "0px" :y "0px" :anchor "top left")
 	; :geometry (geometry :x "0px" :y "0px" :anchor "top left" :width "30%" :height "15%")
 	(system-main))
+
+(defwindow windowlist 
+	:monitor 0
+	:stacking "fg" 
+	:focusable "false" 
+	:geometry (geometry :x "0px" :y "0px" :anchor "top right")
+	(windowlist-main))
 
 (defwindow power 
   :monitor 0

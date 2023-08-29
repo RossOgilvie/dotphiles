@@ -92,6 +92,12 @@ $fg: #B8BDC9;
 	background-color: $blue;
 }
 
+/** Windowlist ********************************************/
+.windowlist-label {
+	font-size: 16px;
+	// color: $light-gray;
+}
+
 /** Clock ********************************************/
 .time-ring {
 	background-color: $dark-blue;
