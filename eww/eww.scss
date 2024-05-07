@@ -38,8 +38,11 @@ $fg: #B8BDC9;
 	margin: 1rem;
 	padding: 2rem;
 	border-radius: 16px;
-	// color: $fg;
 	background-color: $bg;
+}
+
+.tile-label {
+	// color: $fg;
 	font-size: 32px;
 }
 
@@ -96,6 +99,7 @@ $fg: #B8BDC9;
 .windowlist-label {
 	font-size: 16px;
 	// color: $light-gray;
+	// width: 18px;
 }
 
 /** Clock ********************************************/
@@ -110,7 +114,7 @@ $fg: #B8BDC9;
 }
 
 .clock-time {
-	font-size: 72px;
+	font-size: 64px;
 	color: $fg;
 }
 

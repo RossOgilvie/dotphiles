@@ -25,38 +25,38 @@
 
 ;; system
 (defwidget system-main[] 
-	(box :class "dashboard system-main" :vexpand "false" :hexpand "false" 
-		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-			(box :class "system_bar mem_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :text "" :width "20")
+	(box :class "dashboard system-main" 
+		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" 
+			(box :class "system_bar mem_bar" :orientation "h" :spacing 20 :space-evenly "false" 
+				(label :show-truncated false :text "" :width "20")
 				(scale :min 0 :max 100 :value MEM_USAGE :active "false")
-				(label :text MEM_USAGE)
+				(label :show-truncated false :text MEM_USAGE)
 			)
-			(box :class "system_bar bright_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :text "" :width "20")
+			(box :class "system_bar bright_bar" :orientation "h" :spacing 20 :space-evenly "false" 
+				(label :show-truncated false :text "" :width "20")
 				(scale :min 0 :max 100 :value BLIGHT :active "false")
-				(label :text BLIGHT)
+				(label :show-truncated false :text BLIGHT)
 			)
-			(box :class "system_bar vol_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :text "" :width "20")
+			(box :class "system_bar vol_bar" :orientation "h" :spacing 20 :space-evenly "false" 
+				(label :show-truncated false :text "" :width "20")
 				(scale :min 0 :max 100 :value VOLUME :active "false")
-				(label :text VOLUME)
+				(label :show-truncated false :text VOLUME)
 			)
-			(box :class "system_bar bat_bar" :orientation "h" :spacing 20 :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(label :text "" :width "20")
+			(box :class "system_bar bat_bar" :orientation "h" :spacing 20 :space-evenly "false" 
+				(label :show-truncated false :text "" :width "20")
 				(scale :min 0 :max 100 :value BATTERY :active "false")
-				(label :text BATTERY)
+				(label :show-truncated false :text BATTERY)
 			)
 		)))
 
 ;; windowlist
 (defwidget windowlist-main[] 
-	(box :class "dashboard windowlist-main" :vexpand "false" :hexpand "false" 
-		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+	(box :class "dashboard windowlist-main" 
+		(box :class "tile" :orientation "v" :spacing 15 :halign "center" :valign "center" :space-evenly "false" 
 				(label  :class "windowlist-label"
                 :text WINDOW_LIST
                 :wrap-text true
-                :width "20")
+                :width "300")
 		)))
 
 (defwidget clock-main[]
@@ -71,25 +71,28 @@
              :orientation "v"
              :space-evenly false
              :valign "center"
-          (label :class "clock-time" :text TIME)
-          (label :class "clock-date" :text DAY)
-          (label :class "clock-date" :text TIMESYD)
+          (label :class "clock-time" :show-truncated false :text TIME)
+          (label :class "clock-date" :show-truncated false :text DAY)
+          (label :class "clock-date" :show-truncated false :text TIMESYD)
 		)))))
 
 ;; power buttons
 (defwidget power-main[]
   (box :class "dashboard power-main"
        :spacing 15
-    (button :class "tile reboot" :onclick "reboot" "")
-    (button :class "tile shutdown" :onclick "poweroff" "")))
+    (button :class "tile reboot" :onclick "reboot" (label :class "tile-label" :show-truncated false :text ""))
+    (button :class "tile shutdown" :onclick "poweroff" (label :class "tile-label" :show-truncated false :text ""))))
 
 ;; stutus tiles
 (defwidget status-main[]
   (box :class "dashboard status-main"
        :spacing 15
-    (button :class "tile vpn-${VPN}" :onclick "/home/ross/.scripts/vpn-status toggle" :tooltip VPN_URL "🗝")
-    (button :class "tile bluetooth-${BLUETOOTH}" :onclick "/home/ross/.scripts/bluetooth toggle" "")
-    (button :class "tile wifi-${WIFI}" :onclick "/home/ross/.scripts/wifi restart" :tooltip WIFI_SSID "")
+    (button :class "tile vpn-${VPN}" :onclick "/home/ross/.scripts/vpn-status toggle" :tooltip VPN_URL 
+        (label :class "tile-label" :show-truncated false :text "🗝"))
+    (button :class "tile bluetooth-${BLUETOOTH}" :onclick "/home/ross/.scripts/bluetooth toggle" 
+        (label :class "tile-label" :show-truncated false :text ""))
+    (button :class "tile wifi-${WIFI}" :onclick "/home/ross/.scripts/wifi restart" :tooltip WIFI_SSID 
+        (label :class "tile-label" :show-truncated false :text ""))
 ))
 
 
