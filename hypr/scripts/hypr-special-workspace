@@ -1,0 +1,97 @@
+#!/bin/bash
+
+BASHCOMPLETION='compctl -k "(--help --initialize --toggle --launch)" latex-html'
+CONFIG="/home/ross/.config/hypr/scripts/special-workspace-rules.conf"
+APP=""
+APPNAME=""
+
+function show_help()
+{
+echo "Launch or toggle a special workspace in hyprland."
+echo "hypr-special-workspace [options] execname Title"
+echo "Options:"
+echo "-h --help             Show this message."
+echo "--initialize          Set up the custom config file to enable windowrules."
+echo "--toggle              Force toggling the special workspace."
+echo "--launch              Force launching the app."
+}
+
+function initialize {
+touch $CONFIG
+echo "" > $CONFIG
+echo "# using hyprctrl keyword to hotload windowrules doesn't seem to work" >> $CONFIG
+echo "# so we use this file as a work-around." >> $CONFIG
+echo "" >> $CONFIG
+}
+
+function launch_app {
+# This should work but doesn't
+# hyprctl keyword windowrule "workspace,special:$APP,$APPNAME"
+echo "windowrule = workspace special:$APP, $APPNAME" >> $CONFIG
+hyprctl reload
+$APP &
+}
+
+function toggle {
+  hyprctl dispatch "togglespecialworkspace $APP"
+}
+
+########################
+# --- Option processing --------------------------------------------
+########################
+if [ $# == 0 ] ; then
+    show_help
+    exit 1;
+fi
+
+PARSED_OPTIONS=$(getopt -n "$0"  -o h \
+                        --long help,bashcompletion,toggle:,launch \
+                        -- "$@")
+if [[ $? -ne 0 ]];
+then
+    # getopt error
+    exit 1
+fi
+
+eval set -- "$PARSED_OPTIONS"
+
+while true; do
+    case "$1" in
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        --bashcompletion)
+            echo $BASHCOMPLETION
+            exit 0
+            ;;
+        --initialize)
+	          initialize
+            exit 0
+            ;;
+        --toggle)
+            APP="$2"
+            toggle
+            exit 0
+            ;;
+        --launch)
+            APP="$2"
+            APPNAME="$3"
+            launch_app
+            exit 0
+            ;;
+        --)
+            shift
+            break
+            ;;
+    esac
+done
+
+APP="$1"
+APPNAME="$2"
+RUNNING="$(pgrep --count $APP)"
+if [ $RUNNING -eq "0" ]; then
+launch_app
+else
+hyprctl dispatch "togglespecialworkspace $APP"
+fi
