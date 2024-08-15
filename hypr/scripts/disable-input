@@ -1,41 +1,93 @@
 #!/bin/zsh
+# This command disables the keyboard, touchpad, or touchscreen.
+# Disabling the touchpad and keyboard is so that the touchscreen can be used in folded mode without pushing random buttoms. 
+# This script is bound to the power key. Luckily it is a separate device, so can be used to reactivate the keyboard.
 
-# This command to hyprland moves a window from a special workspace to the current (non-special) workspace and hides the special workspace
-# The intended usage is that I have a special workspace for my file browser, I have opened a file, but it opens into the special workspace not the underlying non-special workspace
-# Ideally this would be a rule, but rule matching doesn't have a workspace filter
+COMPLETION="help setup toggle-keyboard toggle-touchscreen is_touchy"
+BASHCOMPLETION='compctl -k "('$COMPLETION')" vpn'
 
-# hypr_dump=$(hyprctl activewindow -j)
-# wks_id=$(echo "$hypr_dump" | jq '.workspace.id')
-# wks_name=$(echo "$hypr_dump" | jq -r '.workspace.name|ltrimstr("special:")')
-# # the -r is raw, do not return the string with quotes.
-# # The name of the special workspace starts with "special:" but to give to the togglespecialworkspace we need the name without the prefix
-# # remove the prefix with ltrimstr left trim string.
-
-# # If we are on a special workspace, ie the id is negative
-# if [[ "$wks_id" -lt "0" ]]; then
-#     hyprctl --batch "dispatch movetoworkspace +0; dispatch togglespecialworkspace $wks_name"
-# fi
-
+KEYBOARD_STATUS_FILE="$XDG_RUNTIME_DIR/keyboard.status"
+SCREEN_STATUS_FILE="$XDG_RUNTIME_DIR/screen.status"
 icon_name="/usr/share/icons/elementary/devices/48/input-keyboard.svg"
 
-# I can see that in the next version of hyprland I can just query the device option with getoption.
-# For now I use a file as flag.
-FLAG_FILE="/tmp/hyprland-input-enabled.flag"
-if [[ ! -e $FLAG_FILE ]] then
-    touch $FLAG_FILE
-    echo "true" > $FLAG_FILE
+
+setup() {
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+  export XDG_RUNTIME_DIR=/run/user/$(id -u)
 fi
+printf "true" >"$KEYBOARD_STATUS_FILE"
+printf "false" >"$SCREEN_STATUS_FILE"
+}
 
-FLAG=$(<$FLAG_FILE)
+status() {
+echo "Keyboard and touchpad enabled"
+echo $(cat "$KEYBOARD_STATUS_FILE") 
+echo "Touchscreen enabled"
+echo $(cat "$SCREEN_STATUS_FILE") 
+}
 
-if [[ $FLAG == "true" ]] then
-    hyprctl keyword device:asue140d:00-04f3:31b9-touchpad:enabled false
-    hyprctl keyword device:at-translated-set-2-keyboard:enabled false
-    echo "false" > $FLAG_FILE
+is_touchy() {
+echo $(cat "$SCREEN_STATUS_FILE") 
+}
+
+toggle_keyboard() {
+if [ $(cat "$KEYBOARD_STATUS_FILE") = "true" ]; then
+    printf "false" >"$KEYBOARD_STATUS_FILE"
     notify-send "Input disabled" -i $icon_name -h string:synchronous:trackpad 
-else
-    hyprctl keyword device:asue140d:00-04f3:31b9-touchpad:enabled true
-    hyprctl keyword device:at-translated-set-2-keyboard:enabled true
-    echo "true" > $FLAG_FILE
+    hyprctl keyword '$LAPTOP_KB_ENABLED' "false" -r
+    hyprctl keyword '$LAPTOP_TOUCHPAD_ENABLED' "false" -r
+elif [ $(cat "$KEYBOARD_STATUS_FILE") = "false" ]; then
+    printf "true" >"$KEYBOARD_STATUS_FILE"
     notify-send "Input enabled" -i $icon_name -h string:synchronous:trackpad 
+    hyprctl keyword '$LAPTOP_KB_ENABLED' "true" -r
+    hyprctl keyword '$LAPTOP_TOUCHPAD_ENABLED' "true" -r
 fi
+}
+
+toggle_screen() {
+if [ $(cat "$SCREEN_STATUS_FILE") = "true" ]; then
+    printf "false" >"$SCREEN_STATUS_FILE"
+    notify-send "Touchscreen disabled" -i $icon_name -h string:synchronous:trackpad 
+    hyprctl keyword '$LAPTOP_TOUCHSCREEN_ENABLED' "false" -r
+elif [ $(cat "$SCREEN_STATUS_FILE") = "false" ]; then
+    printf "true" >"$SCREEN_STATUS_FILE"
+    notify-send "Touchscreen enabled" -i $icon_name -h string:synchronous:trackpad 
+    hyprctl keyword '$LAPTOP_TOUCHSCREEN_ENABLED' "true" -r
+fi
+}
+
+# If the status file doesn't exist, run setup
+if [ -z "$KEYBOARD_STATUS_FILE" ]; then
+  setup
+fi
+
+case $1 in
+"help")
+	echo "Available options:"
+    echo $COMPLETION
+	;;
+
+"--bashcompletion")
+	echo $BASHCOMPLETION
+	;;
+
+"setup")
+	setup
+	;;
+
+"is_touchy")
+	is_touchy
+	;;
+
+"toggle-keyboard")
+    toggle_keyboard
+	;;
+
+"toggle-touchscreen")
+    toggle_screen
+	;;
+
+"status"|"*")
+	status
+	;;
+esac
