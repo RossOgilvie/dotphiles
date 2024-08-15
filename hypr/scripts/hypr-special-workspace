@@ -27,7 +27,12 @@ echo "" >> $CONFIG
 function launch_app {
 # This should work but doesn't
 # hyprctl keyword windowrule "workspace,special:$APP,$APPNAME"
-echo "windowrule = workspace special:$APP, $APPNAME" >> $CONFIG
+
+# We need a rule to move the launched app to the special workspace, 
+# and another to move other spawns off it.
+# This order is important so that dialogs aren't moved off (or rather they are, but then moved back again.)
+echo "windowrulev2 = workspace +0, workspace:name:special:$APP" >> $CONFIG
+echo "windowrulev2 = workspace special:$APP, initialClass:($APPNAME)" >> $CONFIG
 hyprctl reload
 $APP &
 }
