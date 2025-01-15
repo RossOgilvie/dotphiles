@@ -1,3 +1,0 @@
-!swap normal <-> shift to get square brackets as default
-keycode  34 = bracketleft braceleft bracketleft braceleft
-keycode  35 = bracketright braceright bracketright braceright
