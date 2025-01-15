@@ -1,0 +1,27 @@
+#!/bin/sh
+
+DIR=/home/ross/.dotphiles
+
+# For folders, put it in the folder. Otherwise repeated applications will create further link
+ln -s $DIR/dunst ~/.config/
+ln -s $DIR/eww ~/.config/
+ln -s $DIR/hypr ~/.config/
+ln -s $DIR/nano ~/.config/
+# ln -s $DIR/powerline ~/.config/
+
+ln -s $DIR/git/gitconfig ~/.gitconfig
+ln -s $DIR/git/gitignore ~/.gitignore
+
+# TODO: Where is this?!
+# ln -s $DIR/latex/ross.sty ~/texmf/tex/latex/commonstuff/ross.sty
+
+ln -s $DIR/stack/config.yaml ~/.stack/config.yaml
+
+# ln -s $DIR/tmux/tmux.conf
+
+ln -s $DIR/vscode/keybindings.json ~/.config/vscode/User/keybindings.json
+ln -s $DIR/vscode/settings.json ~/.config/vscode/User/settings.json
+
+ln -s $DIR/zsh/zprofile ~/.zprofile
+ln -s $DIR/zsh/zshenv ~/.zshenv
+ln -s $DIR/zsh/zshrc ~/.zshrc
