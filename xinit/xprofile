@@ -2,6 +2,8 @@
 ## Set-up
 ###############
 
+/home/ross/.scripts/wallpaper random &
+
 ## This enables window transparency
 # compton -cCfF &
 # picom -b --detect-client-opacity -D 5 -f --corner-radius 10 --round-borders 1 --backend glx
@@ -26,7 +28,11 @@ numlockx on &
 xsetroot -cursor_name left_ptr &
 
 ## start the eww widgets daemon
-eww daemon &
+#eww daemon &
+
+## start the preferred notification handler
+dunst &
+#notify-osd
 
 ## set up screen scaling
 if [[ $HOST == "aion" ]]; then
@@ -46,4 +52,4 @@ export QT_QPA_PLATFORMTHEME=gtk2
 
 ## Set up the screens and then lock
 #(/home/ross/.scripts/monitor off; /home/ross/.scripts/lock-screen) &
-(/home/ross/.scripts/wallpaper random; /home/ross/.scripts/lock-screen) &
+#(/home/ross/.scripts/wallpaper random; /home/ross/.scripts/lock-screen) &
