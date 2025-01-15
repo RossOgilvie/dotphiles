@@ -20,7 +20,7 @@ MOZ_USE_XINPUT2=1
 
 #Add my misc scripts to the path, and the current directory
 typeset -U path
-path=(/home/ross/.scripts /home/ross/.local/bin $path)
+path=(/home/ross/.scripts /home/ross/.local/bin /home/ross/.ghcup/bin $path)
 
 #Qt use gtk theme via qt5-styleplugins
 export QT_QPA_PLATFORMTHEME="gtk2"
