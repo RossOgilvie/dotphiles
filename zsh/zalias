@@ -5,7 +5,6 @@
 alias nano='nano -Wmx'
 alias ping='ping -c 5'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
-#alias stack='stack --resolver lts-13.3'
 
 alias mkdir='mkdir -p -v'
 alias df='df --si'
@@ -28,13 +27,18 @@ alias ls='exa -1F --sort name --group-directories-first'
 alias la='exa --long -aF --git --sort name --group-directories-first'
 alias lr='exa --tree --level 3 --sort name --group-directories-first'
 
-
 ###############################
 ## New Commands
 ###############################
 alias du1='du --max-depth=1'
 alias openports='netstat --all --numeric --programs --inet --inet6'
 alias pg="ps -Af | grep -e \"^UID\" -e"
+
+alias ctan='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+
+###############################
+## Abbreviations
+###############################
 alias n='nano'
 alias l='less'
 alias sn='sudo nano'
@@ -42,10 +46,6 @@ alias jc='journalctl'
 alias sc='systemctl'
 alias suspend='systemctl suspend'
 alias hibernate='systemctl hibernate'
-alias fix-eps='tvnamer --config=~/.config/tvnamer/tvnamer.json --batch .'
-alias fuck-eth='sc restart netctl-ifplugd@eth0.service'
-
-alias ctan='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 
 #aliases for yay. Also, refresh zsh path after an install.
 alias y='yay'
@@ -59,37 +59,8 @@ alias yu='yay -Syu'
 alias yolo='yay -Pw; pause; yay -Syu --noconfirm'
 yay() { /usr/bin/yay $* && rehash;  }
 
-alias willmore='cd ~/programming/haskell/willmore-hartesian; code .'
-alias cw='code *.code-workspace'
-
-## Show contents on blank command entry
-auto-ls () {
-if [[ $#BUFFER -eq 0 ]]; then
-    echo ""
-    ls
-    zle redisplay
-else
-    zle .$WIDGET
-fi
-}
-zle -N accept-line auto-ls
-
-
-#### fun
-hack() {
-cat /dev/urandom | hexdump -C | grep "de ad"
-}
-
-hotspot ()
-{
-sc stop netctl-auto@wlan0.service
-#sc-stop dnsmasq.service
-sudo create_ap wlan0 eth0 Ogilvie fishyfishy
-sc start netctl-auto@wlan0.service
-#sc-start dnsmasq.service
-}
-
-spellcheck()
-{
-hunspell -i utf-8 -l -t -d en_AU,/home/ross/.dotphiles/hunspell/hunspell_latex $1 | sort | uniq | grep -v "[αβγδεζηθικλμνξοπρστυφχψωΓΔΘΚΛΞΠΣΥΦΨΩ0123456789]" | hunspell -a | less
-}
+###############################
+## Named Directories
+###############################
+hash -d teaching=/home/ross/documents/Teaching/Mannheim
+hash -d papers=/home/ross/documents/Uni/Papers
