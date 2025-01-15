@@ -15,11 +15,14 @@
 (defpoll TIMESYD :interval "5s" `TZ="Australia/Sydney" date +"%H:%M"`)
 (defpoll DAY :interval "60s" `date +"%A, %d %b"`)
 
-(defpoll BLUETOOTH :interval "20s" `/home/ross/.scripts/bluetooth status`)
-(defpoll WIFI :interval "2s" `/home/ross/.scripts/wifi is_connected`)
+(defpoll BLUETOOTH :interval "20s" `/home/ross/.scripts/bluetooth status_eww`)
+(defpoll WIFI :interval "2s" `/home/ross/.scripts/wifi status_eww`)
 (defpoll WIFI_SSID :interval "20s" `/home/ross/.scripts/wifi ssid`)
-(defpoll VPN :interval "2s" `/home/ross/.scripts/vpn-status is_connected`)
-(defpoll VPN_URL :interval "20s" `/home/ross/.scripts/vpn-status url`)
+(defpoll VPN :interval "2s" `/home/ross/.scripts/vpn status_eww`)
+(defpoll VPN_URL :interval "20s" `/home/ross/.scripts/vpn url`)
+(defpoll TOUCHSCREEN :interval "20s" `/home/ross/.scripts/disable-input status_eww`)
+(defpoll PRINTER :interval "2s" `/home/ross/.scripts/printer status_eww`)
+(defpoll MICROPHONE :interval "2s" `/home/ross/.scripts/microphone status_eww`)
 
 ;; ** Widgets *************************************************************************
 
@@ -76,19 +79,22 @@
           (label :class "clock-date" :show-truncated false :text TIMESYD)
 		)))))
 
-;; power buttons
-(defwidget power-main[]
-  (box :class "dashboard power-main"
-       :spacing 15
-    (button :class "tile reboot" :onclick "reboot" (label :class "tile-label" :show-truncated false :text ""))
-    (button :class "tile shutdown" :onclick "poweroff" (label :class "tile-label" :show-truncated false :text ""))))
-
-;; stutus tiles
+;; status tiles
 (defwidget status-main[]
   (box :class "dashboard status-main"
        :spacing 15
-    (button :class "tile vpn-${VPN}" :onclick "/home/ross/.scripts/vpn-status toggle" :tooltip VPN_URL 
-        (label :class "tile-label" :show-truncated false :text "🗝"))
+    (button :class "tile shutdown" :onclick "poweroff" 
+        (label :class "tile-label" :show-truncated false :text ""))
+    (button :class "tile reboot" :onclick "reboot" 
+        (label :class "tile-label" :show-truncated false :text ""))
+    (button :class "tile microphone-${MICROPHONE}" :onclick "/home/ross/.scripts/microphone toggle" 
+        (label :class "tile-label" :show-truncated false :text "🎙"))
+    (button :class "tile touchscreen-${TOUCHSCREEN}" :onclick "/home/ross/.scripts/disable-input toggle-touchscreen" 
+        (label :class "tile-label" :show-truncated false :text "🖵"))
+    (button :class "tile printer-${PRINTER}" :onclick "/home/ross/.scripts/printer toggle" 
+        (label :class "tile-label" :show-truncated false :text "🖶"))
+    (button :class "tile vpn-${VPN}" :onclick "/home/ross/.scripts/vpn toggle" :onmiddleclick "/home/ross/.scripts/vpn toggle-onion" :tooltip VPN_URL 
+        (label :class "tile-label" :show-truncated false :text "🛡")) ;;🗝
     (button :class "tile bluetooth-${BLUETOOTH}" :onclick "/home/ross/.scripts/bluetooth toggle" 
         (label :class "tile-label" :show-truncated false :text ""))
     (button :class "tile wifi-${WIFI}" :onclick "/home/ross/.scripts/wifi restart" :tooltip WIFI_SSID 
@@ -123,20 +129,12 @@
 	:geometry (geometry :x "0px" :y "0px" :anchor "top right")
 	(windowlist-main))
 
-(defwindow power 
-  :monitor 0
-  :geometry (geometry :x "0px" :y "0px" :anchor "bottom left")
-  :windowtype "dock"
-  :wm-ignore false
-  (power-main))
-
 (defwindow status 
   :monitor 0
-  :geometry (geometry :x "0px" :y "0px" :anchor "bottom right")
+  :geometry (geometry :x "0px" :y "0px" :anchor "bottom center")
   :windowtype "dock"
   :wm-ignore false
   (status-main))
-
 
 (defwindow darken
   :monitor 0

@@ -140,6 +140,28 @@ $fg: #B8BDC9;
 .tile.bluetooth-off:hover {
 	color: $blue;
 }
+
+.tile.touchscreen-true {
+	color: $orange;
+}
+.tile.touchscreen-false:hover {
+	color: $orange;
+}
+
+.tile.microphone-true {
+	color: $purple;
+}
+.tile.microphone-false:hover {
+	color: $purple;
+}
+
+.tile.printer-on {
+	color: $orange;
+}
+.tile.printer-off:hover {
+	color: $orange;
+}
+
 .tile.vpn-on {
 	color: $yellow;
 }
