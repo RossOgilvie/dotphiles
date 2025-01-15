@@ -9,7 +9,7 @@ ZSH_DIR=~/.dotphiles/zsh
 ############################
 ### modules
 ############################
-ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=false
 ZSH_TMUX_AUTOQUIT=false
 source $ZSH_DIR/modules/tmux_autostart.zsh
 
@@ -37,15 +37,38 @@ stty intr ^Q
 stty start ^S
 stty lnext ^S
 
-###############################
-### autocompletes
-###############################
-source $ZSH_DIR/zcompletes
+# Make ctrl+L put the current screen into the scrollback buffer before clearing the screen.
+# (From the kitty manual)
+ctrl_l() {
+  builtin print -rn -- $'\r\e[0J\e[H\e[22J' >"$TTY"
+  builtin zle .reset-prompt
+  builtin zle -R
+}
+zle -N ctrl_l
+bindkey '^l' ctrl_l
+
+## Show directory contents on blank command entry
+auto-ls () {
+if [[ $#BUFFER -eq 0 ]]; then
+    echo ""
+    #ls
+    exa -1F --sort name --group-directories-first
+    zle redisplay
+else
+    zle .$WIDGET
+fi
+}
+zle -N accept-line auto-ls
 
 ###############################
 ### load aliases
 ###############################
 source $ZSH_DIR/zalias
+
+###############################
+### autocompletes
+###############################
+source $ZSH_DIR/zcompletes
 
 ###############################
 ### prompts
