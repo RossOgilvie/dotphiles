@@ -18,11 +18,6 @@
         "when": "!config.latex-workshop.bind.altKeymap.enabled && editorLangId =~ /latex|rsweave|jlweave/"
     },
     {
-        "key": "alt+k",
-        "command": "editor.action.deleteLines",
-        "when": "textInputFocus && !editorReadonly"
-    },
-    {
         "key": "ctrl+d",
         "command": "-editor.action.addSelectionToNextFindMatch",
         "when": "editorFocus"
@@ -78,11 +73,6 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "ctrl+shift+k",
-        "command": "-editor.action.deleteLines",
-        "when": "textInputFocus && !editorReadonly"
-    },
-    {
         "key": "alt+left",
         "command": "editor.action.outdentLines",
         "when": "editorTextFocus && !editorReadonly"
@@ -90,11 +80,6 @@
     {
         "key": "ctrl+shift+[",
         "command": "-editor.action.outdentLines",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+/",
-        "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
     },
     {
@@ -108,6 +93,11 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
+        "key": "ctrl+shift+k",
+        "command": "-editor.action.deleteLines",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
         "key": "alt+backspace",
         "command": "editor.action.deleteLines",
         "when": "textInputFocus && !editorReadonly"
@@ -118,13 +108,33 @@
         "when": "textInputFocus"
     },
     {
-        "key": "ctrl+down",
-        "command": "cursorPageDown",
-        "when": "textInputFocus"
+        "key": "alt+/",
+        "command": "editor.action.commentLine",
+        "when": "editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+/",
         "command": "-editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "latex-workshop.navigate-envpair"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "editor.action.insertSnippet",
+        "args": { "name": "Insert Display Math" }
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "editor.action.insertSnippet",
+        "args": { "name": "Insert AlignStar Environment" }
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "latex-workshop.recipes",
+        "args": "latexmk-soln",
+        "when": "editorLangId = latex"
     }
 ]

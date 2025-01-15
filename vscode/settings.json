@@ -1,5 +1,5 @@
 {
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "catppuccin-frappe",
     "workbench.colorTheme": "Material Dark Theme",
     "editor.tokenColorCustomizations": {
     "[Material Dark Theme]": {
@@ -7,41 +7,211 @@
     }
     },
     "editor.wordWrap": "on",
-    "cSpell.userWords": [
-        "compactification"
-    ],
-    "cSpell.language": "de,en-GB",
     "editor.fontFamily": "Hack",
+
+    "cSpell.language": "en,de",
+    "cSpell.checkLimit": 1000,
     "cSpell.maxNumberOfProblems": 500,
     "cSpell.numSuggestions": 5,
     "cSpell.spellCheckDelayMs": 500,
     "cSpell.dictionaryDefinitions": [
-        { "name": "mathematicalTerms", "path": "/home/ross/.dotphiles/latex/mathematicalTerms-en.txt"}
+
+        { "name": "mathematicalTerms-en", 
+          "path": "/home/ross/.dotphiles/latex/mathematicalTerms-en.txt",
+          "addWords": true
+        },
+        { "name": "mathematicalTerms-de", 
+          "path": "/home/ross/.dotphiles/latex/mathematicalTerms-de.txt",
+          "addWords": true
+        }
     ],
     // List of dictionaries to use when checking files.
     "cSpell.dictionaries": [
-        "mathematicalTerms"
+        "mathematicalTerms-en",
+        "mathematicalTerms-de"
     ],
     "editor.autoIndent": "keep",
     "window.zoomLevel": 0,
-    "cSpell.enableFiletypes": [
-        "!haskell"
-    ],
-    "haskell.diagnosticsOnChange": false,
     "window.customMenuBarAltFocus": false,
     "window.menuBarVisibility": "compact",
     "window.enableMenuBarMnemonics": false,
-    "window.titleBarStyle": "custom",
     "security.workspace.trust.enabled": false,
-    "haskell.updateBehavior": "prompt",
     "haskell.formattingProvider": "fourmolu",
-    "[haskell]": {
-        "editor.defaultFormatter": "haskell.haskell"
-    },
-    "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.bind.enter.key": false,
     "latex-workshop.latex.autoBuild.run": "never",
     "haskell.plugin.hlint.diagnosticsOn": false,
     "haskell.checkProject": false,
-    "haskell.maxCompletions": 10
+    "latex-workshop.view.pdf.trim": 5,
+    "workbench.startupEditor": "none",
+    "git.openRepositoryInParentFolders": "never",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-aux-directory=.aux",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "latexmk-soln",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-aux-directory=.aux",
+                "-outdir=%OUTDIR%",
+                "-usepretex=\"\\\\def\\\\solutionparam{1}\"",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "lualatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-lualatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "xelatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-xelatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "latexmk_rconly",
+            "command": "latexmk",
+            "args": [
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "rnw2tex",
+            "command": "Rscript",
+            "args": [
+                "-e",
+                "knitr::opts_knit$set(concordance = TRUE); knitr::knit('%DOCFILE_EXT%')"
+            ],
+            "env": {}
+        },
+        {
+            "name": "jnw2tex",
+            "command": "julia",
+            "args": [
+                "-e",
+                "using Weave; weave(\"%DOC_EXT%\", doctype=\"tex\")"
+            ],
+            "env": {}
+        },
+        {
+            "name": "jnw2texminted",
+            "command": "julia",
+            "args": [
+                "-e",
+                "using Weave; weave(\"%DOC_EXT%\", doctype=\"texminted\")"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pnw2tex",
+            "command": "pweave",
+            "args": [
+                "-f",
+                "tex",
+                "%DOC_EXT%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pnw2texminted",
+            "command": "pweave",
+            "args": [
+                "-f",
+                "texminted",
+                "%DOC_EXT%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "tectonic",
+            "command": "tectonic",
+            "args": [
+                "--synctex",
+                "--keep-logs",
+                "%DOC%.tex"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "latexmk-soln",
+            "tools": [
+                "latexmk-soln"
+            ]
+        }
+    ],
+    "todo-tree.general.tags": [
+        "TODO",
+        "CITE",
+        "REF",
+        "% TODO"
+    ],
+    "todo-tree.highlights.backgroundColourScheme": [
+        "red"
+    ],
+    "todo-tree.highlights.foregroundColourScheme": [
+        "white"
+    ],
+    "git.confirmSync": false,
+    "haskell.manageHLS": "GHCup",
+    "haskell.maxCompletions": 10,
 }
