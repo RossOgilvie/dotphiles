@@ -14,4 +14,6 @@ templates:
     github-username: RossOgilvie
 
 allow-newer: true
-default-template: "/home/opt/stack/templates/ross"
+#default-template: "/home/opt/stack/templates/ross"
+default-template: "simple-hpack"
+system-ghc: false
