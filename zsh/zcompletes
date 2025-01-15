@@ -31,13 +31,15 @@ zstyle ':completion:*:kill:*'   force-list always
 #####################
 autoload -U +X bashcompinit && bashcompinit
 eval "$(stack --bash-completion-script "$(which stack)")"
-eval "$(banach bash-completion)"
-eval "$(volume bash-completion)"
-eval "$(monitor bash-completion)"
-eval "$(vpn bash-completion)"
+eval "$(banach --bashcompletion)"
+eval "$(bluetooth --bashcompletion)"
+eval "$(brightness --bashcompletion)"
+eval "$(latex-html --bashcompletion)"
+eval "$(volume --bashcompletion)"
+eval "$(vpn --bashcompletion)"
+eval "$(wifi --bashcompletion)"
 
 if [[ $HOST == "nyx" ]]; then
-eval "$(wifi bash-completion)"
-eval "$(keyboard-backlight bash-completion)"
-eval "$(samsung bash-completion)"
+eval "$(keyboard-backlight --bashcompletion)"
+eval "$(samsung --bashcompletion)"
 fi
