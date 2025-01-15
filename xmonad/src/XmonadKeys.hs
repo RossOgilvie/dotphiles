@@ -261,7 +261,8 @@ fKeys_aion _ =
     -- , -- F7 I haven't set this up yet, and it works magically anyway?
       -- ("<F7>", spawn "/home/ross/.scripts/keyboard_backlight down")
     , -- F8
-      ("<F8> <F8>", spawn "/home/ross/.scripts/monitor auto")
+      ("<F8> <F8>", spawn "/home/ross/.scripts/monitor desk")
+    , ("<F8> b", spawn "/home/ross/.scripts/monitor basic")
     , ("<F8> m", spawn "/home/ross/.scripts/monitor mirror")
     , ("<F8> o", spawn "/home/ross/.scripts/monitor off")
     , ("<F8> <Esc>", spawn "/home/ross/.scripts/monitor off")
