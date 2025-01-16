@@ -1,7 +1,7 @@
 ############################
 ### Config Directory
 ############################
-ZSH_DIR=~/.dotphiles/zsh
+ZSH_DIR=~/.dotfiles/zsh
 
 # show all files that get sourced. Used for debug
 # setopt SOURCE_TRACE

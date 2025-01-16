@@ -1,27 +1,27 @@
 #!/bin/sh
 
-DIR=/home/ross/.dotphiles
+DIR=/home/ross/.dotfiles
 
 # For folders, put it in the folder. Otherwise repeated applications will create further link
-ln -s $DIR/dunst ~/.config/
-ln -s $DIR/eww ~/.config/
-ln -s $DIR/hypr ~/.config/
-ln -s $DIR/nano ~/.config/
-# ln -s $DIR/powerline ~/.config/
+ln -sf $DIR/dunst ~/.config/
+ln -sf $DIR/eww ~/.config/
+ln -sf $DIR/hypr ~/.config/
+ln -sf $DIR/nano ~/.config/
+# ln -sf $DIR/powerline ~/.config/
 
-ln -s $DIR/git/gitconfig ~/.gitconfig
-ln -s $DIR/git/gitignore ~/.gitignore
+ln -sf $DIR/git/gitconfig ~/.gitconfig
+ln -sf $DIR/git/gitignore ~/.gitignore
 
 # TODO: Where is this?!
-# ln -s $DIR/latex/ross.sty ~/texmf/tex/latex/commonstuff/ross.sty
+# ln -sf $DIR/latex/ross.sty ~/texmf/tex/latex/commonstuff/ross.sty
 
-ln -s $DIR/stack/config.yaml ~/.stack/config.yaml
+ln -sf $DIR/stack/config.yaml ~/.stack/config.yaml
 
-# ln -s $DIR/tmux/tmux.conf
+# ln -sf $DIR/tmux/tmux.conf
 
-ln -s $DIR/vscode/keybindings.json ~/.config/vscode/User/keybindings.json
-ln -s $DIR/vscode/settings.json ~/.config/vscode/User/settings.json
+ln -sf $DIR/vscode/keybindings.json ~/.config/vscode/User/keybindings.json
+ln -sf $DIR/vscode/settings.json ~/.config/vscode/User/settings.json
 
-ln -s $DIR/zsh/zprofile ~/.zprofile
-ln -s $DIR/zsh/zshenv ~/.zshenv
-ln -s $DIR/zsh/zshrc ~/.zshrc
+ln -sf $DIR/zsh/zprofile ~/.zprofile
+ln -sf $DIR/zsh/zshenv ~/.zshenv
+ln -sf $DIR/zsh/zshrc ~/.zshrc
